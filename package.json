@@ -4,11 +4,16 @@
   "description": "A WFM2 PoC using the mediator pattern",
   "main": "server/server.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "wfm"
   ],
   "author": "Brian Leathem",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "config-chain": "^1.1.9",
+    "express": "^4.13.2"
+  }
 }
