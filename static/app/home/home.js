@@ -1,15 +1,15 @@
 'use strict';
 (function (angular) {
-  angular.module('wfm.home', ['ui.router'])
+  angular.module('app.home', ['ui.router'])
 
   .config(function ($stateProvider) {
     $stateProvider
-      .state('wfm.home', {
+      .state('app.home', {
         url: '/home',
         templateUrl: 'app/home/home.tpl.html',
         controller: 'HomeController'
       })
-      .state('wfm.about', {
+      .state('app.about', {
         url: '/about',
         templateUrl: 'app/home/about.tpl.html',
         controller: 'HomeController'

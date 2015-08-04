@@ -1,15 +1,15 @@
 'use strict';
 (function (angular) {
-  angular.module('wfm', [
+  angular.module('app', [
     'ui.router'
-  , 'wfm.home'
+  , 'app.home'
   ])
 
   .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
 
     $stateProvider
-      .state('wfm', {
+      .state('app', {
         abstract: true,
         templateUrl: 'app/main.tpl.html'
       });
