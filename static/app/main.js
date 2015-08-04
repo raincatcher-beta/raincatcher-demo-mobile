@@ -2,6 +2,7 @@
 (function (angular) {
   angular.module('app', [
     'ui.router'
+  , 'wfm.core.mediator'
   , 'app.home'
   ])
 
