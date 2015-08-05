@@ -5,18 +5,26 @@
   , 'wfm.core.mediator'
   ])
 
-  .config(function ($stateProvider) {
+  .config(function($stateProvider) {
     $stateProvider
       .state('app.workorder', {
         url: '/workorder/:workorderId',
-        template: '<workorder value="workorderController.workorder"/>',
-        controller: 'WorkorderController as workorderController'
+        templateUrl: '/app/workorder/workorder.tpl.html',
+        controller: 'WorkorderController as ctrl'
       })
       .state('app.workorder-list', {
         url: '/workorders/list',
         template: '<workorder-list list="workorderListController.workorders"/>',
         controller: 'WorkorderListController as workorderListController'
       });
+  })
+
+  .run(function($state, Mediator) {
+    Mediator.subscribe('workorder:selected', self, function(workorder) {
+      $state.go('app.workorder', {
+        workorderId: workorder.id
+      });
+    });
   })
 
   .controller('WorkorderController', function ($scope, $stateParams, Mediator) {
@@ -26,6 +34,11 @@
     });
     Mediator.publish('workorder:load', self, $stateParams.workorderId);
 
+    self.beginWorkflow = function(event, workorder) {
+      Mediator.publish('workflow:begin', self, workorder.id);
+      event.preventDefault();
+    };
+
     $scope.$on('$destroy', function() {
       subscription.unsubscribe();
     });
@@ -33,18 +46,12 @@
 
   .controller('WorkorderListController', function ($scope, $state, Mediator) {
     var self = this;
-    var subscription1 = Mediator.subscribe('workorders:loaded', self, function(workorders) {
+    var subscription = Mediator.subscribe('workorders:loaded', self, function(workorders) {
       self.workorders = workorders;
-    });
-    var subscription2 = Mediator.subscribe('workorder:selected', self, function(workorder) {
-      $state.go('app.workorder', {
-        workorderId: workorder.id
-      });
     });
 
     $scope.$on('$destroy', function() {
-      subscription1.unsubscribe();
-      subscription2.unsubscribe();
+      subscription.unsubscribe();
     });
 
     Mediator.publish('workorders:load');
