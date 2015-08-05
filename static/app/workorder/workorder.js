@@ -27,34 +27,29 @@
     });
   })
 
-  .controller('WorkorderController', function ($scope, $stateParams, Mediator) {
+  .controller('WorkorderController', function ($stateParams, Mediator) {
     var self = this;
-    var subscription = Mediator.subscribe('workorder:loaded', self, function(workorder) {
+
+    Mediator.publish('workorder:load', self, $stateParams.workorderId);
+    var subscriptionLoaded = Mediator.subscribe('workorder:loaded', self, function(workorder) {
+      subscriptionLoaded.unsubscribe();
       self.workorder = workorder;
     });
-    Mediator.publish('workorder:load', self, $stateParams.workorderId);
 
     self.beginWorkflow = function(event, workorder) {
       Mediator.publish('workflow:begin', self, workorder.id);
       event.preventDefault();
     };
-
-    $scope.$on('$destroy', function() {
-      subscription.unsubscribe();
-    });
   })
 
-  .controller('WorkorderListController', function ($scope, $state, Mediator) {
+  .controller('WorkorderListController', function ($state, Mediator) {
     var self = this;
-    var subscription = Mediator.subscribe('workorders:loaded', self, function(workorders) {
-      self.workorders = workorders;
-    });
-
-    $scope.$on('$destroy', function() {
-      subscription.unsubscribe();
-    });
 
     Mediator.publish('workorders:load');
+    var subscriptionLoaded = Mediator.subscribe('workorders:loaded', self, function(workorders) {
+      subscriptionLoaded.unsubscribe();
+      self.workorders = workorders;
+    });
   })
 
   ;
