@@ -16,6 +16,10 @@
       .state('app.workflow.person', {
         url: '/workorder/:workorderId/workflow/person',
         template: '<person-form />'
+      })
+      .state('app.workflow.address', {
+        url: '/workorder/:workorderId/workflow/address',
+        template: '<address-form />'
       });
   })
 
@@ -36,6 +40,17 @@
 
     Mediator.subscribe('workflow:person:next', self, function(person) {
       self.workorder.person = person;
+      Mediator.publish('workorder:save', self, self.workorder);
+      var subscriptionSaved = Mediator.subscribe('workorder:saved', self, function(workorder) {
+        subscriptionSaved.unsubscribe();
+        $state.go('app.workflow.address', {
+          workorderId: workorder.id
+        });
+      });
+    });
+
+    Mediator.subscribe('workflow:address:next', self, function(address) {
+      self.workorder.address = address;
       Mediator.publish('workorder:save', self, self.workorder);
       var subscriptionSaved = Mediator.subscribe('workorder:saved', self, function(workorder) {
         subscriptionSaved.unsubscribe();

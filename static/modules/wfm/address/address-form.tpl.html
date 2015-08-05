@@ -1,0 +1,17 @@
+<form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputAddress" class="col-sm-2 control-label">Address</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputAddress" placeholder="Name" ng-model="address.address">
+    </div>
+    <label for="inputCity" class="col-sm-2 control-label">City</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputCity" placeholder="Email" ng-model="address.city">
+    </div>
+    <label for="inputState" class="col-sm-2 control-label">State/Province</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputState" placeholder="Email" ng-model="address.state">
+    </div>
+  </div>
+</form>
+<button class="btn btn-primary" ng-click="ctrl.next($event, address)">Next</button>

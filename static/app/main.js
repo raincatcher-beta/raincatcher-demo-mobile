@@ -5,6 +5,7 @@
   , 'wfm.core.mediator'
   , 'wfm.workorder'
   , 'wfm.person'
+  , 'wfm.address'
   , 'app.home'
   , 'app.workorder'
   , 'app.workflow'
