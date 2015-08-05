@@ -6,17 +6,8 @@
     $stateProvider
       .state('app.home', {
         url: '/home',
-        templateUrl: 'app/home/home.tpl.html',
-        controller: 'HomeController'
-      })
-      .state('app.about', {
-        url: '/about',
-        templateUrl: 'app/home/about.tpl.html',
-        controller: 'HomeController'
+        templateUrl: 'app/home/home.tpl.html'
       });
-  })
-
-  .controller('HomeController', function ($scope) {
   })
 
   ;

@@ -10,6 +10,7 @@
 
     Mediator.publish = function(channel, publisher, data) {
       if (! hasSubscriber(channel)) {
+        $log.debug('No subscriber for:', channel, publisher, data);
         return;
       }
 
@@ -30,14 +31,17 @@
       }
 
       channels[channel].push({
-        callback : callback ,
-        name : subscriber ,
+        callback : callback,
+        name : subscriber,
         subscriberId : ++subscriberId
       });
 
-      return function() {
-        unsubscribe(subscriberId);
-      };
+      return {
+        channel: channel,
+        unsubscribe: function() {
+          unsubscribe(subscriberId);
+        }
+      }
     };
 
 
@@ -47,7 +51,7 @@
 
 
     function unsubscribe(subscriberId) {
-      channels = _.map(channels, function(channel) {
+      channels = _.mapValues(channels, function(channel) {
         return _.filter(channel, function(subscriber) {
           return subscriber.subscriberId !== subscriberId;
         });
