@@ -1,14 +1,15 @@
 'use strict';
-(function (angular) {
-  angular.module('app.home', ['ui.router'])
+var angular = require('angular');
 
-  .config(function ($stateProvider) {
-    $stateProvider
-      .state('app.home', {
-        url: '/home',
-        templateUrl: 'app/home/home.tpl.html'
-      });
-  })
+angular.module('app.home', ['ui.router'])
 
-  ;
-})(angular);
+.config(function ($stateProvider) {
+  $stateProvider
+    .state('app.home', {
+      url: '/home',
+      templateUrl: 'app/home/home.tpl.html'
+    });
+})
+;
+
+module.exports = 'app.home';

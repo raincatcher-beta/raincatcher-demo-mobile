@@ -1,59 +1,62 @@
 'use strict';
-(function (angular) {
-  angular.module('app.workflow', [
-    'ui.router'
-  , 'wfm.core.mediator'
-  ])
 
-  .config(function ($stateProvider) {
-    $stateProvider
-      .state('app.workflow', {
-        abstract: true,
-        url: '/workorder/:workorderId/workflow',
-        templateUrl: '/app/workflow/workflow.tpl.html',
-        controller: 'WorkflowController as workflowController'
-      })
-      .state('app.workflow.person', {
-        url: '/workorder/:workorderId/workflow/person',
-        template: '<person-form />'
-      })
-      .state('app.workflow.address', {
-        url: '/workorder/:workorderId/workflow/address',
-        template: '<address-form />'
-      });
-  })
+var angular = require('angular');
 
-  .run(function($state, Mediator) {
-    Mediator.subscribe('workflow:begin', self, function(data) {
-      $state.go('app.workflow.person', {
-        workorderId: data
-      });
+angular.module('app.workflow', [
+  'ui.router'
+, 'wfm.core.mediator'
+])
+
+.config(function ($stateProvider) {
+  $stateProvider
+    .state('app.workflow', {
+      abstract: true,
+      url: '/workorder/:workorderId/workflow',
+      templateUrl: '/app/workflow/workflow.tpl.html',
+      controller: 'WorkflowController as workflowController'
+    })
+    .state('app.workflow.person', {
+      url: '/workorder/:workorderId/workflow/person',
+      template: '<person-form />'
+    })
+    .state('app.workflow.address', {
+      url: '/workorder/:workorderId/workflow/address',
+      template: '<address-form />'
     });
-  })
+})
 
-  .controller('WorkflowController', function ($state, $stateParams, Mediator) {
-    var self = this;
-
-    Mediator.publish('workorder:load', self, $stateParams.workorderId);
-    Mediator.subscribeOnce('workorder:loaded', self, function(workorder) {
-      self.workorder = workorder;
+.run(function($state, Mediator) {
+  Mediator.subscribe('workflow:begin', self, function(data) {
+    $state.go('app.workflow.person', {
+      workorderId: data
     });
+  });
+})
 
-    Mediator.subscribeOnce('workflow:person:next', self, function(person) {
-      self.workorder.person = person;
-      Mediator.publish('workorder:save', self, self.workorder);
-      Mediator.subscribeOnce('workorder:saved', self, function(workorder) {
-        $state.go('app.workflow.address', { workorderId: workorder.id });
-      });
-    });
+.controller('WorkflowController', function ($state, $stateParams, Mediator) {
+  var self = this;
 
-    Mediator.subscribeOnce('workflow:address:next', self, function(address) {
-      self.workorder.address = address;
-      Mediator.publish('workorder:save', self, self.workorder);
-      Mediator.subscribeOnce('workorder:saved', self, function(workorder) {
-        $state.go('app.workorder', { workorderId: workorder.id });
-      });
+  Mediator.publish('workorder:load', self, $stateParams.workorderId);
+  Mediator.subscribeOnce('workorder:loaded', self, function(workorder) {
+    self.workorder = workorder;
+  });
+
+  Mediator.subscribeOnce('workflow:person:next', self, function(person) {
+    self.workorder.person = person;
+    Mediator.publish('workorder:save', self, self.workorder);
+    Mediator.subscribeOnce('workorder:saved', self, function(workorder) {
+      $state.go('app.workflow.address', { workorderId: workorder.id });
     });
-  })
-  ;
-})(angular);
+  });
+
+  Mediator.subscribeOnce('workflow:address:next', self, function(address) {
+    self.workorder.address = address;
+    Mediator.publish('workorder:save', self, self.workorder);
+    Mediator.subscribeOnce('workorder:saved', self, function(workorder) {
+      $state.go('app.workorder', { workorderId: workorder.id });
+    });
+  });
+})
+;
+
+module.exports = 'app.workflow';

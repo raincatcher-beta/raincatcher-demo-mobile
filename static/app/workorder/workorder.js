@@ -1,40 +1,42 @@
 'use strict';
-(function (angular) {
-  angular.module('app.workorder', [
-    'ui.router'
-  , 'wfm.core.mediator'
-  ])
 
-  .config(function($stateProvider) {
-    $stateProvider
-      .state('app.workorder', {
-        url: '/workorder/:workorderId',
-        templateUrl: '/app/workorder/workorder.tpl.html',
-        controller: 'WorkorderController as ctrl'
-      });
-  })
+var angular = require('angular');
 
-  .run(function($state, Mediator) {
-    Mediator.subscribe('workorder:selected', self, function(workorder) {
-      $state.go('app.workorder', {
-        workorderId: workorder.id
-      });
+angular.module('app.workorder', [
+  'ui.router'
+, 'wfm.core.mediator'
+])
+
+.config(function($stateProvider) {
+  $stateProvider
+    .state('app.workorder', {
+      url: '/workorder/:workorderId',
+      templateUrl: '/app/workorder/workorder.tpl.html',
+      controller: 'WorkorderController as ctrl'
     });
-  })
+})
 
-  .controller('WorkorderController', function ($stateParams, Mediator) {
-    var self = this;
-
-    Mediator.publish('workorder:load', self, $stateParams.workorderId);
-    Mediator.subscribeOnce('workorder:loaded', self, function(workorder) {
-      self.workorder = workorder;
+.run(function($state, Mediator) {
+  Mediator.subscribe('workorder:selected', self, function(workorder) {
+    $state.go('app.workorder', {
+      workorderId: workorder.id
     });
+  });
+})
 
-    self.beginWorkflow = function(event, workorder) {
-      Mediator.publish('workflow:begin', self, workorder.id);
-      event.preventDefault();
-    };
-  })
+.controller('WorkorderController', function ($stateParams, Mediator) {
+  var self = this;
 
-  ;
-})(angular);
+  Mediator.publish('workorder:load', self, $stateParams.workorderId);
+  Mediator.subscribeOnce('workorder:loaded', self, function(workorder) {
+    self.workorder = workorder;
+  });
+
+  self.beginWorkflow = function(event, workorder) {
+    Mediator.publish('workflow:begin', self, workorder.id);
+    event.preventDefault();
+  };
+})
+;
+
+module.exports = 'app.workorder';
