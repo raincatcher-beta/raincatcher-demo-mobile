@@ -1,0 +1,21 @@
+{
+  "name": "wfm-person",
+  "version": "0.0.1",
+  "description": "An person module for WFM",
+  "main": "person.js",
+  "scripts": {
+    "build": "ng-html2js wfm-templates/person-form.tpl.html wfm-templates/person-form.tpl.html.js -m wfm.person --module-var ngModule & ng-html2js wfm-templates/person-view.tpl.html wfm-templates/person-view.tpl.html.js -m wfm.person --module-var ngModule"
+  },
+  "keywords": [
+    "wfm",
+    "person"
+  ],
+  "author": "Brian Leathem",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.4.3"
+  },
+  "devDependencies": {
+    "ng-html2js": "^2.0.0"
+  }
+}

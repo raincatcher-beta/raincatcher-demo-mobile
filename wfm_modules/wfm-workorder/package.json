@@ -1,0 +1,21 @@
+{
+  "name": "wfm-workorder",
+  "version": "0.0.1",
+  "description": "An workorder module for WFM",
+  "main": "workorder.js",
+  "scripts": {
+    "build": "ng-html2js wfm-templates/workorder-view.tpl.html wfm-templates/workorder-view.tpl.html.js -m wfm.workorder --module-var ngModule & ng-html2js wfm-templates/workorder-list.tpl.html wfm-templates/workorder-list.tpl.html.js -m wfm.workorder --module-var ngModule"
+  },
+  "keywords": [
+    "wfm",
+    "workorder"
+  ],
+  "author": "Brian Leathem",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.4.3"
+  },
+  "devDependencies": {
+    "ng-html2js": "^2.0.0"
+  }
+}

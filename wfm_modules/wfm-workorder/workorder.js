@@ -3,9 +3,12 @@
 var angular = require('angular');
 var _ = require('lodash');
 
-angular.module('wfm.workorder', ['wfm.core.mediator'])
+var ngModule = angular.module('wfm.workorder', ['wfm.core.mediator']);
 
-.factory('workOrderManager', function($timeout) {
+require('./wfm-templates/workorder-view.tpl.html.js');
+require('./wfm-templates/workorder-list.tpl.html.js');
+
+ngModule.factory('workOrderManager', function($timeout) {
   var workOrderManager = {};
 
   var workorders = [
@@ -59,20 +62,20 @@ angular.module('wfm.workorder', ['wfm.core.mediator'])
   });
 })
 
-.directive('workorder', function(Mediator) {
+.directive('workorder', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , templateUrl: 'modules/wfm/workorder/workorder-view.tpl.html'
+  , template: $templateCache.get('wfm-templates/workorder-view.tpl.html')
   , scope: {
       workorder: '=value'
     }
   };
 })
 
-.directive('workorderList', function(Mediator) {
+.directive('workorderList', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , templateUrl: 'modules/wfm/workorder/workorder-list.tpl.html'
+  , template: $templateCache.get('wfm-templates/workorder-list.tpl.html')
   , scope: {
       list : '=list'
     }

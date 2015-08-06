@@ -2,22 +2,25 @@
 
 var angular = require('angular');
 
-angular.module('wfm.address', ['wfm.core.mediator'])
+var ngModule = angular.module('wfm.address', ['wfm.core.mediator'])
 
-.directive('address', function(Mediator) {
+require('./wfm-templates/address-form.tpl.html.js');
+require('./wfm-templates/address-view.tpl.html.js');
+
+ngModule.directive('address', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , templateUrl: 'modules/wfm/address/address-view.tpl.html'
+  , template: $templateCache.get('wfm-templates/address-view.tpl.html')
   , scope: {
       address: '=value'
     }
   }
 })
 
-.directive('addressForm', function(Mediator) {
+.directive('addressForm', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , templateUrl: 'modules/wfm/address/address-form.tpl.html'
+  , template: $templateCache.get('wfm-templates/address-form.tpl.html')
   , scope: {
       address: '=value'
   }

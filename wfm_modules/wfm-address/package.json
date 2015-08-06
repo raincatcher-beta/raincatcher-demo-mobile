@@ -1,0 +1,21 @@
+{
+  "name": "wfm-address",
+  "version": "0.0.1",
+  "description": "An address module for WFM",
+  "main": "address.js",
+  "scripts": {
+    "build": "ng-html2js wfm-templates/address-form.tpl.html wfm-templates/address-form.tpl.html.js -m wfm.address --module-var ngModule & ng-html2js wfm-templates/address-view.tpl.html wfm-templates/address-view.tpl.html.js -m wfm.address --module-var ngModule"
+  },
+  "keywords": [
+    "wfm",
+    "address"
+  ],
+  "author": "Brian Leathem",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.4.3"
+  },
+  "devDependencies": {
+    "ng-html2js": "^2.0.0"
+  }
+}

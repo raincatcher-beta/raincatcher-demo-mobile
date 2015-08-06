@@ -1,0 +1,15 @@
+{
+  "name": "wfm-mediator",
+  "version": "0.0.1",
+  "description": "An implementation of the mediator pattern for use with WFM",
+  "main": "mediator.js",
+  "keywords": [
+    "wfm", "mediator"
+  ],
+  "author": "Brian Leathem",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.4.3",
+    "lodash": "^3.10.1"
+  }
+}

@@ -2,22 +2,25 @@
 
 var angular = require('angular');
 
-angular.module('wfm.person', ['wfm.core.mediator'])
+var ngModule = angular.module('wfm.person', ['wfm.core.mediator']);
 
-.directive('person', function(Mediator) {
+require('./wfm-templates/person-form.tpl.html.js');
+require('./wfm-templates/./person-view.tpl.html.js');
+
+ngModule.directive('person', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , templateUrl: 'modules/wfm/person/person-view.tpl.html'
+  , template: $templateCache.get('wfm-templates/person-view.tpl.html')
   , scope: {
       person: '=value'
     }
   }
 })
 
-.directive('personForm', function(Mediator) {
+.directive('personForm', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , templateUrl: 'modules/wfm/person/person-form.tpl.html'
+  , template: $templateCache.get('wfm-templates/person-form.tpl.html')
   , scope: {
       person: '=value'
   }
