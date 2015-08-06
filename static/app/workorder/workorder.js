@@ -11,11 +11,6 @@
         url: '/workorder/:workorderId',
         templateUrl: '/app/workorder/workorder.tpl.html',
         controller: 'WorkorderController as ctrl'
-      })
-      .state('app.workorder-list', {
-        url: '/workorders/list',
-        template: '<workorder-list list="workorderListController.workorders"/>',
-        controller: 'WorkorderListController as workorderListController'
       });
   })
 
@@ -40,16 +35,6 @@
       Mediator.publish('workflow:begin', self, workorder.id);
       event.preventDefault();
     };
-  })
-
-  .controller('WorkorderListController', function ($state, Mediator) {
-    var self = this;
-
-    Mediator.publish('workorders:load');
-    var subscriptionLoaded = Mediator.subscribe('workorders:loaded', self, function(workorders) {
-      subscriptionLoaded.unsubscribe();
-      self.workorders = workorders;
-    });
   })
 
   ;

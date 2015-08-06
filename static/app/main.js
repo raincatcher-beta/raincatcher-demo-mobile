@@ -8,6 +8,7 @@
   , 'wfm.address'
   , 'app.home'
   , 'app.workorder'
+  , 'app.workorder-list'
   , 'app.workflow'
   ])
 
