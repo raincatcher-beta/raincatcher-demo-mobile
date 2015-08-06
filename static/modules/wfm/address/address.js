@@ -21,9 +21,10 @@
     }
     , controller: function($scope) {
         var self = this;
+        self.address = angular.copy($scope.address);
         self.next = function(isValid) {
           if (isValid) {
-            Mediator.publish('workflow:address:next', self, $scope.address);
+            Mediator.publish('workflow:address:next', self, self.address);
           };
         }
       }

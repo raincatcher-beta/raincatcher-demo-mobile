@@ -17,13 +17,14 @@
       restrict: 'E'
     , templateUrl: 'modules/wfm/person/person-form.tpl.html'
     , scope: {
-      person: '=value'
+        person: '=value'
     }
     , controller: function($scope) {
         var self = this;
+        self.person = angular.copy($scope.person);
         self.next = function(isValid) {
           if (isValid) {
-            Mediator.publish('workflow:person:next', self, $scope.person);
+            Mediator.publish('workflow:person:next', self, self.person);
           };
         }
       }
