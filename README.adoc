@@ -1,0 +1,71 @@
+= WFM 2 PoC
+
+== Design goals & Project Architecture
+
+For WFM 2 we want a module system that encourages code re-use from one implementation to the next.  Application capabilities would be added/removed from the application through code, offering a well defined feature-set at runtime.
+
+One way to achieve this goal is with an architecture of loosely coupled modules manged via an application core (the Mediator pattern) through a pub/sub mechanism.  Each application implementation would have a custom core (starting from a common starting point) with all application functionality being provided by the modules themselves.  Implementation customizations would consist of changing the way these modules are woven together in the custom core.  Modules themselves could be forked for further customization, but we would probably want to discourage such forks.
+
+More details of this architecture are provided in this excellent (albeit somewhat dated ~ 2011) write-up by Andy Osmani:
+
+http://addyosmani.com/largescalejavascript/
+
+== Implementation Details
+
+This project consists of a PoC of the above architecture using Angular.js to provide the module system.  Modules are introduced to the project using npm, and included in the application via `angular#module`.  Browserify is used to map the dependency requirements into a javascript bundle.
+
+== Running the demo
+
+Install and run the project with:
+
+[source, bash]
+----
+$ npm install
+$ npm run build
+$ npm start
+----
+
+== Developing the demo
+
+To watch the javascript for changes and trigger a new build of the browserify bundle run:
+
+[source, bash]
+----
+$ npm run watch
+----
+
+=== Adding WFM modules
+
+WFM modules are provided as npm modules.  This demo includes the npm modules in it's git repository under the `wfm_modules` folder.  Modules are installed with the familiar npm command:
+
+[source, bash]
+----
+$ npm install --save ./wfm_modules/<module-name>
+----
+
+=== Developing WFM modules
+
+WFM modules must load html template files into Angular's `$templateCache`.  this is achieved by running the build script within a WFM modules folder:
+
+[source, bash]
+----
+<wfm-module-path> $  npm install && npm run build
+----
+
+By default such npm module changes will not be reflected in the downstream application until `npm install <module-name>` is re-run within that application.  This is however inconvenient when developing a module where a rapid turnaround is preferred.
+
+When developing a module use `npm link` to reflect module changes in downstream applications immediately, without requiring another `npm install`.
+
+[source, bash]
+----
+<application-path> $ npm link ./wfm-modules/<module-name>
+----
+
+Additionally, a watch script is provided to automatically update the `$templateCache` when the template html files change:
+
+[source, bash]
+----
+<wfm-module-path> $ npm run watch
+----
+
+When coupled with a the application `npm run watch`, module changes can be immediately observed in the browser.
