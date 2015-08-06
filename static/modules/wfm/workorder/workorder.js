@@ -2,7 +2,7 @@
 (function (angular, _) {
   angular.module('wfm.workorder', ['wfm.core.mediator'])
 
-  .factory('workOrderManager', function() {
+  .factory('workOrderManager', function($timeout) {
     var workOrderManager = {};
 
     var workorders = [
@@ -11,13 +11,13 @@
     ];
 
     workOrderManager.getList = function(cb) {
-      setTimeout(function() {
+      $timeout(function() {
         cb(workorders);
       }, 0);
     };
 
     workOrderManager.get = function(id, cb) {
-      setTimeout(function() {
+      $timeout(function() {
         var workorder = _.find(workorders, function(_workorder) {
           return _workorder.id == id;
         });
@@ -26,7 +26,7 @@
     };
 
     workOrderManager.save = function(workorder, cb) {
-      setTimeout(function() {
+      $timeout(function() {
         var index = _.findIndex(workorders, function(_workorder) {
           return _workorder.id == workorder.id;
         });
