@@ -4,7 +4,8 @@
   "description": "An address module for WFM",
   "main": "address.js",
   "scripts": {
-    "build": "ng-html2js wfm-templates/address-form.tpl.html wfm-templates/address-form.tpl.html.js -m wfm.address --module-var ngModule & ng-html2js wfm-templates/address-view.tpl.html wfm-templates/address-view.tpl.html.js -m wfm.address --module-var ngModule"
+    "build": "ng-html2js wfm-templates/address-form.tpl.html lib/address-form.tpl.html.js -m wfm.address --module-var ngModule & ng-html2js wfm-templates/address-view.tpl.html lib/address-view.tpl.html.js -m wfm.address --module-var ngModule",
+    "watch": "watch 'npm run build' wfm-templates"
   },
   "keywords": [
     "wfm",
@@ -16,6 +17,7 @@
     "angular": "^1.4.3"
   },
   "devDependencies": {
-    "ng-html2js": "^2.0.0"
+    "ng-html2js": "^2.0.0",
+    "watch": "^0.16.0"
   }
 }

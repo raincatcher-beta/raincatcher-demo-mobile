@@ -5,8 +5,8 @@ var _ = require('lodash');
 
 var ngModule = angular.module('wfm.workorder', ['wfm.core.mediator']);
 
-require('./wfm-templates/workorder-view.tpl.html.js');
-require('./wfm-templates/workorder-list.tpl.html.js');
+require('./lib/workorder-view.tpl.html.js');
+require('./lib/workorder-list.tpl.html.js');
 
 ngModule.factory('workOrderManager', function($timeout) {
   var workOrderManager = {};

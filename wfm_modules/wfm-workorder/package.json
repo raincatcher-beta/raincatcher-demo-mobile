@@ -4,7 +4,8 @@
   "description": "An workorder module for WFM",
   "main": "workorder.js",
   "scripts": {
-    "build": "ng-html2js wfm-templates/workorder-view.tpl.html wfm-templates/workorder-view.tpl.html.js -m wfm.workorder --module-var ngModule & ng-html2js wfm-templates/workorder-list.tpl.html wfm-templates/workorder-list.tpl.html.js -m wfm.workorder --module-var ngModule"
+    "build": "ng-html2js wfm-templates/workorder-view.tpl.html lib/workorder-view.tpl.html.js -m wfm.workorder --module-var ngModule & ng-html2js wfm-templates/workorder-list.tpl.html lib/workorder-list.tpl.html.js -m wfm.workorder --module-var ngModule",
+    "watch": "watch 'npm run build' wfm-templates"
   },
   "keywords": [
     "wfm",
@@ -16,6 +17,7 @@
     "angular": "^1.4.3"
   },
   "devDependencies": {
-    "ng-html2js": "^2.0.0"
+    "ng-html2js": "^2.0.0",
+    "watch": "^0.16.0"
   }
 }

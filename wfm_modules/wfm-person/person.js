@@ -4,8 +4,8 @@ var angular = require('angular');
 
 var ngModule = angular.module('wfm.person', ['wfm.core.mediator']);
 
-require('./wfm-templates/person-form.tpl.html.js');
-require('./wfm-templates/./person-view.tpl.html.js');
+require('./lib/person-form.tpl.html.js');
+require('./lib/person-view.tpl.html.js');
 
 ngModule.directive('person', function($templateCache, Mediator) {
   return {
