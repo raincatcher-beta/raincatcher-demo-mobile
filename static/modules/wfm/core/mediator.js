@@ -19,6 +19,9 @@
       _.map(subscribers, function(subscriber) {
         try {
           subscriber.callback(data);
+          if (subscriber.single) {
+            unsubscribe(subscriber);
+          };
         } catch (e) {
           $log.error(e, publisher, subscriber.name)
         }
@@ -26,15 +29,24 @@
     };
 
     Mediator.subscribe = function(channel, subscriber, callback) {
+      return subscribe(channel, subscriber, false, callback);
+    };
+
+    Mediator.subscribeOnce = function(channel, subscriber, callback) {
+      return subscribe(channel, subscriber, true, callback);
+    };
+
+    function subscribe(channel, subscriber, single, callback) {
       if (! hasSubscriber(channel)) {
         channels[channel] = [];
       }
 
       var subscription = {
-        callback : callback,
-        channel : channel,
-        name : subscriber,
-        subscriberId : ++subscriberId
+        callback: callback,
+        channel: channel,
+        name: subscriber,
+        single: single,
+        subscriberId: ++subscriberId
       }
 
       channels[channel].push(subscription);

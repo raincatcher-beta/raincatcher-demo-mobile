@@ -35,32 +35,23 @@
     var self = this;
 
     Mediator.publish('workorder:load', self, $stateParams.workorderId);
-    var subscriptionLoaded = Mediator.subscribe('workorder:loaded', self, function(workorder) {
-      subscriptionLoaded.unsubscribe();
+    Mediator.subscribeOnce('workorder:loaded', self, function(workorder) {
       self.workorder = workorder;
     });
 
-    var subscriptionPersonNext = Mediator.subscribe('workflow:person:next', self, function(person) {
-      subscriptionPersonNext.unsubscribe();
+    Mediator.subscribeOnce('workflow:person:next', self, function(person) {
       self.workorder.person = person;
       Mediator.publish('workorder:save', self, self.workorder);
-      var subscriptionSaved = Mediator.subscribe('workorder:saved', self, function(workorder) {
-        subscriptionSaved.unsubscribe();
-        $state.go('app.workflow.address', {
-          workorderId: workorder.id
-        });
+      Mediator.subscribeOnce('workorder:saved', self, function(workorder) {
+        $state.go('app.workflow.address', { workorderId: workorder.id });
       });
     });
 
-    var subscriptionAddressNext = Mediator.subscribe('workflow:address:next', self, function(address) {
-      subscriptionAddressNext.unsubscribe();
+    Mediator.subscribeOnce('workflow:address:next', self, function(address) {
       self.workorder.address = address;
       Mediator.publish('workorder:save', self, self.workorder);
-      var subscriptionSaved = Mediator.subscribe('workorder:saved', self, function(workorder) {
-        subscriptionSaved.unsubscribe();
-        $state.go('app.workorder', {
-          workorderId: workorder.id
-        });
+      Mediator.subscribeOnce('workorder:saved', self, function(workorder) {
+        $state.go('app.workorder', { workorderId: workorder.id });
       });
     });
   })

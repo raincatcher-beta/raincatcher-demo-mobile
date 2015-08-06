@@ -26,8 +26,7 @@
     var self = this;
 
     Mediator.publish('workorder:load', self, $stateParams.workorderId);
-    var subscriptionLoaded = Mediator.subscribe('workorder:loaded', self, function(workorder) {
-      subscriptionLoaded.unsubscribe();
+    Mediator.subscribeOnce('workorder:loaded', self, function(workorder) {
       self.workorder = workorder;
     });
 
