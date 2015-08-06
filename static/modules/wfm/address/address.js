@@ -21,9 +21,10 @@
     }
     , controller: function($scope) {
         var self = this;
-        self.next = function(event, address) {
-          Mediator.publish('workflow:address:next', self, address);
-          event.preventDefault();
+        self.next = function(isValid) {
+          if (isValid) {
+            Mediator.publish('workflow:address:next', self, $scope.address);
+          };
         }
       }
     , controllerAs: 'ctrl'
