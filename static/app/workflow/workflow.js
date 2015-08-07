@@ -22,6 +22,10 @@ angular.module('app.workflow', [
     .state('app.workflow.address', {
       url: '/workorder/:workorderId/workflow/address',
       template: '<address-form></address-form>'
+    })
+    .state('app.workflow.location', {
+      url: '/workorder/:workorderId/workflow/location',
+      template: '<google-maps-form></google-maps-form>'
     });
 })
 
@@ -51,6 +55,14 @@ angular.module('app.workflow', [
 
   Mediator.subscribeOnce('workflow:address:next', self, function(address) {
     self.workorder.address = address;
+    Mediator.publish('workorder:save', self, self.workorder);
+    Mediator.subscribeOnce('workorder:saved', self, function(workorder) {
+      $state.go('app.workflow.location', { workorderId: workorder.id });
+    });
+  });
+
+  Mediator.subscribeOnce('workflow:google-maps:next', self, function(location) {
+    self.workorder.location = location;
     Mediator.publish('workorder:save', self, self.workorder);
     Mediator.subscribeOnce('workorder:saved', self, function(workorder) {
       $state.go('app.workorder', { workorderId: workorder.id });

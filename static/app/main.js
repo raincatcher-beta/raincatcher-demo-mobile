@@ -8,6 +8,7 @@ angular.module('app', [
 , require('wfm-person')
 , require('wfm-workorder')
 , require('wfm-address')
+, require('wfm-google-maps')
 , require('./home/home')
 , require('./workorder/workorder')
 , require('./workorder/workorder-list')
