@@ -17,11 +17,11 @@ angular.module('app.workflow', [
     })
     .state('app.workflow.person', {
       url: '/workorder/:workorderId/workflow/person',
-      template: '<person-form />'
+      template: '<person-form></person-form>'
     })
     .state('app.workflow.address', {
       url: '/workorder/:workorderId/workflow/address',
-      template: '<address-form />'
+      template: '<address-form></address-form>'
     });
 })
 
