@@ -7,9 +7,10 @@
     "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build-js",
-    "build-js": "browserify static/app/main.js > static/app/bundle.js",
-    "watch-js": "watchify static/app/main.js -o static/app/bundle.js -dv",
-    "watch": "npm run watch-js"
+    "build-js": "browserify portal/app/main.js > portal/app/bundle.js",
+    "watch-js": "watchify portal/app/main.js -o portal/app/bundle.js -dv",
+    "watch-server": "nodemon -w server server/server.js",
+    "watch": "npm run watch-js & npm run watch-server"
   },
   "keywords": [
     "wfm"
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "browserify": "^11.0.1",
+    "nodemon": "^1.4.0",
     "watchify": "^3.3.1"
   },
   "cordovaPlugins": [
