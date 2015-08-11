@@ -3,5 +3,5 @@ npm-debug.log
 platforms/
 plugins/
 
-static/app/bundle.js
+portal/app/bundle.js
 www/app/bundle.js

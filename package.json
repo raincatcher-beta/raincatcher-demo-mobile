@@ -5,13 +5,14 @@
   "main": "server/server.js",
   "scripts": {
     "start": "npm run serve-portal & npm run serve-mobile",
-    "watch": "npm run watch-js & npm run watch-server & npm run serve-mobile & npm run livereload",
+    "watch": "npm run watch-mobile-js & npm run watch-portal-js & npm run watch-server & npm run serve-mobile & npm run livereload",
     "serve-portal": "node server/server.js",
     "serve-mobile": "node www/server.js",
     "build": "npm run build-portal-js",
     "build-portal-js": "browserify portal/app/main.js > portal/app/bundle.js",
     "build-mobile-js": "browserify www/app/app.js > www/app/bundle.js",
-    "watch-js": "watchify portal/app/main.js -o portal/app/bundle.js -dv",
+    "watch-portal-js": "watchify portal/app/main.js -o portal/app/bundle.js -dv --ignore-watch=\"www/**|**/node_modules/**\"",
+    "watch-mobile-js": "watchify www/app/app.js -o www/app/bundle.js -dv --ignore-watch=\"portal/**|**/node_modules/**\"",
     "watch-server": "nodemon -w server server/server.js",
     "livereload": "livereload www server portal",
     "test": "echo \"Error: no test specified\" && exit 1"
