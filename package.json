@@ -8,8 +8,9 @@
     "watch": "npm run watch-js & npm run watch-server & npm run serve-mobile & npm run livereload",
     "serve-portal": "node server/server.js",
     "serve-mobile": "node www/server.js",
-    "build": "npm run build-js",
-    "build-js": "browserify portal/app/main.js > portal/app/bundle.js",
+    "build": "npm run build-portal-js",
+    "build-portal-js": "browserify portal/app/main.js > portal/app/bundle.js",
+    "build-mobile-js": "browserify www/app/app.js > www/app/bundle.js",
     "watch-js": "watchify portal/app/main.js -o portal/app/bundle.js -dv",
     "watch-server": "nodemon -w server server/server.js",
     "livereload": "livereload www server portal",
@@ -22,6 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.4.3",
+    "angular-animate": "^1.4.3",
     "angular-ui-router": "^0.2.15",
     "config-chain": "^1.1.9",
     "express": "^4.13.2",
@@ -35,6 +37,7 @@
     "wfm-workorder": "file:wfm_modules/wfm-workorder"
   },
   "devDependencies": {
+    "angular-sanitize": "^1.4.3",
     "browserify": "^11.0.1",
     "livereload": "^0.3.7",
     "nodemon": "^1.4.0",

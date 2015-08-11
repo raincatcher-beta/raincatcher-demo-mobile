@@ -1,3 +1,6 @@
+'use strict';
+var angular = require('angular');
+
 angular.module('wfm-mobile.chat', ['ui.router'])
 
 .config(function($stateProvider) {
@@ -90,3 +93,5 @@ angular.module('wfm-mobile.chat', ['ui.router'])
   };
 })
 ;
+
+module.exports = 'wfm-mobile.chat';

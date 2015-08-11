@@ -4,3 +4,4 @@ platforms/
 plugins/
 
 static/app/bundle.js
+www/app/bundle.js

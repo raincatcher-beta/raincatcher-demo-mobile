@@ -1,3 +1,6 @@
+'use strict';
+var angular = require('angular');
+
 angular.module('wfm-mobile.dash', ['ui.router'])
 
 .config(function($stateProvider) {
@@ -14,5 +17,6 @@ angular.module('wfm-mobile.dash', ['ui.router'])
 })
 
 .controller('DashCtrl', function($scope) {})
-
 ;
+
+module.exports = 'wfm-mobile.dash';

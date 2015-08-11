@@ -1,15 +1,15 @@
-// Ionic Starter App
+var angular = require('angular');
+require('angular-animate')
+require('angular-sanitize')
+require('angular-ui-router')
+require('../lib/ionic/js/ionic')
+require('../lib/ionic/js/ionic-angular')
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
 angular.module('wfm-mobile', [
   'ionic'
-, 'wfm-mobile.dash'
-, 'wfm-mobile.chat'
-, 'wfm-mobile.account'
+, require('./dash/dash')
+, require('./chat/chat')
+, require('./account/account')
 ])
 
 .run(function($ionicPlatform) {

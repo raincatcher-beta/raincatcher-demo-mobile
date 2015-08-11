@@ -1,3 +1,6 @@
+'use strict';
+var angular = require('angular');
+
 angular.module('wfm-mobile.account', ['ui.router'])
 
 .config(function($stateProvider) {
@@ -17,4 +20,7 @@ angular.module('wfm-mobile.account', ['ui.router'])
   $scope.settings = {
     enableFriends: true
   };
-});
+})
+;
+
+module.exports = 'wfm-mobile.account';
