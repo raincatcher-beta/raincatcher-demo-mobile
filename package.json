@@ -4,13 +4,16 @@
   "description": "A WFM2 PoC using the mediator pattern",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run serve-portal & npm run serve-mobile",
+    "watch": "npm run watch-js & npm run watch-server & npm run serve-mobile & npm run livereload",
+    "serve-portal": "node server/server.js",
+    "serve-mobile": "node www/server.js",
     "build": "npm run build-js",
     "build-js": "browserify portal/app/main.js > portal/app/bundle.js",
     "watch-js": "watchify portal/app/main.js -o portal/app/bundle.js -dv",
     "watch-server": "nodemon -w server server/server.js",
-    "watch": "npm run watch-js & npm run watch-server"
+    "livereload": "livereload www server portal",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "wfm"
@@ -33,6 +36,7 @@
   },
   "devDependencies": {
     "browserify": "^11.0.1",
+    "livereload": "^0.3.7",
     "nodemon": "^1.4.0",
     "watchify": "^3.3.1"
   },
