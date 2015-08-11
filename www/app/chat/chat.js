@@ -1,4 +1,45 @@
-angular.module('starter.services', [])
+angular.module('wfm-mobile.chat', ['ui.router'])
+
+.config(function($stateProvider) {
+  $stateProvider
+    .state('tab.chats', {
+        url: '/chats',
+        views: {
+          'tab-chats': {
+            templateUrl: 'app/chat/tab-chats.tpl.html',
+            controller: 'ChatsCtrl'
+          }
+        }
+      })
+    .state('tab.chat-detail', {
+      url: '/chats/:chatId',
+      views: {
+        'tab-chats': {
+          templateUrl: 'app/chat/chat-detail.tpl.html',
+          controller: 'ChatDetailCtrl'
+        }
+      }
+    })
+})
+
+.controller('ChatsCtrl', function($scope, Chats) {
+  // With the new view caching in Ionic, Controllers are only called
+  // when they are recreated or on app start, instead of every page change.
+  // To listen for when this page is active (for example, to refresh data),
+  // listen for the $ionicView.enter event:
+  //
+  //$scope.$on('$ionicView.enter', function(e) {
+  //});
+
+  $scope.chats = Chats.all();
+  $scope.remove = function(chat) {
+    Chats.remove(chat);
+  };
+})
+
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+  $scope.chat = Chats.get($stateParams.chatId);
+})
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
@@ -47,4 +88,5 @@ angular.module('starter.services', [])
       return null;
     }
   };
-});
+})
+;
