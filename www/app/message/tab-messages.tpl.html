@@ -1,0 +1,14 @@
+<ion-view view-title="Messages">
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item class="item message {{message.new ? 'new': ''}}"
+                ng-repeat="message in ctrl.messages"
+                href="#/tab/message/{{message.id}}">
+        <span class="message-date">{{message.date | timeAgo:'MMM d'}}</span>
+        <span class="message-sender">{{message.sender}}</span>
+        <span class="message-subject">{{message.subject}}</span>
+        <span class="message-content">{{message.content}}</span>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

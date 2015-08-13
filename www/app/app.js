@@ -7,9 +7,10 @@ require('../lib/ionic/js/ionic-angular')
 
 angular.module('wfm-mobile', [
   'ionic'
-, require('./dash/dash')
-, require('./chat/chat')
-, require('./account/account')
+, require('./workorder/workorder')
+, require('./message/message')
+, require('./calendar/calendar')
+, require('./setting/setting')
 ])
 
 .run(function($ionicPlatform) {
@@ -28,9 +29,13 @@ angular.module('wfm-mobile', [
   });
 })
 
+.config(function($ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom'); // other values: top
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
   // if none of the states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/workorders');
 
   $stateProvider
     .state('tab', {

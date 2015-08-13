@@ -11,10 +11,10 @@
     "build": "npm run build-portal-js",
     "build-portal-js": "browserify portal/app/main.js > portal/app/bundle.js",
     "build-mobile-js": "browserify www/app/app.js > www/app/bundle.js",
-    "watch-portal-js": "watchify portal/app/main.js -o portal/app/bundle.js -dv --ignore-watch=\"www/**|**/node_modules/**\"",
-    "watch-mobile-js": "watchify www/app/app.js -o www/app/bundle.js -dv --ignore-watch=\"portal/**|**/node_modules/**\"",
+    "watch-portal-js": "watchify portal/app/main.js -o portal/app/bundle.js -dv --ignore-watch=\"package.json|portal/app/bundle.js|www/**|**/node_modules/**\"",
+    "watch-mobile-js": "watchify www/app/app.js -o www/app/bundle.js -dv --ignore-watch=\"package.json|www/app/bundle.js|portal/**|**/node_modules/**\"",
     "watch-server": "nodemon -w server server/server.js",
-    "livereload": "livereload www server portal",
+    "livereload": "node scripts/livereload",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -25,6 +25,7 @@
   "dependencies": {
     "angular": "^1.4.3",
     "angular-animate": "^1.4.3",
+    "angular-timeago": "^0.2.0",
     "angular-ui-router": "^0.2.15",
     "config-chain": "^1.1.9",
     "express": "^4.13.2",
@@ -40,8 +41,9 @@
   "devDependencies": {
     "angular-sanitize": "^1.4.3",
     "browserify": "^11.0.1",
-    "livereload": "^0.3.7",
     "nodemon": "^1.4.0",
+    "tiny-lr": "^0.1.6",
+    "watch": "^0.16.0",
     "watchify": "^3.3.1"
   },
   "cordovaPlugins": [
