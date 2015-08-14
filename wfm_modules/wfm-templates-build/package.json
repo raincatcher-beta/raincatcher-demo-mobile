@@ -1,0 +1,21 @@
+{
+  "name": "wfm-templates-build",
+  "version": "0.0.1",
+  "description": "A build tool for WFM modules",
+  "bin": {
+    "wfm-templates-build": "./cli.js"
+  },
+  "main": "build.js",
+  "keywords": [
+    "wfm",
+    "build"
+  ],
+  "author": "Brian Leathem",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "minimist": "^1.1.3",
+    "ng-html2js": "^2.0.0",
+    "watch": "^0.16.0"
+  }
+}

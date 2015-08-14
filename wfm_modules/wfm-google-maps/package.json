@@ -4,8 +4,8 @@
   "description": "An google-maps module for WFM",
   "main": "google-maps.js",
   "scripts": {
-    "build": "ng-html2js wfm-templates/google-maps-view.tpl.html lib/google-maps-view.tpl.html.js -m wfm.google-maps --module-var ngModule & ng-html2js wfm-templates/google-maps-form.tpl.html lib/google-maps-form.tpl.html.js -m wfm.google-maps --module-var ngModule",
-    "watch": "watch 'npm run build' wfm-templates"
+    "build": "wfm-templates-build -m 'wfm.google-maps'",
+    "watch": "wfm-templates-build -w -m 'wfm.google-maps'"
   },
   "keywords": [
     "wfm",
@@ -13,12 +13,7 @@
   ],
   "author": "Brian Leathem",
   "license": "ISC",
-  "dependencies": {
-    "angular": "^1.4.3",
-    "angular-google-maps": "^2.1.5"
-  },
   "devDependencies": {
-    "ng-html2js": "^2.0.0",
-    "watch": "^0.16.0"
+    "wfm-templates-build": "file:../wfm-templates-build"
   }
 }
