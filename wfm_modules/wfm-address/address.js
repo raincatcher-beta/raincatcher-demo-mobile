@@ -10,7 +10,7 @@ require('./lib/address-view.tpl.html.js');
 ngModule.directive('address', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , template: $templateCache.get('wfm-templates/address-view.tpl.html')
+  , template: $templateCache.get('wfm-template/address-view.tpl.html')
   , scope: {
       address: '=value'
     }
@@ -20,7 +20,7 @@ ngModule.directive('address', function($templateCache, Mediator) {
 .directive('addressForm', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , template: $templateCache.get('wfm-templates/address-form.tpl.html')
+  , template: $templateCache.get('wfm-template/address-form.tpl.html')
   , scope: {
       address: '=value'
   }

@@ -6,7 +6,7 @@ try {
 }
 
 ngModule.run(['$templateCache', function ($templateCache) {
-  $templateCache.put('wfm-templates/workorder-view.tpl.html',
+  $templateCache.put('wfm-template/workorder-view.tpl.html',
     '<div class="panel panel-default">\n' +
     '  <div class="panel-heading"><h3>Work order</h3></div>\n' +
     '  <div class="panel-body">\n' +

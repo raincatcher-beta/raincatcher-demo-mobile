@@ -12,7 +12,7 @@ require('./lib/google-maps-form.tpl.html.js');
 ngModule.directive('googleMapsForm', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , template: $templateCache.get('wfm-templates/google-maps-form.tpl.html')
+  , template: $templateCache.get('wfm-template/google-maps-form.tpl.html')
   , scope: {
       value: '=value'
   }
@@ -47,7 +47,7 @@ ngModule.directive('googleMapsForm', function($templateCache, Mediator) {
 .directive('googleMaps', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , template: $templateCache.get('wfm-templates/google-maps-view.tpl.html')
+  , template: $templateCache.get('wfm-template/google-maps-view.tpl.html')
   , scope: {
       coords: '=coords'
   }

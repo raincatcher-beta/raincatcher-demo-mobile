@@ -6,7 +6,7 @@ try {
 }
 
 ngModule.run(['$templateCache', function ($templateCache) {
-  $templateCache.put('wfm-templates/address-view.tpl.html',
+  $templateCache.put('wfm-template/address-view.tpl.html',
     '<div class="panel panel-default">\n' +
     '  <div class="panel-heading"><h3>Address</h3></div>\n' +
     '  <div class="panel-body">\n' +

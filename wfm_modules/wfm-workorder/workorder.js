@@ -65,7 +65,7 @@ ngModule.factory('workOrderManager', function($timeout) {
 .directive('workorder', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , template: $templateCache.get('wfm-templates/workorder-view.tpl.html')
+  , template: $templateCache.get('wfm-template/workorder-view.tpl.html')
   , scope: {
       workorder: '=value'
     }
@@ -75,7 +75,7 @@ ngModule.factory('workOrderManager', function($timeout) {
 .directive('workorderList', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , template: $templateCache.get('wfm-templates/workorder-list.tpl.html')
+  , template: $templateCache.get('wfm-template/workorder-list.tpl.html')
   , scope: {
       list : '=list'
     }

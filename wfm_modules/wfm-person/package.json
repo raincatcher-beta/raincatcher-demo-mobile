@@ -4,8 +4,8 @@
   "description": "An person module for WFM",
   "main": "person.js",
   "scripts": {
-    "build": "wfm-templates-build -m 'wfm.person'",
-    "watch": "wfm-templates-build -w -m 'wfm.person'"
+    "build": "wfm-template-build -m 'wfm.person'",
+    "watch": "wfm-template-build -w -m 'wfm.person'"
   },
   "keywords": [
     "wfm",
@@ -14,6 +14,6 @@
   "author": "Brian Leathem",
   "license": "ISC",
   "devDependencies": {
-    "wfm-templates-build": "file:../wfm-templates-build"
+    "wfm-template-build": "bleathem/wfm-template-build"
   }
 }

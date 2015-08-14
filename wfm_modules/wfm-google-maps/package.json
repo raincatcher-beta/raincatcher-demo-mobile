@@ -4,8 +4,8 @@
   "description": "An google-maps module for WFM",
   "main": "google-maps.js",
   "scripts": {
-    "build": "wfm-templates-build -m 'wfm.google-maps'",
-    "watch": "wfm-templates-build -w -m 'wfm.google-maps'"
+    "build": "wfm-template-build -m 'wfm.google-maps'",
+    "watch": "wfm-template-build -w -m 'wfm.google-maps'"
   },
   "keywords": [
     "wfm",
@@ -14,6 +14,6 @@
   "author": "Brian Leathem",
   "license": "ISC",
   "devDependencies": {
-    "wfm-templates-build": "file:../wfm-templates-build"
+    "wfm-template-build": "bleathem/wfm-template-build"
   }
 }

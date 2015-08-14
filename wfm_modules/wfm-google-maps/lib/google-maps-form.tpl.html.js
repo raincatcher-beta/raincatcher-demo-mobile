@@ -6,7 +6,7 @@ try {
 }
 
 ngModule.run(['$templateCache', function ($templateCache) {
-  $templateCache.put('wfm-templates/google-maps-form.tpl.html',
+  $templateCache.put('wfm-template/google-maps-form.tpl.html',
     '<div class="panel panel-default">\n' +
     '  <div class="panel-heading"><h3>Location</h3></div>\n' +
     '  <div class="panel-body">\n' +

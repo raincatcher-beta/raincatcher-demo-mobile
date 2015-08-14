@@ -10,7 +10,7 @@ require('./lib/person-view.tpl.html.js');
 ngModule.directive('person', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , template: $templateCache.get('wfm-templates/person-view.tpl.html')
+  , template: $templateCache.get('wfm-template/person-view.tpl.html')
   , scope: {
       person: '=value'
     }
@@ -20,7 +20,7 @@ ngModule.directive('person', function($templateCache, Mediator) {
 .directive('personForm', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , template: $templateCache.get('wfm-templates/person-form.tpl.html')
+  , template: $templateCache.get('wfm-template/person-form.tpl.html')
   , scope: {
       person: '=value'
   }
