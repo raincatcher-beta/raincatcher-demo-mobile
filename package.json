@@ -5,15 +5,17 @@
   "main": "server/server.js",
   "scripts": {
     "start": "npm run serve-portal & npm run serve-mobile",
-    "watch": "npm run watch-mobile-js & npm run watch-portal-js & npm run watch-server & npm run serve-mobile & npm run livereload",
+    "watch": "npm run watch-mobile-js & npm run watch-portal-js & npm run watch-server & npm run serve-mobile & npm run livereload & npm run sass-mobile-watch",
     "serve-portal": "node server/server.js",
     "serve-mobile": "node server/mobile-dev.js",
     "build": "npm run build-portal-js",
     "build-portal-js": "browserify portal/app/main.js > portal/app/bundle.js",
     "build-mobile-js": "browserify www/app/app.js > www/app/bundle.js",
-    "watch-portal-js": "watchify portal/app/main.js -o portal/app/bundle.js -dv --ignore-watch=\"package.json|portal/app/bundle.js|www/**|**/node_modules/**\"",
-    "watch-mobile-js": "watchify www/app/app.js -o www/app/bundle.js -dv --ignore-watch=\"package.json|www/app/bundle.js|portal/**|**/node_modules/**\"",
+    "watch-portal-js": "watchify portal/app/main.js -o portal/app/bundle.js -dv --ignore-watch=\"!**/*.js|**/bundle.js|www/**|**/node_modules/**\"",
+    "watch-mobile-js": "watchify www/app/app.js -o www/app/bundle.js -dv --ignore-watch=\"!**/*.js|**/bundle.js|portal/**|**/node_modules/**\"",
     "watch-server": "nodemon -w server server/server.js",
+    "sass-mobile": "node-sass www/sass/app.scss www/css/app.css",
+    "sass-mobile-watch": "nodemon -e scss -w www/sass -x 'npm run sass-mobile'",
     "livereload": "node scripts/livereload",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -41,6 +43,7 @@
   "devDependencies": {
     "angular-sanitize": "^1.4.3",
     "browserify": "^11.0.1",
+    "node-sass": "^3.2.0",
     "node-watch": "^0.3.4",
     "nodemon": "^1.4.0",
     "tiny-lr": "^0.1.6",

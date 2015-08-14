@@ -1,0 +1,12 @@
+<span class="workorder-list-item" on-touch="ctrl.selectWorkorder($event, ctrl.workorder)">
+  <div class="item-icon-left">
+    <i class="icon {{ctrl.statusIcon}} workorder-list-item-icon"></i>
+    <span class="workorder-list-item-status">{{ctrl.workorder.status}}</span>
+    <span class="workorder-list-item-title">{{ctrl.workorder.title}}</span>
+    -
+    <span class="workorder-list-item-id">{{ctrl.workorder.id}}</span>
+  </div>
+  <div class="item-icon-right">
+    <i class="icon ion-ios-arrow-right"></i>
+  </div>
+</span>

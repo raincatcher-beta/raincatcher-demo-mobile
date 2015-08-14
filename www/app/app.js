@@ -11,6 +11,9 @@ angular.module('wfm-mobile', [
 , require('./message/message')
 , require('./calendar/calendar')
 , require('./setting/setting')
+
+, require('wfm-mediator')
+, require('wfm-workorder')
 ])
 
 .run(function($ionicPlatform) {

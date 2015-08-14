@@ -6,14 +6,19 @@ var _ = require('lodash');
 var ngModule = angular.module('wfm.workorder', ['wfm.core.mediator']);
 
 require('./lib/workorder-view.tpl.html.js');
-require('./lib/workorder-list.tpl.html.js');
+require('./lib/workorder-table.tpl.html.js');
+require('./lib/workorder-list-item.tpl.html.js');
 
 ngModule.factory('workOrderManager', function($timeout) {
   var workOrderManager = {};
 
   var workorders = [
-    { id: 0, title: 'Workorder 1'}
-    , { id: 1, title: 'Workorder 2'}
+    { id: 1276001, title: 'Job Order', status: 'In Progress'},
+    { id: 1276231, title: 'Job Order', status: 'Complete'},
+    { id: 1276712, title: 'Job Order', status: 'Aborted'},
+    { id: 1262134, title: 'Job Order', status: 'On Hold'},
+    { id: 12623122, title: 'Job Order', status: 'Unassigned'},
+    { id: 12623122, title: 'Job Order', status: 'New'}
   ];
 
   workOrderManager.getList = function(cb) {
@@ -72,10 +77,10 @@ ngModule.factory('workOrderManager', function($timeout) {
   };
 })
 
-.directive('workorderList', function($templateCache, Mediator) {
+.directive('workorderTable', function($templateCache, Mediator) {
   return {
     restrict: 'E'
-  , template: $templateCache.get('wfm-template/workorder-list.tpl.html')
+  , template: $templateCache.get('wfm-template/workorder-table.tpl.html')
   , scope: {
       list : '=list'
     }
@@ -89,6 +94,48 @@ ngModule.factory('workOrderManager', function($timeout) {
   , controllerAs: 'ctrl'
   };
 })
+
+.directive('workorderListItem', function($templateCache, Mediator) {
+  return {
+    restrict: 'E'
+  , template: $templateCache.get('wfm-template/workorder-list-item.tpl.html')
+  , scope: {
+    workorder : '=workorder'
+    }
+  , controller: function($scope) {
+      var self = this;
+      self.workorder = $scope.workorder;
+      switch(self.workorder.status) {
+        case 'In Progress':
+          self.statusIcon = 'ion-load-d';
+          break;
+        case 'Complete':
+          self.statusIcon = 'ion-ios-checkmark-outline';
+          break;
+        case 'Aborted':
+          self.statusIcon = 'ion-ios-close-outline';
+          break;
+        case 'On Hold':
+          self.statusIcon = 'ion-ios-minus-outline';
+          break;
+        case 'Unassigned':
+          self.statusIcon = 'ion-ios-help-outline';
+          break;
+        case 'New':
+          self.statusIcon = 'ion-ios-plus-outline';
+          break;
+        default:
+          self.statusIcon = 'ion-ios-circle-outline';
+      }
+      self.selectWorkorder = function(event, workorder) {
+        Mediator.publish('workorder:selected', self, workorder);
+        event.preventDefault();
+      }
+    }
+  , controllerAs: 'ctrl'
+  };
+})
+
 ;
 
 module.exports = 'wfm.workorder';

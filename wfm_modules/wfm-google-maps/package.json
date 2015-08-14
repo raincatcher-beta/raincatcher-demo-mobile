@@ -15,5 +15,8 @@
   "license": "ISC",
   "devDependencies": {
     "wfm-template-build": "bleathem/wfm-template-build"
+  },
+  "dependencies": {
+    "angular-google-maps": "^2.1.5"
   }
 }
