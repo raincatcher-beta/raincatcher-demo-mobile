@@ -5,20 +5,48 @@ var _ = require('lodash');
 
 var ngModule = angular.module('wfm.workorder', ['wfm.core.mediator']);
 
-require('./lib/workorder-view.tpl.html.js');
-require('./lib/workorder-table.tpl.html.js');
-require('./lib/workorder-list-item.tpl.html.js');
+require('./lib/');
+
+var getStatusIcon = function(workorder) {
+  if (! workorder) {
+    return '';
+  }
+  var statusIcon;
+  switch(workorder.status) {
+    case 'In Progress':
+      statusIcon = 'ion-load-d';
+      break;
+    case 'Complete':
+      statusIcon = 'ion-ios-checkmark-outline';
+      break;
+    case 'Aborted':
+      statusIcon = 'ion-ios-close-outline';
+      break;
+    case 'On Hold':
+      statusIcon = 'ion-ios-minus-outline';
+      break;
+    case 'Unassigned':
+      statusIcon = 'ion-ios-help-outline';
+      break;
+    case 'New':
+      statusIcon = 'ion-ios-plus-outline';
+      break;
+    default:
+      statusIcon = 'ion-ios-circle-outline';
+  }
+  return statusIcon;
+}
 
 ngModule.factory('workOrderManager', function($timeout) {
   var workOrderManager = {};
 
   var workorders = [
-    { id: 1276001, title: 'Job Order', status: 'In Progress'},
-    { id: 1276231, title: 'Job Order', status: 'Complete'},
-    { id: 1276712, title: 'Job Order', status: 'Aborted'},
-    { id: 1262134, title: 'Job Order', status: 'On Hold'},
-    { id: 12623122, title: 'Job Order', status: 'Unassigned'},
-    { id: 12623122, title: 'Job Order', status: 'New'}
+    { id: 1276001, type: 'Job Order', title: 'Footpath in disrepair', status: 'In Progress', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'},
+    { id: 1276231, type: 'Job Order', title: 'Footpath in disrepair', status: 'Complete', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'},
+    { id: 1276712, type: 'Job Order', title: 'Footpath in disrepair', status: 'Aborted', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'},
+    { id: 1262134, type: 'Job Order', title: 'Footpath in disrepair', status: 'On Hold', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'},
+    { id: 12623122, type: 'Job Order', title: 'Footpath in disrepair', status: 'Unassigned', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'},
+    { id: 12623122, type: 'Job Order', title: 'Footpath in disrepair', status: 'New', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'}
   ];
 
   workOrderManager.getList = function(cb) {
@@ -84,11 +112,36 @@ ngModule.factory('workOrderManager', function($timeout) {
   , scope: {
       list : '=list'
     }
-  , controller: function($scope) {
+  , controller: function() {
       var self = this;
       self.selectWorkorder = function(event, workorder) {
         Mediator.publish('workorder:selected', self, workorder);
         event.preventDefault();
+      }
+    }
+  , controllerAs: 'ctrl'
+  };
+})
+
+.directive('workorderList', function($templateCache, Mediator) {
+  return {
+    restrict: 'E'
+  , template: $templateCache.get('wfm-template/workorder-list.tpl.html')
+  , scope: {
+      workorders : '='
+    }
+  , controller: function() {
+      var self = this;
+      self.getStatusIcon = getStatusIcon;
+      self.isWorkorderShown = function(workorder) {
+        return self.shownWorkorder === workorder;
+      };
+      self.toggleWorkorder = function(event, workorder) {
+        if (self.isWorkorderShown(workorder)) {
+          self.shownWorkorder = '';
+        } else {
+          self.shownWorkorder = workorder;
+        }
       }
     }
   , controllerAs: 'ctrl'
@@ -104,29 +157,7 @@ ngModule.factory('workOrderManager', function($timeout) {
     }
   , controller: function($scope) {
       var self = this;
-      self.workorder = $scope.workorder;
-      switch(self.workorder.status) {
-        case 'In Progress':
-          self.statusIcon = 'ion-load-d';
-          break;
-        case 'Complete':
-          self.statusIcon = 'ion-ios-checkmark-outline';
-          break;
-        case 'Aborted':
-          self.statusIcon = 'ion-ios-close-outline';
-          break;
-        case 'On Hold':
-          self.statusIcon = 'ion-ios-minus-outline';
-          break;
-        case 'Unassigned':
-          self.statusIcon = 'ion-ios-help-outline';
-          break;
-        case 'New':
-          self.statusIcon = 'ion-ios-plus-outline';
-          break;
-        default:
-          self.statusIcon = 'ion-ios-circle-outline';
-      }
+      self.showSelectButton = !! $scope.$parent.workorders;
       self.selectWorkorder = function(event, workorder) {
         Mediator.publish('workorder:selected', self, workorder);
         event.preventDefault();

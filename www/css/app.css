@@ -8,6 +8,22 @@
   text-align: center;
   width: 54px; }
 
+.workorder-item-details .work-location, .workorder-item-details .work-title, .workorder-item-details .target-finish {
+  background: #387ef5;
+  color: white; }
+
+.workorder-item-details .target-finish dl {
+  margin: 0;
+  font-size: 75%; }
+
+.workorder-item-details .work-summary {
+  background: #f8f8f8;
+  white-space: normal; }
+  .workorder-item-details .work-summary .heading h3 {
+    font-weight: bold;
+    font-size: 120%;
+    font-variant: small-caps; }
+
 .message-date {
   float: right; }
 

@@ -1,9 +1,5 @@
 <ion-view view-title="Workorders">
   <ion-content>
-    <ion-list>
-      <ion-item class="item" ng-repeat="workorder in ctrl.workorders">
-        <workorder-list-item workorder="workorder"></workorder-list-item>
-      </ion-item>
-    </ion-list>
+    <workorder-list workorders="ctrl.workorders"></workorder-list>
   </ion-content>
 </ion-view>

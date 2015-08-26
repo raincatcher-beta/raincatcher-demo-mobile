@@ -1,0 +1,24 @@
+<ion-list>
+  <div ng-repeat="workorder in workorders">
+    <ion-item class="item"
+              ng-class="{active: ctrl.isWorkorderShown(workorder)}"
+              on-touch="ctrl.toggleWorkorder($event, workorder)">
+      <span class="workorder-list-item">
+        <div class="item-icon-left">
+          <i class="icon {{ctrl.getStatusIcon(workorder)}} workorder-list-item-icon"></i>
+          <span class="workorder-list-item-status">{{workorder.status}}</span>
+          <span class="workorder-list-item-type">{{workorder.type}}</span>
+          -
+          <span class="workorder-list-item-id">{{workorder.id}}</span>
+        </div>
+        <div class="item-icon-right">
+          <i class="icon" ng-class="ctrl.isWorkorderShown(workorder) ? 'ion-ios-minus-empty' : 'ion-ios-plus-empty'"></i>
+        </div>
+      </span>
+    </ion-item>
+    <div class="workorder-list-item-details"
+         ng-show="ctrl.isWorkorderShown(workorder)">
+         <workorder-list-item workorder="workorder"></workorder-view-item>
+    </div>
+  </div>
+</ion-list>

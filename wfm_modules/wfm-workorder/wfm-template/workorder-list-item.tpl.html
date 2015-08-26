@@ -1,12 +1,30 @@
-<span class="workorder-list-item" on-touch="ctrl.selectWorkorder($event, ctrl.workorder)">
-  <div class="item-icon-left">
-    <i class="icon {{ctrl.statusIcon}} workorder-list-item-icon"></i>
-    <span class="workorder-list-item-status">{{ctrl.workorder.status}}</span>
-    <span class="workorder-list-item-title">{{ctrl.workorder.title}}</span>
-    -
-    <span class="workorder-list-item-id">{{ctrl.workorder.id}}</span>
+<div class="workorder-item-details">
+<ion-item class="work-location item-icon-left">
+  <i class="icon ion-location"></i>
+  {{workorder.address}}
+</ion-item>
+<ion-item class="work-title item-icon-left">
+  <i class="icon ion-ios-gear-outline"></i>
+  {{workorder.title}}
+</ion-item>
+<ion-item class="target-finish item-icon-left">
+  <i class="icon ion-android-watch"></i>
+  <dl>
+    <dt>Target Finish Date:</dt>
+    <dt>Target Finish Time:</dt>
+  </dl>
+</ion-item>
+<ion-item class="work-summary">
+  <div class="panel panel-default">
+    <div class="panel-heading heading"><h3>Work Summary</h3></div>
+    <div class="panel-body">
+      {{workorder.summary}}
+    </div>
   </div>
-  <div class="item-icon-right">
-    <i class="icon ion-ios-arrow-right"></i>
-  </div>
-</span>
+  <button class="button button-block button-dark"
+          on-touch="ctrl.selectWorkorder($event, workorder)"
+          ng-show="ctrl.showSelectButton">
+    Select Workorder
+  </button>
+</ion-item>
+</div>

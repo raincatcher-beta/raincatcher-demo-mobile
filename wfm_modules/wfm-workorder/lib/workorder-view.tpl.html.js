@@ -11,10 +11,16 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '  <div class="panel-heading"><h3>Work order</h3></div>\n' +
     '  <div class="panel-body">\n' +
     '    <dl class="dl-horizontal">\n' +
-    '      <dt>Worker Order ID</dt>\n' +
+    '      <dt>Work order ID</dt>\n' +
     '      <dd>{{workorder.id}}</dd>\n' +
-    '      <dt>Worker Title</dt>\n' +
+    '      <dt>Type</dt>\n' +
+    '      <dd>{{workorder.type}}</dd>\n' +
+    '      <dt>Title</dt>\n' +
     '      <dd>{{workorder.title}}</dd>\n' +
+    '      <dt>Location</dt>\n' +
+    '      <dd>{{workorder.address}}</dd>\n' +
+    '      <dt>Summary</dt>\n' +
+    '      <dd>{{workorder.summary}}</dd>\n' +
     '    </dl>\n' +
     '  </div>\n' +
     '</div>\n' +

@@ -7,7 +7,7 @@
   <!-- Table -->
   <table class="table">
     <tr ng-repeat="workorder in list" ng-click="ctrl.selectWorkorder($event, workorder)" style="cursor: pointer">
-      <td><a href="#">{{workorder.id}}</a></td>
+      <td><a href="#">{{workorder.type}} - {{workorder.id}}</a></td>
       <td><a href="#">{{workorder.title}}</a></td>
     </tr>
   </table>

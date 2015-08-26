@@ -7,17 +7,35 @@ try {
 
 ngModule.run(['$templateCache', function ($templateCache) {
   $templateCache.put('wfm-template/workorder-list-item.tpl.html',
-    '<span class="workorder-list-item" on-touch="ctrl.selectWorkorder($event, ctrl.workorder)">\n' +
-    '  <div class="item-icon-left">\n' +
-    '    <i class="icon {{ctrl.statusIcon}} workorder-list-item-icon"></i>\n' +
-    '    <span class="workorder-list-item-status">{{ctrl.workorder.status}}</span>\n' +
-    '    <span class="workorder-list-item-title">{{ctrl.workorder.title}}</span>\n' +
-    '    -\n' +
-    '    <span class="workorder-list-item-id">{{ctrl.workorder.id}}</span>\n' +
+    '<div class="workorder-item-details">\n' +
+    '<ion-item class="work-location item-icon-left">\n' +
+    '  <i class="icon ion-location"></i>\n' +
+    '  {{workorder.address}}\n' +
+    '</ion-item>\n' +
+    '<ion-item class="work-title item-icon-left">\n' +
+    '  <i class="icon ion-ios-gear-outline"></i>\n' +
+    '  {{workorder.title}}\n' +
+    '</ion-item>\n' +
+    '<ion-item class="target-finish item-icon-left">\n' +
+    '  <i class="icon ion-android-watch"></i>\n' +
+    '  <dl>\n' +
+    '    <dt>Target Finish Date:</dt>\n' +
+    '    <dt>Target Finish Time:</dt>\n' +
+    '  </dl>\n' +
+    '</ion-item>\n' +
+    '<ion-item class="work-summary">\n' +
+    '  <div class="panel panel-default">\n' +
+    '    <div class="panel-heading heading"><h3>Work Summary</h3></div>\n' +
+    '    <div class="panel-body">\n' +
+    '      {{workorder.summary}}\n' +
+    '    </div>\n' +
     '  </div>\n' +
-    '  <div class="item-icon-right">\n' +
-    '    <i class="icon ion-ios-arrow-right"></i>\n' +
-    '  </div>\n' +
-    '</span>\n' +
+    '  <button class="button button-block button-dark"\n' +
+    '          on-touch="ctrl.selectWorkorder($event, workorder)"\n' +
+    '          ng-show="ctrl.showSelectButton">\n' +
+    '    Select Workorder\n' +
+    '  </button>\n' +
+    '</ion-item>\n' +
+    '</div>\n' +
     '');
 }]);

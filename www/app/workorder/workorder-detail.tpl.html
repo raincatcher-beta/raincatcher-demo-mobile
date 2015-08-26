@@ -4,8 +4,10 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{ctrl.workorder.title}}">
+<ion-view view-title="{{ctrl.workorder.type}} - {{ctrl.workorder.id}}">
+  <!-- ion-nav-title included below as a workaround for https://github.com/driftyco/ionic/issues/2847 -->
+  <ion-nav-title>{{ctrl.workorder.type}} - {{ctrl.workorder.id}}</ion-nav-title>
   <ion-content class="padding">
-    <workorder value="ctrl.workorder"></workorder>
+    <workorder-list-item workorder="ctrl.workorder"></workorder-list-item>
   </ion-content>
 </ion-view>
