@@ -6,8 +6,7 @@ require('angular-google-maps');
 
 var ngModule = angular.module('wfm.google-maps', ['wfm.core.mediator', 'uiGmapgoogle-maps']);
 
-require('./lib/google-maps-view.tpl.html.js');
-require('./lib/google-maps-form.tpl.html.js');
+require('./lib');
 
 ngModule.directive('googleMapsForm', function($templateCache, Mediator) {
   return {

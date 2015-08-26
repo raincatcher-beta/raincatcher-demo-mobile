@@ -5,7 +5,7 @@ var _ = require('lodash');
 
 var ngModule = angular.module('wfm.workorder', ['wfm.core.mediator']);
 
-require('./lib/');
+require('./lib');
 
 var getStatusIcon = function(workorder) {
   if (! workorder) {

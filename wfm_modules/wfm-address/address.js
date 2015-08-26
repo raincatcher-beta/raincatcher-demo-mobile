@@ -4,8 +4,7 @@ var angular = require('angular');
 
 var ngModule = angular.module('wfm.address', ['wfm.core.mediator'])
 
-require('./lib/address-form.tpl.html.js');
-require('./lib/address-view.tpl.html.js');
+require('./lib');
 
 ngModule.directive('address', function($templateCache, Mediator) {
   return {
