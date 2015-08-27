@@ -2,6 +2,7 @@
 
 var angular = require('angular');
 var _ = require('lodash');
+var config = require('./config');
 
 var ngModule = angular.module('wfm.workorder', ['wfm.core.mediator']);
 
@@ -37,22 +38,22 @@ var getStatusIcon = function(workorder) {
   return statusIcon;
 }
 
-ngModule.factory('workOrderManager', function($timeout) {
+ngModule.factory('workOrderManager', function($timeout, $http) {
   var workOrderManager = {};
-
-  var workorders = [
-    { id: 1276001, type: 'Job Order', title: 'Footpath in disrepair', status: 'In Progress', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'},
-    { id: 1276231, type: 'Job Order', title: 'Footpath in disrepair', status: 'Complete', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'},
-    { id: 1276712, type: 'Job Order', title: 'Footpath in disrepair', status: 'Aborted', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'},
-    { id: 1262134, type: 'Job Order', title: 'Footpath in disrepair', status: 'On Hold', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'},
-    { id: 12623122, type: 'Job Order', title: 'Footpath in disrepair', status: 'Unassigned', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'},
-    { id: 12623122, type: 'Job Order', title: 'Footpath in disrepair', status: 'New', address: '118 N Peoria @N Chicago, IL 60607', summary: 'Please remove damaged kerb and SUPPLY AND FIX 1X DROP KERB CENTRE BN 125 X 150 cart away from site outside number 3.'}
-  ];
+  var workorders;
 
   workOrderManager.getList = function(cb) {
-    $timeout(function() {
+    if (workorders) {
       cb(workorders);
-    }, 0);
+    } else {
+      $http.get(config.apiHost + config.apiPath).then(function(response) {
+        workorders = response.data;
+        cb(workorders);
+      }
+      , function(response) {
+        console.log(response);
+      });
+    }
   };
 
   workOrderManager.get = function(id, cb) {

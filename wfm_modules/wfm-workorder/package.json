@@ -5,7 +5,8 @@
   "main": "workorder.js",
   "scripts": {
     "build": "wfm-template-build -m 'wfm.workorder'",
-    "watch": "wfm-template-build -w -m 'wfm.workorder'"
+    "watch": "wfm-template-build -w -m 'wfm.workorder'",
+    "test": "mocha router/router.spec.js"
   },
   "keywords": [
     "wfm",
@@ -14,6 +15,11 @@
   "author": "Brian Leathem",
   "license": "ISC",
   "devDependencies": {
+    "express": "^4.13.3",
+    "mocha": "^2.2.5",
+    "request": "^2.61.0",
+    "should": "^7.0.4",
+    "wfm-mediator": "file:../wfm-mediator",
     "wfm-template-build": "bleathem/wfm-template-build"
   }
 }
