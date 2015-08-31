@@ -44,7 +44,7 @@ describe('Rest API:', function () {
 
   it('retrieve a workorder', function(done) {
     mediator.once('workorder:load', function(id) {
-      mediator.publish('workorder:loaded', testData[id]);
+      mediator.publish('workorder:loaded:' + id, testData[id]);
     });
 
     var url = 'http://localhost:9001' + config.apiPath + '/0';
@@ -65,17 +65,18 @@ describe('Rest API:', function () {
     });
   });
 
-  describe.skip('parallel requests', function() {
-    var sub;
+  describe('parallel requests', function() {
+    var load;
     before(function() {
-      sub = mediator.subscribe('workorder:load', function(id) {
+      load = function(id) {
         setTimeout(function() {
-          mediator.publish('workorder:loaded', testData[id]);
+          mediator.publish('workorder:loaded:' + id, testData[id]);
         }, 20);
-      });
+      };
+      mediator.subscribe('workorder:load', load);
     });
     after(function() {
-      sub.unsubscribe();
+      mediator.remove('workorder:load', load);
     });
 
     it('retrieve 2 workorders', function(done) {
@@ -112,7 +113,7 @@ describe('Rest API:', function () {
       }
       body.should.not.be.empty();
       body.should.be.eql(testData[1]);
-      done2 = truel
+      done2 = true;
       done1 && done();
     });
     });

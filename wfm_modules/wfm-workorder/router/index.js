@@ -14,7 +14,7 @@ function initRouter(mediator) {
   });
   router.route('/:id').get(function(req, res, next) {
     var workorderId = req.params.id
-    mediator.once('workorder:loaded', function(data) {
+    mediator.once('workorder:loaded:' + workorderId, function(data) {
       res.json(data);
     });
     mediator.publish('workorder:load', workorderId);
