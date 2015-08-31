@@ -21,7 +21,7 @@ describe('Rest API:', function () {
   });
 
   it('retrieve all workorders', function(done) {
-    mediator.subscribeOnce('workorders:load', this, function() {
+    mediator.once('workorders:load', this, function() {
       mediator.publish('workorders:loaded', this, testData);
     });
     var url = 'http://localhost:9001' + config.apiPath;
@@ -43,7 +43,7 @@ describe('Rest API:', function () {
   });
 
   it('retrieve a workorder', function(done) {
-    mediator.subscribeOnce('workorder:load', this, function(id) {
+    mediator.once('workorder:load', this, function(id) {
       mediator.publish('workorder:loaded', this, testData[id]);
     });
 

@@ -40,11 +40,11 @@ angular.module('wfm-mobile.workorders', [
   var self = this;
 
   Mediator.publish('workorders:load');
-  Mediator.subscribeOnce('workorders:loaded', self, function(workorders) {
+  Mediator.once('workorders:loaded', self, function(workorders) {
     self.workorders = workorders;
   });
 
-  Mediator.subscribeOnce('workorder:selected', self, function(workorder) {
+  Mediator.once('workorder:selected', self, function(workorder) {
 
   });
 })
@@ -53,7 +53,7 @@ angular.module('wfm-mobile.workorders', [
   var self = this;
 
   Mediator.publish('workorder:load', self, $stateParams.workorderId);
-  Mediator.subscribeOnce('workorder:loaded', self, function(workorder) {
+  Mediator.once('workorder:loaded', self, function(workorder) {
     self.workorder = workorder;
   });
 })

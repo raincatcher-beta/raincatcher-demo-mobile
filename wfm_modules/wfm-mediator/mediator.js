@@ -31,7 +31,7 @@ mediator.subscribe = function(channel, subscriber, callback) {
   return subscribe(channel, subscriber, false, callback);
 };
 
-mediator.subscribeOnce = function(channel, subscriber, callback) {
+mediator.once = function(channel, subscriber, callback) {
   return subscribe(channel, subscriber, true, callback);
 };
 

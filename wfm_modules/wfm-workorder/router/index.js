@@ -8,14 +8,14 @@ var express = require('express')
 function initRouter(mediator) {
   var router = express.Router();
   router.route('/').get(function(req, res, next) {
-    mediator.subscribeOnce('workorders:loaded', this, function(data) {
+    mediator.once('workorders:loaded', this, function(data) {
       res.json(data);
     });
     mediator.publish('workorders:load', 'workorderRouter');
   });
   router.route('/:id').get(function(req, res, next) {
     var workorderId = req.params.id
-    mediator.subscribeOnce('workorder:loaded', this, function(data) {
+    mediator.once('workorder:loaded', this, function(data) {
       res.json(data);
     });
     mediator.publish('workorder:load', 'workorderRouter', workorderId);
