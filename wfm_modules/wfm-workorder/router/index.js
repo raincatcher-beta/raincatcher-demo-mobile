@@ -13,6 +13,13 @@ function initRouter(mediator) {
     });
     mediator.publish('workorders:load', 'workorderRouter');
   });
+  router.route('/:id').get(function(req, res, next) {
+    var workorderId = req.params.id
+    mediator.subscribeOnce('workorder:loaded', this, function(data) {
+      res.json(data);
+    });
+    mediator.publish('workorder:load', 'workorderRouter', workorderId);
+  });
   return router;
 };
 

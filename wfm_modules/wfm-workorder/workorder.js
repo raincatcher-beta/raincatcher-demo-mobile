@@ -38,34 +38,43 @@ var getStatusIcon = function(workorder) {
   return statusIcon;
 }
 
-ngModule.factory('workOrderManager', function($timeout, $http) {
+ngModule.factory('workOrderManager', function($q, $http) {
   var workOrderManager = {};
   var workorders;
 
-  workOrderManager.getList = function(cb) {
+  var asyncValue = function(value) {
+    var deferred = $q.defer();
+    setTimeout(function() {
+      deferred.resolve(value);
+    },0);
+    return deferred.promise;
+  }
+
+  var fetch = function() {
+    return $http.get(config.apiHost + config.apiPath).then(function(response) {
+      workorders = response.data;
+      return workorders;
+    });
+  };
+
+  workOrderManager.getList = function() {
+    return workorders ? asyncValue(workorders) : fetch();
+  };
+
+  workOrderManager.get = function(id) {
     if (workorders) {
-      cb(workorders);
+      var workorder = _.find(workorders, function(_workorder) {
+        return _workorder.id == id;
+      });
+      return asyncValue(workorder);
     } else {
-      $http.get(config.apiHost + config.apiPath).then(function(response) {
-        workorders = response.data;
-        cb(workorders);
-      }
-      , function(response) {
-        console.log(response);
+      return $http.get(config.apiHost + config.apiPath + '/' + id).then(function(response) {
+        return response.data;
       });
     }
   };
 
-  workOrderManager.get = function(id, cb) {
-    $timeout(function() {
-      var workorder = _.find(workorders, function(_workorder) {
-        return _workorder.id == id;
-      });
-      cb(workorder);
-    }, 0);
-  };
-
-  workOrderManager.save = function(workorder, cb) {
+  workOrderManager.save = function(workorder) {
     $timeout(function() {
       var index = _.findIndex(workorders, function(_workorder) {
         return _workorder.id == workorder.id;
@@ -80,17 +89,17 @@ ngModule.factory('workOrderManager', function($timeout, $http) {
 
 .run(function(Mediator, workOrderManager) {
   Mediator.subscribe('workorder:load', self, function(data) {
-    workOrderManager.get(data, function(workorder) {
+    workOrderManager.get(data).then(function(workorder) {
       Mediator.publish('workorder:loaded', self, workorder);
     })
   });
   Mediator.subscribe('workorders:load', self, function() {
-    workOrderManager.getList(function(workorders) {
+    workOrderManager.getList().then(function(workorders) {
       Mediator.publish('workorders:loaded', self, workorders);
     })
   });
   Mediator.subscribe('workorder:save', self, function(data) {
-    workOrderManager.save(data, function(workorder) {
+    workOrderManager.save(data).then(function(workorder) {
       Mediator.publish('workorder:saved', self, workorder);
     })
   });
