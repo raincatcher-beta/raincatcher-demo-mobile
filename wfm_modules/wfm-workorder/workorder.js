@@ -88,19 +88,19 @@ ngModule.factory('workOrderManager', function($q, $http) {
 })
 
 .run(function(mediator, workOrderManager) {
-  mediator.subscribe('workorder:load', self, function(data) {
+  mediator.subscribe('workorder:load', function(data) {
     workOrderManager.get(data).then(function(workorder) {
-      mediator.publish('workorder:loaded', self, workorder);
+      mediator.publish('workorder:loaded', workorder);
     })
   });
-  mediator.subscribe('workorders:load', self, function() {
+  mediator.subscribe('workorders:load', function() {
     workOrderManager.getList().then(function(workorders) {
-      mediator.publish('workorders:loaded', self, workorders);
+      mediator.publish('workorders:loaded', workorders);
     })
   });
-  mediator.subscribe('workorder:save', self, function(data) {
+  mediator.subscribe('workorder:save', function(data) {
     workOrderManager.save(data).then(function(workorder) {
-      mediator.publish('workorder:saved', self, workorder);
+      mediator.publish('workorder:saved', workorder);
     })
   });
 })
@@ -125,7 +125,7 @@ ngModule.factory('workOrderManager', function($q, $http) {
   , controller: function() {
       var self = this;
       self.selectWorkorder = function(event, workorder) {
-        mediator.publish('workorder:selected', self, workorder);
+        mediator.publish('workorder:selected', workorder);
         event.preventDefault();
       }
     }
@@ -169,7 +169,7 @@ ngModule.factory('workOrderManager', function($q, $http) {
       var self = this;
       self.showSelectButton = !! $scope.$parent.workorders;
       self.selectWorkorder = function(event, workorder) {
-        mediator.publish('workorder:selected', self, workorder);
+        mediator.publish('workorder:selected', workorder);
         event.preventDefault();
       }
     }

@@ -7,9 +7,9 @@ var mediator = {};
 var channels = {};
 var subscriberId = 0;
 
-mediator.publish = function(channel, publisher, data) {
+mediator.publish = function(channel, data) {
   if (! hasSubscriber(channel)) {
-    console.log('No subscriber for:', channel, publisher, data);
+    console.log('No subscriber for:', channel, data);
     return;
   }
 
@@ -22,20 +22,20 @@ mediator.publish = function(channel, publisher, data) {
         unsubscribe(subscriber);
       };
     } catch (e) {
-      console.error(e, publisher, subscriber.name)
+      console.error(e, subscriber.name)
     }
   });
 };
 
-mediator.subscribe = function(channel, subscriber, callback) {
-  return subscribe(channel, subscriber, false, callback);
+mediator.subscribe = function(channel, callback) {
+  return subscribe(channel, false, callback);
 };
 
-mediator.once = function(channel, subscriber, callback) {
-  return subscribe(channel, subscriber, true, callback);
+mediator.once = function(channel, callback) {
+  return subscribe(channel, true, callback);
 };
 
-function subscribe(channel, subscriber, single, callback) {
+function subscribe(channel, single, callback) {
   if (! hasSubscriber(channel)) {
     channels[channel] = [];
   }
@@ -43,7 +43,6 @@ function subscribe(channel, subscriber, single, callback) {
   var subscription = {
     callback: callback,
     channel: channel,
-    name: subscriber,
     single: single,
     subscriberId: ++subscriberId
   }

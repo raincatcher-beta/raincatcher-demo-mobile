@@ -28,7 +28,7 @@ ngModule.directive('person', function($templateCache, mediator) {
       self.person = angular.copy($scope.person);
       self.next = function(isValid) {
         if (isValid) {
-          mediator.publish('workflow:person:next', self, self.person);
+          mediator.publish('workflow:person:next', self.person);
         };
       }
     }

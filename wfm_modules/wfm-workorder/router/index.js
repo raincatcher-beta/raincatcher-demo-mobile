@@ -8,17 +8,17 @@ var express = require('express')
 function initRouter(mediator) {
   var router = express.Router();
   router.route('/').get(function(req, res, next) {
-    mediator.once('workorders:loaded', this, function(data) {
+    mediator.once('workorders:loaded', function(data) {
       res.json(data);
     });
-    mediator.publish('workorders:load', 'workorderRouter');
+    mediator.publish('workorders:load');
   });
   router.route('/:id').get(function(req, res, next) {
     var workorderId = req.params.id
-    mediator.once('workorder:loaded', this, function(data) {
+    mediator.once('workorder:loaded', function(data) {
       res.json(data);
     });
-    mediator.publish('workorder:load', 'workorderRouter', workorderId);
+    mediator.publish('workorder:load', workorderId);
   });
   return router;
 };

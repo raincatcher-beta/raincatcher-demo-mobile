@@ -28,7 +28,7 @@ ngModule.directive('address', function($templateCache, mediator) {
       self.address = angular.copy($scope.address);
       self.next = function(isValid) {
         if (isValid) {
-          mediator.publish('workflow:address:next', self, self.address);
+          mediator.publish('workflow:address:next', self.address);
         };
       }
     }

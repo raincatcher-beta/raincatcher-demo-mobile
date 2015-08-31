@@ -36,7 +36,7 @@ ngModule.directive('googleMapsForm', function($templateCache, mediator) {
       })
       self.next = function(coords) {
         console.log('coords', coords);
-        mediator.publish('workflow:google-maps:next', self, coords);
+        mediator.publish('workflow:google-maps:next', coords);
       }
     }
   , controllerAs: 'ctrl'

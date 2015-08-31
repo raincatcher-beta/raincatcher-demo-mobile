@@ -5,7 +5,7 @@ var request = require('request')
   , app = express()
   , http = require('http')
   , should = require('should')
-  , mediator = require('wfm-mediator')
+  , mediator = require('wfm-mediator/mediator')
   , config = require('../config')
   ;
 
@@ -21,8 +21,8 @@ describe('Rest API:', function () {
   });
 
   it('retrieve all workorders', function(done) {
-    mediator.once('workorders:load', this, function() {
-      mediator.publish('workorders:loaded', this, testData);
+    mediator.once('workorders:load', function() {
+      mediator.publish('workorders:loaded', testData);
     });
     var url = 'http://localhost:9001' + config.apiPath;
     var req = request.get(url, function (err, res, body) {
@@ -43,8 +43,8 @@ describe('Rest API:', function () {
   });
 
   it('retrieve a workorder', function(done) {
-    mediator.once('workorder:load', this, function(id) {
-      mediator.publish('workorder:loaded', this, testData[id]);
+    mediator.once('workorder:load', function(id) {
+      mediator.publish('workorder:loaded', testData[id]);
     });
 
     var url = 'http://localhost:9001' + config.apiPath + '/0';
@@ -68,9 +68,9 @@ describe('Rest API:', function () {
   describe.skip('parallel requests', function() {
     var sub;
     before(function() {
-      sub = mediator.subscribe('workorder:load', this, function(id) {
+      sub = mediator.subscribe('workorder:load', function(id) {
         setTimeout(function() {
-          mediator.publish('workorder:loaded', this, testData[id]);
+          mediator.publish('workorder:loaded', testData[id]);
         }, 20);
       });
     });
