@@ -75,13 +75,14 @@ ngModule.factory('workOrderManager', function($q, $http) {
   };
 
   workOrderManager.save = function(workorder) {
-    $timeout(function() {
-      var index = _.findIndex(workorders, function(_workorder) {
-        return _workorder.id == workorder.id;
-      });
-      workorders[index] = workorder;
-      cb(workorder);
-    }, 0);
+    return $http.put(config.apiHost + config.apiPath + '/' + workorder.id, workorder)
+    .then(function(response) {
+      return $http.get(config.apiHost + config.apiPath);
+    })
+    .then(function(response) {
+      workorders = response.data;
+      return workorder;
+    });
   }
 
   return workOrderManager;

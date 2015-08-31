@@ -29,6 +29,7 @@
     "angular-animate": "^1.4.3",
     "angular-timeago": "^0.2.0",
     "angular-ui-router": "^0.2.15",
+    "body-parser": "^1.13.3",
     "config-chain": "^1.1.9",
     "express": "^4.13.2",
     "ionic-bower": "git+https://github.com/bleathem/ionic-bower.git#1.0.1",

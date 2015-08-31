@@ -19,6 +19,15 @@ function initRouter(mediator) {
     });
     mediator.publish('workorder:load', workorderId);
   });
+  router.route('/:id').put(function(req, res, next) {
+    var workorderId = req.params.id;
+    var workorder = req.body;
+    // console.log('req.body', req.body);
+    mediator.once('workorder:saved:' + workorderId, function(savedWorkorder) {
+      res.json(savedWorkorder);
+    });
+    mediator.publish('workorder:save', workorder);
+  });
   return router;
 };
 

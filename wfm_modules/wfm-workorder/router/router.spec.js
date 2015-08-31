@@ -3,16 +3,20 @@
 var request = require('request')
   , express = require('express')
   , app = express()
+  , bodyParser = require('body-parser')
   , http = require('http')
   , should = require('should')
   , mediator = require('wfm-mediator/mediator')
   , config = require('../config')
+  , _ = require('lodash')
   ;
+
+app.use(bodyParser.json());
 
 // wfm routes
 require('./index')(mediator, app);
 
-var testData = ['1', '2', '3'];
+var testData = [ {id: 0, value: 'one'}, {id: 1, value: 'two'}, {id: 2, value: 'three'} ];
 
 describe('Rest API:', function () {
   before(function(done){
@@ -61,6 +65,28 @@ describe('Rest API:', function () {
       }
       body.should.not.be.empty();
       body.should.be.eql(testData[0]);
+      done();
+    });
+  });
+
+  it('save a workorder', function(done) {
+    mediator.once('workorder:save', function(workorder) {
+      testData[workorder.index] = workorder;
+      mediator.publish('workorder:saved:' + workorder.id, workorder);
+    });
+    var url = 'http://localhost:9001' + config.apiPath + '/1';
+    var newData = _.clone(testData[1]);
+    newData.index = 1;
+    newData.value = 'One updated';
+    var options = {method: 'PUT', uri: url, body: newData, json: true};
+    var req = request(options, function (err, res, body) {
+      if (err) {
+        throw new Error(err);
+      }
+      // console.log(body);
+      body.should.not.be.empty();
+      body.should.be.eql(newData);
+      testData[1].should.be.eql(newData);
       done();
     });
   });
