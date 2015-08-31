@@ -6,8 +6,8 @@ angular.module('wfm-mobile.workorders', [
 , 'wfm.core.mediator'
 ])
 
-.run(function($state, Mediator) {
-  Mediator.subscribe('workorder:selected', self, function(workorder) {
+.run(function($state, mediator) {
+  mediator.subscribe('workorder:selected', self, function(workorder) {
     $state.go('tab.workorder', {
       workorderId: workorder.id
     });
@@ -36,24 +36,24 @@ angular.module('wfm-mobile.workorders', [
     })
 })
 
-.controller('WorkordersCtrl', function(Mediator) {
+.controller('WorkordersCtrl', function(mediator) {
   var self = this;
 
-  Mediator.publish('workorders:load');
-  Mediator.once('workorders:loaded', self, function(workorders) {
+  mediator.publish('workorders:load');
+  mediator.once('workorders:loaded', self, function(workorders) {
     self.workorders = workorders;
   });
 
-  Mediator.once('workorder:selected', self, function(workorder) {
+  mediator.once('workorder:selected', self, function(workorder) {
 
   });
 })
 
-.controller('WorkorderDetailCtrl', function($stateParams, Mediator) {
+.controller('WorkorderDetailCtrl', function($stateParams, mediator) {
   var self = this;
 
-  Mediator.publish('workorder:load', self, $stateParams.workorderId);
-  Mediator.once('workorder:loaded', self, function(workorder) {
+  mediator.publish('workorder:load', self, $stateParams.workorderId);
+  mediator.once('workorder:loaded', self, function(workorder) {
     self.workorder = workorder;
   });
 })

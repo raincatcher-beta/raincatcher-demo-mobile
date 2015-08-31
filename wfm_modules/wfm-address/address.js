@@ -6,7 +6,7 @@ var ngModule = angular.module('wfm.address', ['wfm.core.mediator'])
 
 require('./lib');
 
-ngModule.directive('address', function($templateCache, Mediator) {
+ngModule.directive('address', function($templateCache, mediator) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/address-view.tpl.html')
@@ -16,7 +16,7 @@ ngModule.directive('address', function($templateCache, Mediator) {
   }
 })
 
-.directive('addressForm', function($templateCache, Mediator) {
+.directive('addressForm', function($templateCache, mediator) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/address-form.tpl.html')
@@ -28,7 +28,7 @@ ngModule.directive('address', function($templateCache, Mediator) {
       self.address = angular.copy($scope.address);
       self.next = function(isValid) {
         if (isValid) {
-          Mediator.publish('workflow:address:next', self, self.address);
+          mediator.publish('workflow:address:next', self, self.address);
         };
       }
     }

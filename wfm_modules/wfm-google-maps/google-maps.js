@@ -8,7 +8,7 @@ var ngModule = angular.module('wfm.google-maps', ['wfm.core.mediator', 'uiGmapgo
 
 require('./lib');
 
-ngModule.directive('googleMapsForm', function($templateCache, Mediator) {
+ngModule.directive('googleMapsForm', function($templateCache, mediator) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/google-maps-form.tpl.html')
@@ -36,14 +36,14 @@ ngModule.directive('googleMapsForm', function($templateCache, Mediator) {
       })
       self.next = function(coords) {
         console.log('coords', coords);
-        Mediator.publish('workflow:google-maps:next', self, coords);
+        mediator.publish('workflow:google-maps:next', self, coords);
       }
     }
   , controllerAs: 'ctrl'
   }
 })
 
-.directive('googleMaps', function($templateCache, Mediator) {
+.directive('googleMaps', function($templateCache, mediator) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/google-maps-view.tpl.html')

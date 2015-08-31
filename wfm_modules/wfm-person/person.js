@@ -6,7 +6,7 @@ var ngModule = angular.module('wfm.person', ['wfm.core.mediator']);
 
 require('./lib');
 
-ngModule.directive('person', function($templateCache, Mediator) {
+ngModule.directive('person', function($templateCache, mediator) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/person-view.tpl.html')
@@ -16,7 +16,7 @@ ngModule.directive('person', function($templateCache, Mediator) {
   }
 })
 
-.directive('personForm', function($templateCache, Mediator) {
+.directive('personForm', function($templateCache, mediator) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/person-form.tpl.html')
@@ -28,7 +28,7 @@ ngModule.directive('person', function($templateCache, Mediator) {
       self.person = angular.copy($scope.person);
       self.next = function(isValid) {
         if (isValid) {
-          Mediator.publish('workflow:person:next', self, self.person);
+          mediator.publish('workflow:person:next', self, self.person);
         };
       }
     }

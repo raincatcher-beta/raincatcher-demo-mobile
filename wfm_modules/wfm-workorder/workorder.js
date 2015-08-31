@@ -87,25 +87,25 @@ ngModule.factory('workOrderManager', function($q, $http) {
   return workOrderManager;
 })
 
-.run(function(Mediator, workOrderManager) {
-  Mediator.subscribe('workorder:load', self, function(data) {
+.run(function(mediator, workOrderManager) {
+  mediator.subscribe('workorder:load', self, function(data) {
     workOrderManager.get(data).then(function(workorder) {
-      Mediator.publish('workorder:loaded', self, workorder);
+      mediator.publish('workorder:loaded', self, workorder);
     })
   });
-  Mediator.subscribe('workorders:load', self, function() {
+  mediator.subscribe('workorders:load', self, function() {
     workOrderManager.getList().then(function(workorders) {
-      Mediator.publish('workorders:loaded', self, workorders);
+      mediator.publish('workorders:loaded', self, workorders);
     })
   });
-  Mediator.subscribe('workorder:save', self, function(data) {
+  mediator.subscribe('workorder:save', self, function(data) {
     workOrderManager.save(data).then(function(workorder) {
-      Mediator.publish('workorder:saved', self, workorder);
+      mediator.publish('workorder:saved', self, workorder);
     })
   });
 })
 
-.directive('workorder', function($templateCache, Mediator) {
+.directive('workorder', function($templateCache, mediator) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/workorder-view.tpl.html')
@@ -115,7 +115,7 @@ ngModule.factory('workOrderManager', function($q, $http) {
   };
 })
 
-.directive('workorderTable', function($templateCache, Mediator) {
+.directive('workorderTable', function($templateCache, mediator) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/workorder-table.tpl.html')
@@ -125,7 +125,7 @@ ngModule.factory('workOrderManager', function($q, $http) {
   , controller: function() {
       var self = this;
       self.selectWorkorder = function(event, workorder) {
-        Mediator.publish('workorder:selected', self, workorder);
+        mediator.publish('workorder:selected', self, workorder);
         event.preventDefault();
       }
     }
@@ -133,7 +133,7 @@ ngModule.factory('workOrderManager', function($q, $http) {
   };
 })
 
-.directive('workorderList', function($templateCache, Mediator) {
+.directive('workorderList', function($templateCache, mediator) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/workorder-list.tpl.html')
@@ -158,7 +158,7 @@ ngModule.factory('workOrderManager', function($q, $http) {
   };
 })
 
-.directive('workorderListItem', function($templateCache, Mediator) {
+.directive('workorderListItem', function($templateCache, mediator) {
   return {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/workorder-list-item.tpl.html')
@@ -169,7 +169,7 @@ ngModule.factory('workOrderManager', function($q, $http) {
       var self = this;
       self.showSelectButton = !! $scope.$parent.workorders;
       self.selectWorkorder = function(event, workorder) {
-        Mediator.publish('workorder:selected', self, workorder);
+        mediator.publish('workorder:selected', self, workorder);
         event.preventDefault();
       }
     }
