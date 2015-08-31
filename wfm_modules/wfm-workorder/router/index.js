@@ -3,7 +3,6 @@
 var express = require('express')
   , config = require('../config')
   ;
-// var mediator = require('wfm-mediator');
 
 function initRouter(mediator) {
   var router = express.Router();
