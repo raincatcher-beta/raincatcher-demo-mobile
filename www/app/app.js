@@ -8,6 +8,7 @@ require('../lib/ionic/js/ionic-angular')
 angular.module('wfm-mobile', [
   'ionic'
 , require('./workorder/workorder')
+, require('./workflow/workflow')
 , require('./message/message')
 , require('./calendar/calendar')
 , require('./setting/setting')

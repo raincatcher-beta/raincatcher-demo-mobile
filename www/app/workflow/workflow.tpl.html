@@ -1,0 +1,49 @@
+<!--
+Create tabs with an icon and label, using the tabs-positive style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top tabs-stable tabs-color-active-positive">
+
+  <ion-tab hidden="true" title="Work Order" icon="ion-filing">
+    <ion-nav-view name="tab-workorder"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab hidden="{{workflow.tabGroup != 0}}" title="Abort" icon="ion-thumbsdown">
+    <ion-nav-view name="tab-abort"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab hidden="{{workflow.tabGroup != 0}}" title="Map" icon="ion-location">
+    <ion-nav-view name="tab-map"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab hidden="{{workflow.tabGroup != 0}}" title="Camera" icon="ion-camera">
+    <ion-nav-view name="tab-camera"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab hidden="{{workflow.tabGroup != 0}}" title="Files" icon="ion-paperclip">
+    <ion-nav-view name="tab-files"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab hidden="{{workflow.tabGroup != 0}}" title="More" icon="ion-ios-more" ng-click="workflow.toggleMore()"></ion-tab>
+
+  <ion-tab hidden="{{workflow.tabGroup != 1}}" title="Less" icon="ion-ios-more-outline" ng-click="workflow.toggleMore()"></ion-tab>
+
+  <ion-tab hidden="{{workflow.tabGroup != 1}}" title="Calendar" icon-off="ion-ios-calendar-outline" icon-on="ion-ios-calendar">
+    <ion-nav-view name="tab-calendar"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab hidden="{{workflow.tabGroup != 1}}" title="Forms" icon="ion-ios-list-outline">
+    <ion-nav-view name="tab-forms"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab hidden="{{workflow.tabGroup != 1}}" title="Messages" icon="ion-email">
+    <ion-nav-view name="tab-messages"></ion-nav-view>
+  </ion-tab>
+
+  <ion-tab hidden="{{workflow.tabGroup != 1}}" title="Settings" icon-off="ion-ios-settings" icon-on="ion-ios-settings-strong">
+    <ion-nav-view name="tab-settings"></ion-nav-view>
+  </ion-tab>
+
+
+</ion-tabs>
