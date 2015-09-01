@@ -15,10 +15,10 @@ angular.module('wfm-mobile.workflow', [
 })
 
 .constant('steps', [
-    {code: 'begin-workflow', name: 'Begin Workflow', template: 'wfm-template/workorder-list-item.tpl.html'},
-    {code: 'risk-assessment', name: 'Risk Assessment', template: 'app/workflow/risk-assessment.tpl.html'},
-    {code: 'vehicle-inspection', name: 'Vehicle Inspection', template: 'app/workflow/vehicle-inspection.tpl.html'},
-    {code: 'workflow-complete', name: 'Workflow Complete', template: 'wfm-template/workorder-list-item.tpl.html'}
+    {code: 'begin-workflow', name: 'Begin Workflow', template: '<workorder-list-item workorder="workorder"></workorder-view-item>'},
+    {code: 'risk-assessment', name: 'Risk Assessment', templatePath: 'app/workflow/risk-assessment.tpl.html'},
+    {code: 'vehicle-inspection', name: 'Vehicle Inspection', templatePath: 'app/workflow/vehicle-inspection.tpl.html'},
+    {code: 'workflow-complete', name: 'Workflow Complete', templatePath: 'wfm-template/workorder-list-item.tpl.html'}
   ]
 )
 
@@ -127,30 +127,31 @@ angular.module('wfm-mobile.workflow', [
   return {
     restrict: 'E'
   , scope: {
-      step: '=',
-      workorder: '='
+      step: '=' // { ..., template: "an html template to use", templatePath: "a template path to load"}
+    , workorder: '='
     }
   , link: function (scope, element, attrs) {
       scope.$watch('step', function(step) {
-        console.log('requesting template', scope.step )
         if (scope.step) {
-          $templateRequest(scope.step.template).then(function(template) {
+          if (scope.step.templatePath) {
+            $templateRequest(scope.step.templatePath).then(function(template) {
+              window.requestAnimationFrame(function() {
+                element.html(template);
+                $compile(element.contents())(scope);
+              });
+            });
+          } else {
             window.requestAnimationFrame(function() {
-              element.html(template);
+              element.html(scope.step.template);
               $compile(element.contents())(scope);
             });
-          });
-
-        }
+          };
+        };
       });
     }
   , controller: function() {
       var self = this;
       self.mediator = mediator;
-      self.selectWorkorder = function(event, workorder) {
-        mediator.publish('workorder:selected', workorder);
-        event.preventDefault();
-      }
     }
   , controllerAs: 'ctrl'
   };
