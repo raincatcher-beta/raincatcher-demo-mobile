@@ -16,7 +16,7 @@ angular.module('wfm-mobile.workflow', [
 
 .constant('steps', [
     {code: 'begin-workflow', name: 'Begin Workflow', template: '<workorder-list-item workorder="workorder"></workorder-view-item>'},
-    {code: 'risk-assessment', name: 'Risk Assessment', templatePath: 'app/workflow/risk-assessment.tpl.html'},
+    {code: 'risk-assessment', name: 'Risk Assessment', template: '<risk-assessment></risk-assessment>'},
     {code: 'vehicle-inspection', name: 'Vehicle Inspection', templatePath: 'app/workflow/vehicle-inspection.tpl.html'},
     {code: 'workflow-complete', name: 'Workflow Complete', templatePath: 'wfm-template/workorder-list-item.tpl.html'}
   ]
@@ -59,12 +59,16 @@ angular.module('wfm-mobile.workflow', [
     self.workorder = workorder;
   });
 
-  self.mediator = mediator;
+  mediator.once('wfm:risk-assessment:done', function(riskAssessment) {
+    self.workorder.riskAssessment = riskAssessment;
+    self.next();
+  });
 
   self.steps = steps;
 
   self.stepIndex = 0;
   self.stepCurrent = steps[0];
+
 
   self.next = function() {
     if (self.stepIndex < self.steps.length -1) {

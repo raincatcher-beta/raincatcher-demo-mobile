@@ -39,6 +39,7 @@
     "wfm-google-maps": "file:wfm_modules/wfm-google-maps",
     "wfm-mediator": "file:wfm_modules/wfm-mediator",
     "wfm-person": "file:wfm_modules/wfm-person",
+    "wfm-risk-assessment": "file:wfm_modules/wfm-risk-assessment",
     "wfm-workorder": "file:wfm_modules/wfm-workorder"
   },
   "devDependencies": {

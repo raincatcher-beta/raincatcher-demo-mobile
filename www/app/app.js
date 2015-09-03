@@ -15,6 +15,7 @@ angular.module('wfm-mobile', [
 
 , require('wfm-mediator')
 , require('wfm-workorder')
+, require('wfm-risk-assessment')
 ])
 
 .run(function($ionicPlatform) {
