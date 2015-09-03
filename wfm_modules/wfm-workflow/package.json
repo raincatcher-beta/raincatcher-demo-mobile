@@ -1,0 +1,19 @@
+{
+  "name": "wfm-workflow",
+  "version": "0.0.1",
+  "description": "A workflow module for WFM",
+  "main": "workflow.js",
+  "scripts": {
+    "build": "wfm-template-build -m 'wfm.workflow'",
+    "watch": "wfm-template-build -w -m 'wfm.workflow'"
+  },
+  "keywords": [
+    "wfm",
+    "workflow"
+  ],
+  "author": "Brian Leathem",
+  "license": "ISC",
+  "devDependencies": {
+    "wfm-template-build": "bleathem/wfm-template-build"
+  }
+}
