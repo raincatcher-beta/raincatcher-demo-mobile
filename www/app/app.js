@@ -17,6 +17,7 @@ angular.module('wfm-mobile', [
 , require('wfm-workorder')
 , require('wfm-workflow')
 , require('wfm-risk-assessment')
+, require('wfm-vehicle-inspection')
 ])
 
 .run(function($ionicPlatform) {

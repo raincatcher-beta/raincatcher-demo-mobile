@@ -17,8 +17,8 @@ angular.module('wfm-mobile.workflow', [
 .constant('steps', [
     {code: 'begin-workflow', name: 'Begin Workflow', template: '<workorder-list-item workorder="workorder"></workorder-view-item>'},
     {code: 'risk-assessment', name: 'Risk Assessment', template: '<risk-assessment></risk-assessment>'},
-    {code: 'vehicle-inspection', name: 'Vehicle Inspection', templatePath: 'app/workflow/vehicle-inspection.tpl.html'},
-    {code: 'workflow-complete', name: 'Workflow Complete', templatePath: 'wfm-template/workorder-list-item.tpl.html'}
+    {code: 'vehicle-inspection', name: 'Vehicle Inspection', template: '<vehicle-inspection></vehicle-inspection>'},
+    {code: 'workflow-complete', name: 'Workflow Complete', template: '<workorder-list-item workorder="workorder"></workorder-view-item>'}
   ]
 )
 
@@ -61,6 +61,11 @@ angular.module('wfm-mobile.workflow', [
 
   mediator.once('wfm:risk-assessment:done', function(riskAssessment) {
     self.workorder.riskAssessment = riskAssessment;
+    self.next();
+  });
+
+  mediator.once('wfm:vehicle-inspection:done', function(vehicleInspection) {
+    self.workorder.vehicleInspection = vehicleInspection;
     self.next();
   });
 

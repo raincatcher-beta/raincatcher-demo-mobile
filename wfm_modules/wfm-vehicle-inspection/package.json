@@ -1,0 +1,16 @@
+{
+  "name": "wfm-vehicle-inspection",
+  "version": "0.0.1",
+  "description": "An vehicle-inspection module for WFM",
+  "main": "vehicle-inspection.js",
+  "scripts": {
+    "build": "wfm-template-build -m 'wfm.workorder'",
+    "watch": "wfm-template-build -w -m 'wfm.workorder'"
+  },
+  "keywords": [
+    "wfm",
+    "workorder"
+  ],
+  "author": "Brian Leathem",
+  "license": "ISC"
+}

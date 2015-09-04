@@ -1,0 +1,13 @@
+<div class="vehicle-inspection">
+  <ion-toggle ng-model="ctrl.model.fuel" toggle-class="toggle-calm">
+    <i class="icon ion-waterdrop"></i>
+    Fuel
+  </ion-toggle>
+  <ion-toggle ng-model="ctrl.model.tires" toggle-class="toggle-calm">
+    <i class="icon ion-disc"></i>
+    Tires
+  </ion-toggle>
+  <ion-item>
+    <button class="button button-positive button-full" on-touch="ctrl.done()">Submit</button>
+  </ion-item>
+</div>
