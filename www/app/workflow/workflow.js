@@ -14,6 +14,7 @@ angular.module('wfm-mobile.workflow', [
   });
 })
 
+// Note: the scope for rendering the step views is defined in the workflowStep directive
 .constant('steps', [
     {code: 'begin-workflow', name: 'Begin Workflow', template: '<workorder-list-item workorder="workorder"></workorder-view-item>'},
     {code: 'risk-assessment', name: 'Risk Assessment', template: '<risk-assessment></risk-assessment>'},

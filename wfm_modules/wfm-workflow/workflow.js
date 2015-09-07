@@ -5,28 +5,26 @@ var ngModule = angular.module('wfm.workflow', ['wfm.core.mediator'])
 
 ngModule.directive('workflowProgress', function($timeout) {
   var draw = function(scope, element, attrs) {
-    window.requestAnimationFrame(function() {
-      var div = element[0].querySelector('.progtrckr');
-      if (div) {
-        while (div.firstChild) {
-          angular.element(div.firstChild).remove();
-        }
-        div = angular.element(div);
-      } else {
-        div = angular.element('<ol class="progtrckr" />');
-        element.append(div);
+    var div = element[0].querySelector('.progtrckr');
+    if (div) {
+      while (div.firstChild) {
+        angular.element(div.firstChild).remove();
       }
-      var completed = false;
-      scope.steps.forEach(function(_step) {
-        var cssClass;
-        if (_step.code === scope.step.code) {
-          cssClass = 'progtrckr-current';
-          completed = true;
-        } else {
-          cssClass = completed ? 'progtrckr-todo' : 'progtrckr-done'
-        }
-        div.append('<li class="step '+cssClass+'">' + _step.name + '</li>')
-      })
+      div = angular.element(div);
+    } else {
+      div = angular.element('<ol class="progtrckr" />');
+      element.append(div);
+    }
+    var completed = false;
+    scope.steps.forEach(function(_step) {
+      var cssClass;
+      if (_step.code === scope.step.code) {
+        cssClass = 'progtrckr-current';
+        completed = true;
+      } else {
+        cssClass = completed ? 'progtrckr-todo' : 'progtrckr-done'
+      }
+      div.append('<li class="step '+cssClass+'">' + _step.name + '</li>')
     });
   };
 
@@ -64,16 +62,12 @@ ngModule.directive('workflowProgress', function($timeout) {
         if (scope.step) {
           if (scope.step.templatePath) {
             $templateRequest(scope.step.templatePath).then(function(template) {
-              window.requestAnimationFrame(function() {
-                element.html(template);
-                $compile(element.contents())(scope);
-              });
-            });
-          } else {
-            window.requestAnimationFrame(function() {
-              element.html(scope.step.template);
+              element.html(template);
               $compile(element.contents())(scope);
             });
+          } else {
+            element.html(scope.step.template);
+            $compile(element.contents())(scope);
           };
         };
       });
