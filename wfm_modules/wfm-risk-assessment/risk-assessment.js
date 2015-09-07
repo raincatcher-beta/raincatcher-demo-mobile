@@ -55,8 +55,6 @@ ngModule.directive('riskAssessmentSignature', function($templateCache, $window, 
       left: rect.left + $document[0].body.scrollLeft
     };
 
-    console.log(offset);
-
     var self = {
       //bind click events
       init: function() {
