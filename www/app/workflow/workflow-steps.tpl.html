@@ -1,4 +1,7 @@
 <ion-view view-title="{{ctrl.workorder.type}} - {{ctrl.workorder.id}}">
+  <ion-nav-buttons side="left">
+    <button ui-sref="tab.workorders"  class="button icon-left ion-chevron-left"> Workorders</button>
+  </ion-nav-buttons>
   <!-- ion-nav-title included below as a workaround for https://github.com/driftyco/ionic/issues/2847 -->
   <ion-nav-title>{{ctrl.workorder.type}} - {{ctrl.workorder.id}}</ion-nav-title>
   <ion-content>
