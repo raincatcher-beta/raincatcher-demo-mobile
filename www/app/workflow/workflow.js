@@ -101,25 +101,4 @@ angular.module('wfm-mobile.workflow', [
   }
 })
 
-.directive('workflowStepSummary', function($compile, steps) {
-  var render = function(scope, element, attrs) {
-    if (steps) {
-      element.children().remove();
-      steps.forEach(function(step) {
-        element.append(step.templates.view);
-      });
-      $compile(element.contents())(scope);
-    };
-  }
-  return {
-    restrict: 'E'
-  , scope: {
-      workorder: '='
-    }
-  , link: function (scope, element, attrs) {
-      render(scope, element, attrs);
-    }
-  };
-})
-
 module.exports = 'wfm-mobile.workflow';

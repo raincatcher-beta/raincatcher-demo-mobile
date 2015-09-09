@@ -76,6 +76,7 @@ ngModule.directive('workflowProgress', function($timeout) {
     restrict: 'E'
   , scope: {
       step: '=' // { ..., template: "an html template to use", templatePath: "a template path to load"}
+    , steps: '='
     , workorder: '='
     }
   , link: function (scope, element, attrs) {
@@ -98,6 +99,28 @@ ngModule.directive('workflowProgress', function($timeout) {
       self.mediator = mediator;
     }
   , controllerAs: 'ctrl'
+  };
+})
+
+.directive('workflowStepSummary', function($compile) {
+  var render = function(scope, element, attrs) {
+    if (scope.steps) {
+      element.children().remove();
+      scope.steps.forEach(function(step) {
+        element.append(step.templates.view);
+      });
+      $compile(element.contents())(scope);
+    };
+  }
+  return {
+    restrict: 'E'
+  , scope: {
+      steps: '='
+    , workorder: '='
+    }
+  , link: function (scope, element, attrs) {
+      render(scope, element, attrs);
+    }
   };
 })
 ;
