@@ -11,19 +11,33 @@ ngModule.directive('riskAssessment', function($templateCache, mediator) {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/risk-assessment.tpl.html')
   , scope: {
+      riskAssessment: "=value"
     }
   , controller: function($element, $scope) {
       var self = this;
-      $scope.step = 0
+    }
+  , controllerAs: 'ctrl'
+  };
+})
+
+ngModule.directive('riskAssessmentForm', function($templateCache, mediator) {
+  return {
+    restrict: 'E'
+  , template: $templateCache.get('wfm-template/risk-assessment-form.tpl.html')
+  , scope: {
+    }
+  , controller: function($element, $scope) {
+      var self = this;
+      $scope.riskAssessmentStep = 0
       self.model = {};
       self.answerComplete = function(answer) {
         self.model.complete = answer;
-        $scope.step++;
+        $scope.riskAssessmentStep++;
       };
       self.done = function() {
         // TODO: attach a Base64 encoded string of the signature image to the model
         var canvas = $element[0].getElementsByTagName('canvas')[0];
-        self.model.signature = canvas.getContext('2d').getImageData(0,0, canvas.width, canvas.height);
+        self.model.signature = canvas.toDataURL();
         mediator.publish('wfm:risk-assessment:done', self.model);
       };
     }

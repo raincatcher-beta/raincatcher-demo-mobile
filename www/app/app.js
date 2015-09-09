@@ -38,6 +38,7 @@ angular.module('wfm-mobile', [
 
 .config(function($ionicConfigProvider) {
     $ionicConfigProvider.tabs.position('bottom'); // other values: top
+    $ionicConfigProvider.navBar.alignTitle('center');
 })
 
 .config(function($stateProvider, $urlRouterProvider) {

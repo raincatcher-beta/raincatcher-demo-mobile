@@ -15,17 +15,19 @@ ngModule.directive('workflowProgress', function($timeout) {
       div = angular.element('<ol class="progtrckr" />');
       element.append(div);
     }
-    var completed = false;
-    scope.steps.forEach(function(_step) {
-      var cssClass;
-      if (_step.code === scope.step.code) {
-        cssClass = 'progtrckr-current';
-        completed = true;
-      } else {
-        cssClass = completed ? 'progtrckr-todo' : 'progtrckr-done'
-      }
-      div.append('<li class="step '+cssClass+'">' + _step.name + '</li>')
-    });
+    if (scope.step) {
+      var completed = false;
+      scope.steps.forEach(function(_step) {
+        var cssClass;
+        if (_step.code === scope.step.code) {
+          cssClass = 'progtrckr-current';
+          completed = true;
+        } else {
+          cssClass = completed ? 'progtrckr-todo' : 'progtrckr-done'
+        }
+        div.append('<li class="step '+cssClass+'">' + _step.name + '</li>')
+      });
+    }
   };
 
   return {
@@ -66,7 +68,7 @@ ngModule.directive('workflowProgress', function($timeout) {
               $compile(element.contents())(scope);
             });
           } else {
-            element.html(scope.step.template);
+            element.html(scope.step.templates.form);
             $compile(element.contents())(scope);
           };
         };

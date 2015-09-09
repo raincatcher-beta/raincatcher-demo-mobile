@@ -1,17 +1,22 @@
-<ion-item class="risk-assessment">
-  <div ng-show="step === 0">
-    <div class="heading">
+<div class="risk-assessment">
+  <ion-item class="item-divider">
+    Risk Assessment
+  </ion-item>
+  <ion-item>
+    <div class="item-icon-left">
       <i class="icon ion-alert-circled"></i>
-      <h2>Risk assessment complete?</h2>
+      Risk Assessment complete
     </div>
-    <button class="button button-balanced button-full" ng-click="ctrl.answerComplete(true)" on-touch="ctrl.answerComplete(true)">Yes</button>
-    <button class="button button-assertive button-full" ng-click="ctrl.answerComplete(false)" on-touch="ctrl.answerComplete(false)">No</button>
-  </div>
-  <div ng-if="step == 1">
-    <div class="heading">
-      <h3>Signature:</h3>
+    <div class="item-icon-right">
+      <i class="icon ion-checkmark" ng-show="riskAssessment.complete"></i>
+      <i class="icon ion-close" ng-show="! riskAssessment.complete"></i>
     </div>
-    <risk-assessment-signature></risk-assessment-signature>
-    <button class="button button-positive button-full" on-touch="ctrl.done()">Submit</button>
-  </div>
-</ion-item>
+  </ion-item>
+  <ion-item class="item-icon-left">
+    <i class="icon ion-edit"></i>
+    Signature
+  </ion-item>
+  <ion-item>
+    <img src="{{riskAssessment.signature}}"></img>
+  </ion-item>
+</div>

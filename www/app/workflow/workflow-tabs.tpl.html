@@ -1,8 +1,3 @@
-<!--
-Create tabs with an icon and label, using the tabs-positive style.
-Each tab's child <ion-nav-view> directive will have its own
-navigation history that also transitions its views in and out.
--->
 <ion-tabs class="tabs-icon-top tabs-stable tabs-color-active-positive">
 
   <ion-tab hidden="true" title="Work Order" icon="ion-filing">
@@ -25,9 +20,9 @@ navigation history that also transitions its views in and out.
     <ion-nav-view name="tab-files"></ion-nav-view>
   </ion-tab>
 
-  <ion-tab hidden="{{tab.tabGroup != 0}}" title="More" icon="ion-ios-more" ng-click="workflow.toggleMore()"></ion-tab>
+  <ion-tab hidden="{{tab.tabGroup != 0}}" title="More" icon="ion-ios-more" ng-click="tab.toggleMore()"></ion-tab>
 
-  <ion-tab hidden="{{tab.tabGroup != 1}}" title="Less" icon="ion-ios-more-outline" ng-click="workflow.toggleMore()"></ion-tab>
+  <ion-tab hidden="{{tab.tabGroup != 1}}" title="Less" icon="ion-ios-more-outline" ng-click="tab.toggleMore()"></ion-tab>
 
   <ion-tab hidden="{{tab.tabGroup != 1}}" title="Calendar" icon-off="ion-ios-calendar-outline" icon-on="ion-ios-calendar">
     <ion-nav-view name="tab-calendar"></ion-nav-view>

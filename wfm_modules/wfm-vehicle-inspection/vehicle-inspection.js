@@ -12,6 +12,16 @@ ngModule.directive('vehicleInspection', function($templateCache, mediator) {
     restrict: 'E'
   , template: $templateCache.get('wfm-template/vehicle-inspection.tpl.html')
   , scope: {
+      vehicleInspection: '=value'
+    }
+  };
+})
+
+ngModule.directive('vehicleInspectionForm', function($templateCache, mediator) {
+  return {
+    restrict: 'E'
+  , template: $templateCache.get('wfm-template/vehicle-inspection-form.tpl.html')
+  , scope: {
     }
   , controller: function() {
     var self = this;

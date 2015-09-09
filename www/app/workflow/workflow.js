@@ -16,10 +16,22 @@ angular.module('wfm-mobile.workflow', [
 
 // Note: the scope for rendering the step views is defined in the workflowStep directive
 .constant('steps', [
-    {code: 'begin-workflow', name: 'Begin Workflow', template: '<workorder-list-item workorder="workorder"></workorder-view-item>'},
-    {code: 'risk-assessment', name: 'Risk Assessment', template: '<risk-assessment></risk-assessment>'},
-    {code: 'vehicle-inspection', name: 'Vehicle Inspection', template: '<vehicle-inspection></vehicle-inspection>'},
-    {code: 'workflow-complete', name: 'Workflow Complete', template: '<workorder-list-item workorder="workorder"></workorder-view-item>'}
+    {code: 'begin-workflow', name: 'Begin Workflow', templates: {
+      form: '<workorder-list-item workorder="workorder"></workorder-view-item>',
+      view: '<workorder-list-item workorder="workorder"></workorder-view-item>'
+    }},
+    {code: 'risk-assessment', name: 'Risk Assessment', templates: {
+      form: '<risk-assessment-form></risk-assessment-form>',
+      view: '<risk-assessment value="workorder.riskAssessment"></risk-assessment>'
+    }},
+    {code: 'vehicle-inspection', name: 'Vehicle Inspection', templates: {
+      form: '<vehicle-inspection-form></vehicle-inspection-form>',
+      view: '<vehicle-inspection value="workorder.vehicleInspection"></vehicle-inspection>'
+    }},
+    {code: 'workflow-complete', name: 'Workflow Complete', templates: {
+      form: '<workflow-step-summary workorder="workorder"></workflow-step-summary>',
+      view: ''
+    }}
   ]
 )
 
@@ -54,10 +66,25 @@ angular.module('wfm-mobile.workflow', [
 
 .controller('WorkflowStepController', function($stateParams, $templateRequest, $scope, $compile, mediator, steps) {
   var self = this;
+  self.steps = steps;
 
   mediator.publish('workorder:load', $stateParams.workorderId);
   mediator.once('workorder:loaded', function(workorder) {
     self.workorder = workorder;
+    if (!self.workorder.steps) {
+      self.workorder.steps = {};
+    }
+    var stepIndex = 0;
+    var stepCurrent = steps[0];
+    for (var i=0; i < steps.length; i++) {
+      if (self.workorder.steps && self.workorder.steps[self.steps[i].code] !== 'complete') {
+        stepIndex = i;
+        stepCurrent = steps[i];
+        break;
+      }
+    };
+    self.stepIndex = stepIndex;
+    self.stepCurrent = stepCurrent;
   });
 
   mediator.once('wfm:risk-assessment:done', function(riskAssessment) {
@@ -70,18 +97,38 @@ angular.module('wfm-mobile.workflow', [
     self.next();
   });
 
-  self.steps = steps;
-
-  self.stepIndex = 0;
-  self.stepCurrent = steps[0];
-
-
   self.next = function() {
+
+    self.workorder.steps[self.stepCurrent.code] = 'complete';
     if (self.stepIndex < self.steps.length -1) {
-      self.stepIndex++;
+      mediator.publish('workorder:save', self.workorder);
+      mediator.once('workorder:saved', function() {
+        self.stepIndex++;
+        self.stepCurrent = self.steps[self.stepIndex];
+      })
     };
-    self.stepCurrent = self.steps[self.stepIndex];
   }
+})
+
+.directive('workflowStepSummary', function($compile, steps) {
+  var render = function(scope, element, attrs) {
+    if (steps) {
+      element.children().remove();
+      steps.forEach(function(step) {
+        element.append(step.templates.view);
+      });
+      $compile(element.contents())(scope);
+    };
+  }
+  return {
+    restrict: 'E'
+  , scope: {
+      workorder: '='
+    }
+  , link: function (scope, element, attrs) {
+      render(scope, element, attrs);
+    }
+  };
 })
 
 module.exports = 'wfm-mobile.workflow';

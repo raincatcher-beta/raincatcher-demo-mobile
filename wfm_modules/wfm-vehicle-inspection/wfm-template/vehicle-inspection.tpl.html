@@ -1,13 +1,25 @@
 <div class="vehicle-inspection">
-  <ion-toggle ng-model="ctrl.model.fuel" toggle-class="toggle-calm">
-    <i class="icon ion-waterdrop"></i>
-    Fuel
-  </ion-toggle>
-  <ion-toggle ng-model="ctrl.model.tires" toggle-class="toggle-calm">
-    <i class="icon ion-disc"></i>
-    Tires
-  </ion-toggle>
+  <ion-item class="item-divider">
+    Vehicle Inspection
+  </ion-item>
   <ion-item>
-    <button class="button button-positive button-full" on-touch="ctrl.done()">Submit</button>
+    <div class="item-icon-left">
+      <i class="icon ion-waterdrop"></i>
+      Fuel
+    </div>
+    <div class="item-icon-right">
+      <i class="icon ion-checkmark" ng-show="vehicleInspection.fuel"></i>
+      <i class="icon ion-close" ng-show="! vehicleInspection.fuel"></i>
+    </div>
+  </ion-item>
+  <ion-item>
+    <div class="item-icon-left">
+      <i class="icon ion-disc"></i>
+      Tires
+    </div>
+    <div class="item-icon-right">
+      <i class="icon ion-checkmark" ng-show="vehicleInspection.tires"></i>
+      <i class="icon ion-close" ng-show="! vehicleInspection.tires"></i>
+    </div>
   </ion-item>
 </div>
