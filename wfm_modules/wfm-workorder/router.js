@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express')
-  , config = require('../config')
+  , config = require('./config')
   ;
 
 function initRouter(mediator) {

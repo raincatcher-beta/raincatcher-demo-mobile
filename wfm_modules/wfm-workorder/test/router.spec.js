@@ -14,7 +14,7 @@ var request = require('request')
 app.use(bodyParser.json());
 
 // wfm routes
-require('./index')(mediator, app);
+require('../router')(mediator, app);
 
 var testData = [ {id: 0, value: 'one'}, {id: 1, value: 'two'}, {id: 2, value: 'three'} ];
 
