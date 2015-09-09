@@ -15,25 +15,16 @@ angular.module('wfm-mobile.workflow', [
 })
 
 // Note: the scope for rendering the step views is defined in the workflowStep directive
-.constant('steps', [
-    {code: 'begin-workflow', name: 'Begin Workflow', templates: {
-      form: '<workorder-list-item workorder="workorder"></workorder-view-item>',
-      view: '<workorder-list-item workorder="workorder"></workorder-view-item>'
-    }},
-    {code: 'risk-assessment', name: 'Risk Assessment', templates: {
-      form: '<risk-assessment-form></risk-assessment-form>',
-      view: '<risk-assessment value="workorder.riskAssessment"></risk-assessment>'
-    }},
-    {code: 'vehicle-inspection', name: 'Vehicle Inspection', templates: {
-      form: '<vehicle-inspection-form></vehicle-inspection-form>',
-      view: '<vehicle-inspection value="workorder.vehicleInspection"></vehicle-inspection>'
-    }},
-    {code: 'workflow-complete', name: 'Workflow Complete', templates: {
-      form: '<workflow-step-summary workorder="workorder"></workflow-step-summary>',
-      view: ''
-    }}
-  ]
-)
+.factory('steps', function(mediator) {
+  var steps = [];
+
+  mediator.publish('workflow:steps:load');
+  mediator.once('workflow:steps:loaded', function(_steps) {
+    Array.prototype.push.apply(steps, _steps);
+  });
+
+  return steps;
+})
 
 .config(function($stateProvider) {
   $stateProvider

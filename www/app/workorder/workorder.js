@@ -26,10 +26,6 @@ angular.module('wfm-mobile.workorders', [
   mediator.once('workorders:loaded', function(workorders) {
     self.workorders = workorders;
   });
-
-  mediator.once('workorder:selected', function(workorder) {
-
-  });
 })
 
 ;
