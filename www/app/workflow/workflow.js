@@ -14,7 +14,6 @@ angular.module('wfm-mobile.workflow', [
   });
 })
 
-// Note: the scope for rendering the step views is defined in the workflowStep directive
 .factory('steps', function(mediator) {
   var steps = [];
 

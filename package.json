@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "npm run serve-portal & npm run serve-mobile",
-    "watch": "npm run watch-mobile-js & npm run watch-portal-js & npm run watch-server & npm run serve-mobile & npm run livereload & npm run sass-mobile-watch",
+    "watch": "npm run watch-mobile-js & npm run watch-portal-js & npm run watch-server & npm run serve-mobile & npm run livereload & npm run sass-mobile-watch & npm run sass-portal-watch",
     "serve-portal": "node server/server.js",
     "serve-mobile": "node server/mobile-dev.js",
     "build": "npm run build-portal-js",
@@ -16,6 +16,8 @@
     "watch-server": "nodemon -w server server/server.js",
     "sass-mobile": "node-sass www/sass/app.scss www/css/app.css",
     "sass-mobile-watch": "nodemon -e scss -w www/sass -x 'npm run sass-mobile'",
+    "sass-portal": "node-sass portal/sass/portal.scss portal/css/portal.css",
+    "sass-portal-watch": "nodemon -e scss -w portal/sass -x 'npm run sass-portal'",
     "livereload": "node scripts/livereload",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

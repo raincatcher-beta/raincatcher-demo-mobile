@@ -4,21 +4,24 @@ var angular = require('angular');
 var config = require('./config');
 var ngModule = angular.module('wfm.workflow', ['wfm.core.mediator'])
 
-ngModule.factory('workflowSteps', function($http) {
+ngModule.factory('workflowSteps', function() {
   var steps = [];
-
-  $http.get(config.apiHost + config.apiPath + '/steps').then(function(response) {
-    Array.prototype.push.apply(steps, response.data);
-  });
 
   return steps;
 })
 
-ngModule.run(function($timeout, mediator, workflowSteps) {
+ngModule.run(function($http, $timeout, mediator, workflowSteps) {
   mediator.subscribe('workflow:steps:load', function() {
-    $timeout(function() {
-      mediator.publish('workflow:steps:loaded', workflowSteps);
-    }, 0);
+    if (!workflowSteps.length) {
+      $http.get(config.apiHost + config.apiPath + '/steps').then(function(response) {
+        Array.prototype.push.apply(workflowSteps, response.data);
+        mediator.publish('workflow:steps:loaded', workflowSteps);
+      });
+    } else {
+      $timeout(function() {
+        mediator.publish('workflow:steps:loaded', workflowSteps);
+      }, 0);
+    }
   });
 })
 
