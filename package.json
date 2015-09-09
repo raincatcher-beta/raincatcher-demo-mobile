@@ -2,6 +2,11 @@
   "name": "wfm2",
   "version": "0.0.1",
   "description": "A WFM2 PoC using the mediator pattern",
+  "repository": "https://github.com/feedhenry-staff/wfm2-poc.git",
+  "engines" : {
+    "node": ">=0.10.0",
+    "npm": ">=2.0.0"
+  },
   "main": "server/server.js",
   "scripts": {
     "start": "npm run serve-portal & npm run serve-mobile",
