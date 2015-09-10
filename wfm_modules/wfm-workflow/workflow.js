@@ -4,40 +4,23 @@ var angular = require('angular');
 var config = require('./config');
 var ngModule = angular.module('wfm.workflow', ['wfm.core.mediator'])
 
-ngModule.factory('workflowSteps', function() {
-  var steps = [];
-
-  return steps;
-})
-
-ngModule.run(function($http, $q, $timeout, mediator, workflowSteps) {
-  var lazyLoadSteps = function() {
-    var promise;
-    if (!workflowSteps.length) {
-      promise = $http.get(config.apiHost + config.apiPath + '/steps').then(function(response) {
-        Array.prototype.push.apply(workflowSteps, response.data);
-        return response.data;
-      });
-    } else {
-      var deferred = $q.defer();
-      $timeout(function() { // keep the API async
-        deferred.resolve(workflowSteps);
-      });
-      return deferred.promise;
-    };
-    return promise;
-  }
+ngModule.run(function($http, $q, $timeout, mediator) {
+  var promise = $http.get(config.apiHost + config.apiPath + '/steps').then(function(response) {
+    return response.data;
+  }); // TODO: introduce retry/error-handling logic
 
   mediator.subscribe('workflow:init', function() {
-    lazyLoadSteps().then(function() {
-      mediator.publish('workflow:init:done', {
-        steps: workflowSteps
+    promise.then(function(workflowSteps) {
+      $timeout(function() {
+        mediator.publish('workflow:init:done', {
+          steps: workflowSteps
+        });
       });
-    }); // TODO: introduce retry/error-handling logic
+    });
   });
 
   mediator.subscribe('workflow:steps:load', function() {
-    lazyLoadSteps().then(function() {
+    promise.then(function(workflowSteps) {
       mediator.publish('workflow:steps:loaded', workflowSteps);
     });
   });
