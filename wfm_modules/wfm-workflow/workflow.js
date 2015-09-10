@@ -108,10 +108,16 @@ ngModule.directive('workflowProgress', function($timeout) {
 
 .directive('workflowStepSummary', function($compile) {
   var render = function(scope, element, attrs) {
-    if (scope.steps) {
+    if (scope.steps && scope.workorder) {
+      var portal = scope.portal === 'true';
       element.children().remove();
-      scope.steps.forEach(function(step) {
-        element.append(step.templates.view);
+      scope.steps.forEach(function(step, i) {
+        if (i==0 || scope.workorder.steps && scope.workorder.steps[step.code] === 'complete' ) {
+          var template = portal && step.templates.portal && step.templates.portal.view
+            ? step.templates.portal.view
+            : step.templates.view
+          element.append(template);
+        }
       });
       $compile(element.contents())(scope);
     };
@@ -121,9 +127,16 @@ ngModule.directive('workflowProgress', function($timeout) {
   , scope: {
       steps: '='
     , workorder: '='
+    , portal: '@'
     }
   , link: function (scope, element, attrs) {
       render(scope, element, attrs);
+      scope.$watch('steps', function() {
+        render(scope, element, attrs);
+      });
+      scope.$watch('workorder', function() {
+        render(scope, element, attrs);
+      });
     }
   };
 })

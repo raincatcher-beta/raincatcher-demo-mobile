@@ -123,20 +123,20 @@ ngModule.factory('workOrderManager', function($q, $http) {
   });
 })
 
-.directive('workorder', function($templateCache, mediator) {
+.directive('workorderPortalView', function($templateCache, mediator) {
   return {
     restrict: 'E'
-  , template: $templateCache.get('wfm-template/workorder-view.tpl.html')
+  , template: $templateCache.get('wfm-template/workorder-portal-view.tpl.html')
   , scope: {
       workorder: '=value'
     }
   };
 })
 
-.directive('workorderTable', function($templateCache, mediator) {
+.directive('workorderPorterTable', function($templateCache, mediator) {
   return {
     restrict: 'E'
-  , template: $templateCache.get('wfm-template/workorder-table.tpl.html')
+  , template: $templateCache.get('wfm-template/workorder-portal-table.tpl.html')
   , scope: {
       list : '=list'
     }

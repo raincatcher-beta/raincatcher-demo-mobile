@@ -20,6 +20,20 @@ ngModule.directive('riskAssessment', function($templateCache, mediator) {
   };
 })
 
+ngModule.directive('riskAssessmentPortalView', function($templateCache, mediator) {
+  return {
+    restrict: 'E'
+  , template: $templateCache.get('wfm-template/risk-assessment-portal-view.tpl.html')
+  , scope: {
+      riskAssessment: "=value"
+    }
+  , controller: function($element, $scope) {
+      var self = this;
+    }
+  , controllerAs: 'ctrl'
+  };
+})
+
 ngModule.directive('riskAssessmentForm', function($templateCache, mediator) {
   return {
     restrict: 'E'

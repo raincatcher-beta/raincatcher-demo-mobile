@@ -1,0 +1,23 @@
+<div class="panel panel-default vehicle-inspection-portal">
+  <div class="panel-heading"><h3>Vehicle Inspection</h3></div>
+  <div class="panel-body">
+    <dl class="dl-horizontal">
+      <dt>
+        <i class="fa fa-wrench"></i>
+        Fuel
+      </dt>
+      <dd>
+        <i class="fa fa-check" ng-show="vehicleInspection.tires"></i>
+        <i class="pficon pficon-close" ng-show="! vehicleInspection.tires"></i>
+      </dd>
+      <dt>
+        <i class="fa fa-dot-circle-o"></i>
+        Wheels
+      </dt>
+      <dd>
+        <i class="fa fa-check" ng-show="vehicleInspection.tires"></i>
+        <i class="pficon pficon-close" ng-show="! vehicleInspection.tires"></i>
+      </dd>
+    </dl>
+  </div>
+</div>

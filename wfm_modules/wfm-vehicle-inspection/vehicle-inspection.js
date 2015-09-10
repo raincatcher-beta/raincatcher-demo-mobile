@@ -17,6 +17,16 @@ ngModule.directive('vehicleInspection', function($templateCache, mediator) {
   };
 })
 
+ngModule.directive('vehicleInspectionPortalView', function($templateCache, mediator) {
+  return {
+    restrict: 'E'
+  , template: $templateCache.get('wfm-template/vehicle-incpection-portal-view.tpl.html')
+  , scope: {
+      vehicleInspection: '=value'
+    }
+  };
+})
+
 ngModule.directive('vehicleInspectionForm', function($templateCache, mediator) {
   return {
     restrict: 'E'
