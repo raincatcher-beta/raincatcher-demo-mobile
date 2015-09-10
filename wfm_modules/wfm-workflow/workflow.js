@@ -10,18 +10,36 @@ ngModule.factory('workflowSteps', function() {
   return steps;
 })
 
-ngModule.run(function($http, $timeout, mediator, workflowSteps) {
-  mediator.subscribe('workflow:steps:load', function() {
+ngModule.run(function($http, $q, $timeout, mediator, workflowSteps) {
+  var lazyLoadSteps = function() {
+    var promise;
     if (!workflowSteps.length) {
-      $http.get(config.apiHost + config.apiPath + '/steps').then(function(response) {
+      promise = $http.get(config.apiHost + config.apiPath + '/steps').then(function(response) {
         Array.prototype.push.apply(workflowSteps, response.data);
-        mediator.publish('workflow:steps:loaded', workflowSteps);
+        return response.data;
       });
     } else {
-      $timeout(function() {
-        mediator.publish('workflow:steps:loaded', workflowSteps);
-      }, 0);
-    }
+      var deferred = $q.defer();
+      $timeout(function() { // keep the API async
+        deferred.resolve(workflowSteps);
+      });
+      return deferred.promise;
+    };
+    return promise;
+  }
+
+  mediator.subscribe('workflow:init', function() {
+    lazyLoadSteps().then(function() {
+      mediator.publish('workflow:init:done', {
+        steps: workflowSteps
+      });
+    }); // TODO: introduce retry/error-handling logic
+  });
+
+  mediator.subscribe('workflow:steps:load', function() {
+    lazyLoadSteps().then(function() {
+      mediator.publish('workflow:steps:loaded', workflowSteps);
+    });
   });
 })
 

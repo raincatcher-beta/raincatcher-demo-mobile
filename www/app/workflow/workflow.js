@@ -14,17 +14,6 @@ angular.module('wfm-mobile.workflow', [
   });
 })
 
-.factory('steps', function(mediator) {
-  var steps = [];
-
-  mediator.publish('workflow:steps:load');
-  mediator.once('workflow:steps:loaded', function(_steps) {
-    Array.prototype.push.apply(steps, _steps);
-  });
-
-  return steps;
-})
-
 .config(function($stateProvider) {
   $stateProvider
     .state('workflow', {
@@ -39,6 +28,16 @@ angular.module('wfm-mobile.workflow', [
         'tab-workorder': {
           templateUrl: 'app/workflow/workflow-steps.tpl.html',
           controller: 'WorkflowStepController as ctrl',
+          resolve: {
+            initialData: function($q, mediator) {
+              var deferred = $q.defer();
+              mediator.publish('workflow:init');
+              mediator.once('workflow:init:done', function(data) {
+                deferred.resolve(data);
+              });
+              return deferred.promise;
+            }
+          }
         }
       }
     })
@@ -54,9 +53,9 @@ angular.module('wfm-mobile.workflow', [
   }
 })
 
-.controller('WorkflowStepController', function($stateParams, $templateRequest, $scope, $compile, mediator, steps) {
+.controller('WorkflowStepController', function($stateParams, $templateRequest, $scope, $compile, mediator, initialData) {
   var self = this;
-  self.steps = steps;
+  self.steps = initialData.steps;
 
   mediator.publish('workorder:load', $stateParams.workorderId);
   mediator.once('workorder:loaded', function(workorder) {
@@ -65,11 +64,11 @@ angular.module('wfm-mobile.workflow', [
       self.workorder.steps = {};
     }
     var stepIndex = 0;
-    var stepCurrent = steps[0];
-    for (var i=0; i < steps.length; i++) {
+    var stepCurrent = self.steps[0];
+    for (var i=0; i < self.steps.length; i++) {
       if (self.workorder.steps && self.workorder.steps[self.steps[i].code] !== 'complete') {
         stepIndex = i;
-        stepCurrent = steps[i];
+        stepCurrent = self.steps[i];
         break;
       }
     };
