@@ -83,7 +83,19 @@ ngModule.factory('workOrderManager', function($q, $http) {
       workorders = response.data;
       return workorder;
     });
-  }
+  };
+
+  workOrderManager.create = function(workorder) {
+    return $http.post(config.apiHost + config.apiPath, workorder)
+    .then(function(response) {
+      workorder = response.data;
+      return $http.get(config.apiHost + config.apiPath);
+    })
+    .then(function(response) {
+      workorders = response.data;
+      return workorder;
+    });
+  };
 
   return workOrderManager;
 })
@@ -102,6 +114,11 @@ ngModule.factory('workOrderManager', function($q, $http) {
   mediator.subscribe('workorder:save', function(data) {
     workOrderManager.save(data).then(function(workorder) {
       mediator.publish('workorder:saved', workorder);
+    })
+  });
+  mediator.subscribe('workorder:create', function(data) {
+    workOrderManager.create(data).then(function(workorder) {
+      mediator.publish('workorder:created', workorder);
     })
   });
 })
@@ -177,6 +194,28 @@ ngModule.factory('workOrderManager', function($q, $http) {
   , controllerAs: 'ctrl'
   };
 })
+
+.directive('workorderForm', function($templateCache, mediator) {
+  return {
+    restrict: 'E'
+  , template: $templateCache.get('wfm-template/workorder-form.tpl.html')
+  , scope: {
+    workorder : '=value'
+    }
+  , controller: function($scope) {
+      var self = this;
+      self.model = angular.copy($scope.workorder);
+      self.done = function(isValid) {
+        if (isValid) {
+          self.model.finishTimestamp = new Date(self.model.finishDate); // TODO: incorporate self.model.finishTime
+          mediator.publish('workorder:edited', self.model);
+        }
+      }
+    }
+  , controllerAs: 'ctrl'
+  };
+})
+
 
 ;
 

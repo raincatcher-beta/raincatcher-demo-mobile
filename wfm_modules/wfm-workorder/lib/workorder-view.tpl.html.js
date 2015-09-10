@@ -17,6 +17,8 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '      <dd>{{workorder.type}}</dd>\n' +
     '      <dt>Title</dt>\n' +
     '      <dd>{{workorder.title}}</dd>\n' +
+    '      <dt>Finish Timestamp</dt>\n' +
+    '      <dd>{{workorder.finishTimestamp | date:\'yyyy-MM-dd HH:mm:ss Z\'}}</dd>\n' +
     '      <dt>Location</dt>\n' +
     '      <dd>{{workorder.address}}</dd>\n' +
     '      <dt>Summary</dt>\n' +

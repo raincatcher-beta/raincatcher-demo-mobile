@@ -20,7 +20,9 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '  <i class="icon ion-android-watch"></i>\n' +
     '  <dl>\n' +
     '    <dt>Target Finish Date:</dt>\n' +
+    '    <dd>{{workorder.finishTimestamp | date:\'yyyy-MM-dd\' }}\n' +
     '    <dt>Target Finish Time:</dt>\n' +
+    '    <dd>{{workorder.finishTimestamp | date:\'HH:mm:ss Z\' }}\n' +
     '  </dl>\n' +
     '</ion-item>\n' +
     '<ion-item class="work-summary">\n' +

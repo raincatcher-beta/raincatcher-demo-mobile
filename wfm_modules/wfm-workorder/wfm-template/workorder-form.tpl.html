@@ -1,0 +1,56 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><h3>Work order</h3></div>
+  <div class="panel-body">
+    <form class="form-horizontal" name="workorderForm" ng-submit="ctrl.done(workorderForm.$valid)" novalidate>
+      <div class="form-group">
+        <label for="workorderId" class="col-sm-2 control-label">Workorder ID</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputWorkorderId" name="workorderId" ng-model="ctrl.model.id" disabled="true">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="workorderType" class="col-sm-2 control-label">Workorder Type</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputWorkorderType" name="workorderType" ng-model="ctrl.model.type" disabled="true">
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : workorderForm.title.$invalid && !workorderForm.title.$pristine }">
+        <label for="inputTitle" class="col-sm-2 control-label">Title</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputTitle" name="title" placeholder="Title" ng-model="ctrl.model.title" required>
+          <p ng-show="workorderForm.title.$invalid && !workorderForm.title.$pristine" class="help-block">A title is required.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : workorderForm.address.$invalid && !workorderForm.address.$pristine }">
+        <label for="inputAddress" class="col-sm-2 control-label">Address</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputAddress" name="address" placeholder="Address" ng-model="ctrl.model.address" required>
+          <p ng-show="addressForm.address.$invalid && !addressForm.address.$pristine" class="help-block">An address is required.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : workorderForm.finishDate.$invalid && !workorderForm.finishDate.$pristine }">
+        <label for="inputFinishDate" class="col-sm-2 control-label">Finish Date</label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" id="inputFinishDate" name="finishDate" ng-model="ctrl.model.finishDate" required>
+          <p ng-show="workorderForm.finishDate.$invalid && !workorderForm.finishDate.$pristine" class="help-block">A finish date is required.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : workorderForm.finishTime.$invalid && !workorderForm.finishTime.$pristine }">
+        <label for="inputFinishTime" class="col-sm-2 control-label">Finish Time</label>
+        <div class="col-sm-10">
+          <input type="time" class="form-control" id="inputFinishTime" name="finishTime" ng-model="ctrl.model.finishTime" required>
+          <p ng-show="workorderForm.finishTime.$invalid && !workorderForm.finishTime.$pristine" class="help-block">A finish time is required.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : workorderForm.summary.$invalid && !workorderForm.summary.$pristine }">
+        <label for="inputSummary" class="col-sm-2 control-label">City</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputSummary" name="summary" placeholder="City" ng-model="ctrl.model.summary" required>
+          <p ng-show="workorderForm.city.$invalid && !workorderForm.city.$pristine" class="help-block">A summary is required.</p>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" ng-disabled="workorderForm.$invalid">Save Workorder</button>
+    </form>
+  </div>
+</div>

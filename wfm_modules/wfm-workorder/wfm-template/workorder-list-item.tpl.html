@@ -11,7 +11,9 @@
   <i class="icon ion-android-watch"></i>
   <dl>
     <dt>Target Finish Date:</dt>
+    <dd>{{workorder.finishTimestamp | date:'yyyy-MM-dd' }}
     <dt>Target Finish Time:</dt>
+    <dd>{{workorder.finishTimestamp | date:'HH:mm:ss Z' }}
   </dl>
 </ion-item>
 <ion-item class="work-summary">

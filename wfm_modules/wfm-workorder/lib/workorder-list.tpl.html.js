@@ -27,7 +27,7 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '    </ion-item>\n' +
     '    <div class="workorder-list-item-details"\n' +
     '         ng-show="ctrl.isWorkorderShown(workorder)">\n' +
-    '         <workorder-list-item workorder="workorder"></workorder-view-item>\n' +
+    '         <workorder-list-item workorder="workorder"></workorder-list-item>\n' +
     '    </div>\n' +
     '  </div>\n' +
     '</ion-list>\n' +
