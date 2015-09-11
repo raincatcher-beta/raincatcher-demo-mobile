@@ -9,16 +9,6 @@ ngModule.run(function($http, $q, $timeout, mediator) {
     return response.data;
   }); // TODO: introduce retry/error-handling logic
 
-  mediator.subscribe('workflow:init', function() {
-    promise.then(function(workflowSteps) {
-      $timeout(function() {
-        mediator.publish('workflow:init:done', {
-          steps: workflowSteps
-        });
-      });
-    });
-  });
-
   mediator.subscribe('workflow:steps:load', function() {
     promise.then(function(workflowSteps) {
       mediator.publish('workflow:steps:loaded', workflowSteps);

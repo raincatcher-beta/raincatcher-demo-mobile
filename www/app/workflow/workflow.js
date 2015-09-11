@@ -29,13 +29,13 @@ angular.module('wfm-mobile.workflow', [
           templateUrl: 'app/workflow/workflow-steps.tpl.html',
           controller: 'WorkflowStepController as ctrl',
           resolve: {
-            initialData: function($q, mediator) {
-              var deferred = $q.defer();
-              mediator.publish('workflow:init');
-              mediator.once('workflow:init:done', function(data) {
-                deferred.resolve(data);
-              });
-              return deferred.promise;
+            steps: function(mediator) {
+              mediator.publish('workflow:steps:load');
+              return mediator.promise('workflow:steps:loaded');
+            },
+            workorder: function($stateParams, mediator) {
+              mediator.publish('workorder:load', $stateParams.workorderId);
+              return mediator.promise('workorder:loaded');
             }
           }
         }
@@ -53,28 +53,25 @@ angular.module('wfm-mobile.workflow', [
   }
 })
 
-.controller('WorkflowStepController', function($stateParams, $templateRequest, $scope, $compile, mediator, initialData) {
+.controller('WorkflowStepController', function(mediator, steps, workorder) {
   var self = this;
-  self.steps = initialData.steps;
+  self.steps = steps;
 
-  mediator.publish('workorder:load', $stateParams.workorderId);
-  mediator.once('workorder:loaded', function(workorder) {
-    self.workorder = workorder;
-    if (!self.workorder.steps) {
-      self.workorder.steps = {};
+  self.workorder = workorder;
+  if (!self.workorder.steps) {
+    self.workorder.steps = {};
+  }
+  var stepIndex = 0;
+  var stepCurrent = self.steps[0];
+  for (var i=0; i < self.steps.length; i++) {
+    if (self.workorder.steps && self.workorder.steps[self.steps[i].code] !== 'complete') {
+      stepIndex = i;
+      stepCurrent = self.steps[i];
+      break;
     }
-    var stepIndex = 0;
-    var stepCurrent = self.steps[0];
-    for (var i=0; i < self.steps.length; i++) {
-      if (self.workorder.steps && self.workorder.steps[self.steps[i].code] !== 'complete') {
-        stepIndex = i;
-        stepCurrent = self.steps[i];
-        break;
-      }
-    };
-    self.stepIndex = stepIndex;
-    self.stepCurrent = stepCurrent;
-  });
+  };
+  self.stepIndex = stepIndex;
+  self.stepCurrent = stepCurrent;
 
   mediator.once('wfm:risk-assessment:done', function(riskAssessment) {
     self.workorder.riskAssessment = riskAssessment;

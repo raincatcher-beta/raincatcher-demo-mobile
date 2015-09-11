@@ -13,19 +13,21 @@ angular.module('wfm-mobile.workorders', [
         views: {
           'tab-workorders': {
             templateUrl: 'app/workorder/tab-workorders.tpl.html',
-            controller: 'WorkordersCtrl as ctrl'
+            controller: 'WorkordersCtrl as ctrl',
+            resolve: {
+              workorders: function(mediator) {
+                mediator.publish('workorders:load');
+                return mediator.promise('workorders:loaded');
+              }
+            }
           }
         }
       })
 })
 
-.controller('WorkordersCtrl', function(mediator) {
+.controller('WorkordersCtrl', function(mediator, workorders) {
   var self = this;
-
-  mediator.publish('workorders:load');
-  mediator.once('workorders:loaded', function(workorders) {
-    self.workorders = workorders;
-  });
+  self.workorders = workorders;
 })
 
 ;
