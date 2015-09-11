@@ -18,7 +18,13 @@ ngModule.run(['$templateCache', function ($templateCache) {
     '        </div>\n' +
     '      </div>\n' +
     '      <div class="form-group">\n' +
-    '        <label for="workorderType" class="col-sm-2 control-label">Workorder Type</label>\n' +
+    '        <label for="workorderState" class="col-sm-2 control-label">Status</label>\n' +
+    '        <div class="col-sm-10">\n' +
+    '          <input type="text" class="form-control" id="inputWorkorderType" name="workorderStatus" ng-model="ctrl.model.status" disabled="true">\n' +
+    '        </div>\n' +
+    '      </div>\n' +
+    '      <div class="form-group">\n' +
+    '        <label for="workorderType" class="col-sm-2 control-label">Type</label>\n' +
     '        <div class="col-sm-10">\n' +
     '          <input type="text" class="form-control" id="inputWorkorderType" name="workorderType" ng-model="ctrl.model.type" disabled="true">\n' +
     '        </div>\n' +

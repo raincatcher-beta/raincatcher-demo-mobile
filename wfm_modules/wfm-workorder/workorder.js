@@ -100,7 +100,7 @@ ngModule.factory('workOrderManager', function($q, $http) {
   return workOrderManager;
 })
 
-.run(function(mediator, workOrderManager) {
+.run(function($timeout, mediator, workOrderManager) {
   mediator.subscribe('workorder:load', function(data) {
     workOrderManager.get(data).then(function(workorder) {
       mediator.publish('workorder:loaded', workorder);
@@ -119,6 +119,15 @@ ngModule.factory('workOrderManager', function($q, $http) {
   mediator.subscribe('workorder:create', function(data) {
     workOrderManager.create(data).then(function(workorder) {
       mediator.publish('workorder:created', workorder);
+    })
+  });
+  mediator.subscribe('workorder:new', function(data) {
+    $timeout(function() {
+      var workorder = {
+        type: 'Job Order'
+      , status: 'New'
+      };
+      mediator.publish('workorder:new:done', workorder);
     })
   });
 })
