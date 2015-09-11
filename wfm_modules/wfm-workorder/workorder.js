@@ -53,6 +53,11 @@ ngModule.factory('workOrderManager', function($q, $http) {
   var fetch = function() {
     return $http.get(config.apiHost + config.apiPath).then(function(response) {
       workorders = response.data;
+      workorders.forEach(function(workorder) {
+        if (workorder.finishTimestamp) {
+          workorder.finishTimestamp = new Date(workorder.finishTimestamp);
+        }
+      })
       return workorders;
     });
   };
@@ -69,7 +74,11 @@ ngModule.factory('workOrderManager', function($q, $http) {
       return asyncValue(workorder);
     } else {
       return $http.get(config.apiHost + config.apiPath + '/' + id).then(function(response) {
-        return response.data;
+        var workorder = response.data;
+        if (workorder.finishTimestamp) {
+          workorder.finishTimestamp = new Date(workorder.finishTimestamp);
+        }
+        return workorder;
       });
     }
   };
@@ -214,9 +223,15 @@ ngModule.factory('workOrderManager', function($q, $http) {
   , controller: function($scope) {
       var self = this;
       self.model = angular.copy($scope.workorder);
+      if (self.model.finishTimestamp) {
+        self.model.finishDate = new Date(self.model.finishTimestamp);
+        self.model.finishTime = new Date(self.model.finishTimestamp);
+      };
       self.done = function(isValid) {
         if (isValid) {
           self.model.finishTimestamp = new Date(self.model.finishDate); // TODO: incorporate self.model.finishTime
+          delete self.model.finishDate;
+          delete self.model.finishTime;
           mediator.publish('workorder:edited', self.model);
         }
       }

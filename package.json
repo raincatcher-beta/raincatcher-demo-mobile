@@ -42,6 +42,7 @@
     "ionic-bower": "git+https://github.com/bleathem/ionic-bower.git#1.0.1",
     "lodash": "^3.10.1",
     "patternfly": "^1.3.0",
+    "q": "^1.4.1",
     "wfm-mediator": "file:wfm_modules/wfm-mediator",
     "wfm-risk-assessment": "file:wfm_modules/wfm-risk-assessment",
     "wfm-vehicle-inspection": "file:wfm_modules/wfm-vehicle-inspection",
