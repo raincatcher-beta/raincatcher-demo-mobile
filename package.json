@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A WFM2 PoC using the mediator pattern",
   "repository": "https://github.com/feedhenry-staff/wfm2-poc.git",
-  "engines" : {
+  "engines": {
     "node": ">=0.10.0",
     "npm": ">=2.0.0"
   },
@@ -13,7 +13,7 @@
     "watch": "npm run watch-mobile-js & npm run watch-portal-js & npm run watch-server & npm run serve-mobile & npm run livereload & npm run sass-mobile-watch & npm run sass-portal-watch",
     "serve-portal": "node server/server.js",
     "serve-mobile": "node server/mobile-dev.js",
-    "build": "npm run build-portal-js",
+    "build": "npm run build-mobile-js & npm run build-portal-js & npm run sass-mobile & npm run sass-portal",
     "build-portal-js": "browserify portal/app/main.js > portal/app/bundle.js",
     "build-mobile-js": "browserify www/app/app.js > www/app/bundle.js",
     "watch-portal-js": "watchify portal/app/main.js -o portal/app/bundle.js -dv --ignore-watch=\"!**/*.js|**/bundle.js|www/**|**/node_modules/**\"",
