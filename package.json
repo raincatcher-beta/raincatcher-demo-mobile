@@ -43,11 +43,11 @@
     "lodash": "^3.10.1",
     "patternfly": "^1.3.0",
     "q": "^1.4.1",
-    "wfm-mediator": "file:wfm_modules/wfm-mediator",
-    "wfm-risk-assessment": "file:wfm_modules/wfm-risk-assessment",
-    "wfm-vehicle-inspection": "file:wfm_modules/wfm-vehicle-inspection",
-    "wfm-workflow": "file:wfm_modules/wfm-workflow",
-    "wfm-workorder": "file:wfm_modules/wfm-workorder"
+    "wfm-mediator": "git+ssh://git@github.com/feedhenry-staff/wfm-mediator.git",
+    "wfm-risk-assessment": "git+ssh://git@github.com/feedhenry-staff/wfm-risk-assessment.git",
+    "wfm-vehicle-inspection": "git+ssh://git@github.com/feedhenry-staff/wfm-vehicle-inspection.git",
+    "wfm-workflow": "git+ssh://git@github.com/feedhenry-staff/wfm-workflow.git",
+    "wfm-workorder": "git+ssh://git@github.com/feedhenry-staff/wfm-workorder.git"
   },
   "devDependencies": {
     "angular-sanitize": "^1.4.3",
