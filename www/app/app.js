@@ -2,6 +2,7 @@ var angular = require('angular');
 require('angular-animate')
 require('angular-sanitize')
 require('angular-ui-router')
+require('../lib/feedhenry');
 require('../lib/ionic/js/ionic')
 require('../lib/ionic/js/ionic-angular')
 
@@ -13,11 +14,11 @@ angular.module('wfm-mobile', [
 , require('./calendar/calendar')
 , require('./setting/setting')
 
-, require('wfm-mediator')
-, require('wfm-workorder')
-, require('wfm-workflow')
-, require('wfm-risk-assessment')
-, require('wfm-vehicle-inspection')
+, require('fh-wfm-mediator')
+, require('fh-wfm-workorder')
+, require('fh-wfm-workflow')
+, require('fh-wfm-risk-assessment')
+, require('fh-wfm-vehicle-inspection')
 ])
 
 .run(function($ionicPlatform) {
