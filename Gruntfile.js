@@ -26,6 +26,17 @@ module.exports = function (grunt) {
       default_local_server_url: 'http://localhost:8001'
     },
 
+    sass: {
+        options: {
+            sourceMap: true
+        },
+        dist: {
+            files: {
+                'www/css/app.css': 'www/sass/app.scss'
+            }
+        }
+    },
+
     browserify: {
       options: {
         browserifyOptions: {
