@@ -17,6 +17,7 @@ angular.module('wfm-mobile', [
 , require('fh-wfm-mediator')
 , require('fh-wfm-workorder')
 , require('fh-wfm-workflow')
+, require('fh-wfm-appform')
 , require('fh-wfm-risk-assessment')
 , require('fh-wfm-vehicle-inspection')
 ])

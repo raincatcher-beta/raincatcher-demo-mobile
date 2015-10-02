@@ -83,6 +83,11 @@ angular.module('wfm-mobile.workflow', [
     self.next();
   });
 
+  mediator.once('wfm:appform-step:done', function(appformStep) {
+    self.workorder.appformStep = appformStep;
+    self.next();
+  });
+
   self.next = function() {
 
     self.workorder.steps[self.stepCurrent.code] = 'complete';

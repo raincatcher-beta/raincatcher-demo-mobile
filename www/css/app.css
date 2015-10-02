@@ -83,6 +83,10 @@
 .vehicle-inspection-portal dd {
   margin-left: 180px; }
 
+.loading {
+  font-style: italic;
+  color: gray; }
+
 .message-date {
   float: right; }
 
