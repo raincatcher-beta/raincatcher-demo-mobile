@@ -1,5 +1,6 @@
 'use strict';
 var angular = require('angular');
+var _ = require('lodash');
 
 angular.module('wfm-mobile.workflow', [
   'ui.router',
@@ -60,45 +61,40 @@ angular.module('wfm-mobile.workflow', [
   self.workorder = workorder;
   if (!self.workorder.steps) {
     self.workorder.steps = {};
-  }
-  var stepIndex = 0;
-  var stepCurrent = self.steps[0];
-  for (var i=0; i < self.steps.length; i++) {
-    if (self.workorder.steps && self.workorder.steps[self.steps[i].code] !== 'complete') {
-      stepIndex = i;
-      stepCurrent = self.steps[i];
-      break;
-    }
   };
-  self.stepIndex = stepIndex;
-  self.stepCurrent = stepCurrent;
 
-  mediator.once('wfm:risk-assessment:done', function(riskAssessment) {
-    self.workorder.riskAssessment = riskAssessment;
-    self.next();
-  });
+  self.stepIndex = 0;
+  self.stepCurrent = self.steps[0];
+  if (! _.isEmpty(self.workorder.steps)) {
+    for (var i=1; i < self.steps.length; i++) {
+      var workorderStep = self.workorder.steps[self.steps[i].code];
+      if (!workorderStep || workorderStep.status !== 'complete') {
+        self.stepIndex = i;
+        self.stepCurrent = self.steps[i];
+        break;
+      };
+    };
+  };
 
-  mediator.once('wfm:vehicle-inspection:done', function(vehicleInspection) {
-    self.workorder.vehicleInspection = vehicleInspection;
-    self.next();
-  });
-
-  mediator.once('wfm:appform-step:done', function(appformStep) {
-    self.workorder.appformStep = appformStep;
+  var stepSubscription = mediator.subscribe('workflow:step:done', function(submission) {
+    console.log('Done called for workflow step', self.stepCurrent.code);
+    self.workorder.steps[self.stepCurrent.code] = {
+      workflowStep: self.stepCurrent
+    , submission: submission
+    , status: 'complete'
+    };
     self.next();
   });
 
   self.next = function() {
-
-    self.workorder.steps[self.stepCurrent.code] = 'complete';
     if (self.stepIndex < self.steps.length -1) {
       mediator.publish('workorder:save', self.workorder);
       mediator.once('workorder:saved', function() {
         self.stepIndex++;
         self.stepCurrent = self.steps[self.stepIndex];
-      })
+      });
     };
-  }
+  };
 })
 
 module.exports = 'wfm-mobile.workflow';
