@@ -56,9 +56,10 @@ angular.module('wfm-mobile.workflow', [
 
 .controller('WorkflowStepController', function(mediator, workflows, workorder) {
   var self = this;
-  self.steps = workflows[2].steps;
 
   self.workorder = workorder;
+  self.workflow = workflows[workorder.workflowId];
+  self.steps = self.workflow.steps;
   if (!self.workorder.steps) {
     self.workorder.steps = {};
   };

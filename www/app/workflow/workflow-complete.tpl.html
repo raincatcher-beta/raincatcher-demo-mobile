@@ -6,7 +6,7 @@
       <workflow-progress steps="ctrl.steps" step="ctrl.stepCurrent"></workflow-progress>
     </div>
     <!-- <workorder-list-item workorder="ctrl.workorder"></workorder-list-item> -->
-    <workflow-step id="workflow-step" workorder="ctrl.workorder" step="ctrl.stepCurrent"></workflow-step>
+    <workflow-step id="workflow-step" workorder="ctrl.workorder" workflow="ctrl.workflow" step="ctrl.stepCurrent"></workflow-step>
     <ion-item ng-if="ctrl.stepIndex == 0">
       <button class="button button-block button-large button-energized" on-touch="ctrl.next()">{{ctrl.stepCurrent.name}}</button>
     </ion-item>
