@@ -30,9 +30,9 @@ angular.module('wfm-mobile.workflow', [
           templateUrl: 'app/workflow/workflow-steps.tpl.html',
           controller: 'WorkflowStepController as ctrl',
           resolve: {
-            steps: function(mediator) {
-              mediator.publish('workflow:steps:load');
-              return mediator.promise('workflow:steps:loaded');
+            workflows: function(mediator) {
+              mediator.publish('workflows:load');
+              return mediator.promise('workflows:loaded');
             },
             workorder: function($stateParams, mediator) {
               mediator.publish('workorder:load', $stateParams.workorderId);
@@ -54,9 +54,9 @@ angular.module('wfm-mobile.workflow', [
   }
 })
 
-.controller('WorkflowStepController', function(mediator, steps, workorder) {
+.controller('WorkflowStepController', function(mediator, workflows, workorder) {
   var self = this;
-  self.steps = steps;
+  self.steps = workflows[2].steps;
 
   self.workorder = workorder;
   if (!self.workorder.steps) {
