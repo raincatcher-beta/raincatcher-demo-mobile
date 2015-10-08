@@ -25,9 +25,13 @@ angular.module('wfm-mobile.workorders', [
       })
 })
 
-.controller('WorkordersCtrl', function(mediator, workorders) {
+.controller('WorkordersCtrl', function($scope,mediator, workorders) {
   var self = this;
   self.workorders = workorders;
+  mediator.subscribe('workorders:refreshed', function(results){
+    self.workorders = results;
+    $scope.$apply();
+  })
 })
 
 ;
