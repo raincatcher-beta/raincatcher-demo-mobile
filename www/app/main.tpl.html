@@ -1,0 +1,20 @@
+<md-toolbar layout="row" class="md-primary md-hue-2 md-whiteframe-z1">
+  <div class="md-toolbar-tools">
+    <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
+      <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+    </md-button>
+    <h1>FeedHenry</h1>
+  </div>
+</md-toolbar>
+
+<div layout="row" flex>
+
+  <md-sidenav layout="column" flex="10" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+    MENU
+  </md-sidenav>
+
+  <md-content layout="column" flex id="content">
+    <div ui-view layout="column" flex></div><!-- workflow -->
+  </md-content>
+
+</div> <!-- container layout:row -->

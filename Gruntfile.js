@@ -62,9 +62,9 @@ module.exports = function (grunt) {
           livereload: 35730
         }
       },
-      styles: {
-        files: ['<%= app.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
+      sass: {
+        files: ['<%= app.app %>/sass/{,*/}*.scss'],
+        tasks: ['sass']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -75,7 +75,7 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= app.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
+          '<%= app.app %>/css/{,*/}*.css',
           '<%= app.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }

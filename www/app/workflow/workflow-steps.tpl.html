@@ -1,14 +1,13 @@
-<ion-view view-title="{{ctrl.workorder.type}} - {{ctrl.workorder.id}}">
-  <ion-nav-buttons side="left">
-    <button ui-sref="tab.workorders"  class="button icon-left ion-chevron-left"> Workorders</button>
-  </ion-nav-buttons>
-  <!-- ion-nav-title included below as a workaround for https://github.com/driftyco/ionic/issues/2847 -->
-  <ion-nav-title>{{ctrl.workorder.type}} - {{ctrl.workorder.id}}</ion-nav-title>
-  <ion-content>
-    <workflow-progress steps="ctrl.steps" step="ctrl.stepCurrent"></workflow-progress>
+<div class="workflow">
+  <workflow-progress steps="ctrl.workflow.steps" step-index="ctrl.stepIndex"></workflow-progress>
+
+  <div class="workflow-content" ng-if="ctrl.stepIndex == 0">
+    <workflow-step-summary workorder="ctrl.workorder" workflow="ctrl.workflow" portal="true" steps="ctrl.workflow.steps"></workflow-step-summary>
+    <div class="workflow-actions md-padding md-whiteframe-z4">
+      <md-button ng-click="ctrl.next()" class="md-primary">Begin Workflow</md-button>
+    </div><!-- workflow-actions-->
+  </div>
+  <div class="workflow-content" ng-if="ctrl.stepIndex > 0">
     <workflow-step id="workflow-step" workorder="ctrl.workorder" workflow="ctrl.workflow" step="ctrl.stepCurrent"></workflow-step>
-    <ion-item ng-if="ctrl.stepIndex == 0">
-      <button class="button button-block button-large button-energized" on-touch="ctrl.next()">{{ctrl.stepCurrent.name}}</button>
-    </ion-item>
-  </ion-content>
-</ion-view>
+  </div>
+</div>

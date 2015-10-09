@@ -8,18 +8,14 @@ angular.module('wfm-mobile.workorders', [
 
 .config(function($stateProvider) {
   $stateProvider
-    .state('tab.workorders', {
+    .state('app.workorders', {
         url: '/workorders',
-        views: {
-          'tab-workorders': {
-            templateUrl: 'app/workorder/tab-workorders.tpl.html',
-            controller: 'WorkordersCtrl as ctrl',
-            resolve: {
-              workorders: function(mediator) {
-                mediator.publish('workorders:load');
-                return mediator.promise('workorders:loaded');
-              }
-            }
+        templateUrl: 'app/workorder/workorder-list.tpl.html',
+        controller: 'WorkordersCtrl as ctrl',
+        resolve: {
+          workorders: function(mediator) {
+            mediator.publish('workorders:load');
+            return mediator.promise('workorders:loaded');
           }
         }
       })

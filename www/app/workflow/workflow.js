@@ -9,7 +9,7 @@ angular.module('wfm-mobile.workflow', [
 
 .run(function($state, mediator) {
   mediator.subscribe('workorder:selected', function(workorder) {
-    $state.go('workflow.workorder', {
+    $state.go('app.workflow-steps', {
       workorderId: workorder.id
     });
   });
@@ -17,41 +17,21 @@ angular.module('wfm-mobile.workflow', [
 
 .config(function($stateProvider) {
   $stateProvider
-    .state('workflow', {
-      url: '/workflow',
-      abstract: true,
-      templateUrl: 'app/workflow/workflow-tabs.tpl.html',
-      controller: 'WorkflowTabController as tab'
-    })
-    .state('workflow.workorder', {
-      url: '/workorder/:workorderId',
-      views: {
-        'tab-workorder': {
-          templateUrl: 'app/workflow/workflow-steps.tpl.html',
-          controller: 'WorkflowStepController as ctrl',
-          resolve: {
-            workflows: function(mediator) {
-              mediator.publish('workflows:load');
-              return mediator.promise('workflows:loaded');
-            },
-            workorder: function($stateParams, mediator) {
-              mediator.publish('workorder:load', $stateParams.workorderId);
-              return mediator.promise('workorder:loaded');
-            }
-          }
+    .state('app.workflow-steps', {
+      url: '/workflow/steps/workorder/:workorderId',
+      templateUrl: 'app/workflow/workflow-steps.tpl.html',
+      controller: 'WorkflowStepController as ctrl',
+      resolve: {
+        workflows: function(mediator) {
+          mediator.publish('workflows:load');
+          return mediator.promise('workflows:loaded');
+        },
+        workorder: function($stateParams, mediator) {
+          mediator.publish('workorder:load', $stateParams.workorderId);
+          return mediator.promise('workorder:loaded');
         }
       }
     })
-})
-
-.controller('WorkflowTabController', function($stateParams) {
-  var self = this;
-
-  self.tabGroup = 0;
-
-  self.toggleMore = function() {
-    self.tabGroup = self.tabGroup === 0 ? 1 : 0;
-  }
 })
 
 .controller('WorkflowStepController', function(mediator, workflows, workorder) {
