@@ -31,7 +31,9 @@ angular.module('wfm-mobile.workorders', [
 
   mediator.subscribe('workorder:saved', function(result){
     var updatedWorkorder = $filter('filter')(self.workorders, function (d) {return d.id === result.id;})[0];
-    angular.copy(result,updatedWorkorder);
+    if (result !== updatedWorkorder) {
+      angular.copy(result,updatedWorkorder);
+    };
   })
 
 })
