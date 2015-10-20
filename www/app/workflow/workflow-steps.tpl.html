@@ -1,13 +1,7 @@
 <div class="workflow">
   <workflow-progress steps="ctrl.workflow.steps" step-index="ctrl.stepIndex"></workflow-progress>
 
-  <div class="workflow-content" ng-if="ctrl.stepIndex == 0">
-    <workflow-step-summary workorder="ctrl.workorder" workflow="ctrl.workflow" portal="true" steps="ctrl.workflow.steps"></workflow-step-summary>
-    <div class="workflow-actions md-padding md-whiteframe-z4">
-      <md-button ng-click="ctrl.next()" class="md-primary">Begin Workflow</md-button>
-    </div><!-- workflow-actions-->
-  </div>
-  <div class="workflow-content" ng-if="ctrl.stepIndex > 0">
-    <workflow-step id="workflow-step" workorder="ctrl.workorder" workflow="ctrl.workflow" step="ctrl.stepCurrent"></workflow-step>
+  <div class="workflow-content">
+    <workflow-step id="workflow-step" workorder="ctrl.workorder" step="ctrl.stepCurrent"></workflow-step>
   </div>
 </div>

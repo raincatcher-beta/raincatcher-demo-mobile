@@ -9,7 +9,7 @@ angular.module('wfm-mobile.workflow', [
 
 .run(function($state, mediator) {
   mediator.subscribe('workorder:selected', function(workorder) {
-    $state.go('app.workflow-steps', {
+    $state.go('app.workflow-begin', {
       workorderId: workorder.id
     });
   });
@@ -17,6 +17,21 @@ angular.module('wfm-mobile.workflow', [
 
 .config(function($stateProvider) {
   $stateProvider
+    .state('app.workflow-begin', {
+      url: '/workflow/begin/workorder/:workorderId',
+      templateUrl: 'app/workflow/workflow-begin.tpl.html',
+      controller: 'WorkflowController as ctrl',
+      resolve: {
+        workflows: function(mediator) {
+          mediator.publish('workflows:load');
+          return mediator.promise('workflows:loaded');
+        },
+        workorder: function($stateParams, mediator) {
+          mediator.publish('workorder:load', $stateParams.workorderId);
+          return mediator.promise('workorder:loaded');
+        }
+      }
+    })
     .state('app.workflow-steps', {
       url: '/workflow/steps/workorder/:workorderId',
       templateUrl: 'app/workflow/workflow-steps.tpl.html',
@@ -32,9 +47,43 @@ angular.module('wfm-mobile.workflow', [
         }
       }
     })
+    .state('app.workflow-complete', {
+      url: '/workflow/complete/workorder/:workorderId',
+      templateUrl: 'app/workflow/workflow-complete.tpl.html',
+      controller: 'WorkflowController as ctrl',
+      resolve: {
+        workflows: function(mediator) {
+          mediator.publish('workflows:load');
+          return mediator.promise('workflows:loaded');
+        },
+        workorder: function($stateParams, mediator) {
+          mediator.publish('workorder:load', $stateParams.workorderId);
+          return mediator.promise('workorder:loaded');
+        }
+      }
+    })
 })
 
-.controller('WorkflowStepController', function(mediator, workflows, workorder) {
+.controller('WorkflowController', function($state, mediator, workflows, workorder) {
+  var self = this;
+  console.log('workorder', workorder)
+  self.workorder = workorder;
+  self.workflow = workflows[workorder.workflowId];
+  self.steps = self.workflow.steps;
+
+  if (!self.workorder.steps) {
+    self.workorder.steps = {};
+  };
+
+  self.begin = function() {
+    $state.go('app.workflow-steps', {
+      workorderId: workorder.id
+    });
+  }
+})
+
+
+.controller('WorkflowStepController', function($state, mediator, workflows, workorder) {
   var self = this;
 
   self.workorder = workorder;
@@ -68,13 +117,17 @@ angular.module('wfm-mobile.workflow', [
   });
 
   self.next = function() {
-    if (self.stepIndex < self.steps.length -1) {
-      mediator.publish('workorder:save', self.workorder);
-      mediator.once('workorder:saved', function() {
-        self.stepIndex++;
+    mediator.publish('workorder:save', self.workorder);
+    mediator.once('workorder:saved', function() {
+      self.stepIndex++;
+      if (self.stepIndex >= Object.keys(self.workorder.steps).length) {
+        $state.go('app.workflow-complete', {
+          workorderId: workorder.id
+        });
+      } else {
         self.stepCurrent = self.steps[self.stepIndex];
-      });
-    };
+      }
+    });
   };
 })
 
