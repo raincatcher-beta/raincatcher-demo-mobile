@@ -1,7 +1,7 @@
 // @import 'node_modules/fh-wfm-workorder/sass/workorder.scss';
 // @import 'node_modules/fh-wfm-workflow/sass/workflow.scss';
 // @import 'node_modules/fh-wfm-risk-assessment/sass/risk-assessment.scss';
-// @import 'node_modules/fh-wfm-vehicle-inspection/sass/vehicle-inspection.scss';
+@import 'node_modules/fh-wfm-vehicle-inspection/sass/vehicle-inspection.scss';
 // @import 'node_modules/fh-wfm-appform/sass/appform.scss';
 
 
@@ -77,5 +77,5 @@ $secondary-color: #303F9F;
     margin: 0;
   }
   h3{margin: 0;}
-  
+
 }

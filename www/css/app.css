@@ -1,3 +1,21 @@
+.vehicle-inspection md-radio-button {
+  display: inline; }
+
+.vehicle-inspection .fuel md-radio-button {
+  margin: 5px; }
+
+.vehicle-inspection-portal dt {
+  float: left;
+  width: 160px;
+  clear: left;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
+.vehicle-inspection-portal dd {
+  margin-left: 180px; }
+
 .md-toolbar-tools h1 {
   font-size: inherit;
   font-weight: inherit;
