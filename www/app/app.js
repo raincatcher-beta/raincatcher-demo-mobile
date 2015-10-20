@@ -28,10 +28,16 @@ angular.module('wfm-mobile', [
     .state('app', {
       abstract: true,
       templateUrl: 'app/main.tpl.html',
-      controller: function($scope, $mdSidenav){
+      controller: function($scope, $state, $mdSidenav){
+        $scope.$state = $state;
         $scope.toggleSidenav = function(menuId) {
           $mdSidenav(menuId).toggle();
         };
+        $scope.navigateTo = function(state, params) {
+          if (state) {
+            $state.go(state, params);
+          }
+        }
       }
     })
 });
