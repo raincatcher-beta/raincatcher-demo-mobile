@@ -4,6 +4,14 @@
 // @import 'node_modules/fh-wfm-vehicle-inspection/sass/vehicle-inspection.scss';
 // @import 'node_modules/fh-wfm-appform/sass/appform.scss';
 
+
+$secondary-text-color: rgba(0,0,0,.54);
+$divider-text-color: rgba(0,0,0,.12);
+
+$primary-color: #3F51B5;
+$secondary-color: #303F9F;
+
+
 .md-toolbar-tools h1 {
   font-size: inherit;
   font-weight: inherit;
@@ -49,3 +57,25 @@
   left: 0;
   right: 0;
   z-index: 99; }
+
+
+.sidenav-header{
+  background: oldlace;
+  background-image: linear-gradient(to bottom, #4DD0E1 20%, #B2EBF2 80%);
+  padding: 16px;
+  border-bottom: 1px solid $divider-text-color;
+  img{
+    border-radius: 50%;
+    height: 64px;
+    width: 64px;
+    display: block;
+    margin-bottom: 8px;
+    background: red;
+  }
+  p{
+    color: $secondary-text-color;
+    margin: 0;
+  }
+  h3{margin: 0;}
+  
+}

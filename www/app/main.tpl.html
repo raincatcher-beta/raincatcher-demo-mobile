@@ -10,7 +10,48 @@
 <div layout="row" flex>
 
   <md-sidenav layout="column" flex="10" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
-    MENU
+
+    <div class="sidenav-header">
+      <img ng-src="https://dl.dropboxusercontent.com/u/4371641/queen.jpg" class="md-avatar" alt="The Queen" />
+      <h3 class="md-body-2">Firstname Lastname</h3>
+      <p class="md-body-1">email@domainname.com</p>
+    </div>
+    
+    <md-list>
+      <md-list-item ng-click="navigateTo('app.workorder')" ng-class="{active: $state.includes('app.workorder')}">
+        <md-icon md-font-set="material-icons">assignment</md-icon>
+        <p>Workorders</p>
+      </md-list-item>
+      <md-list-item ng-click="navigateTo('app.workflow')" ng-class="{active: $state.includes('app.workflow')}">
+        <md-icon md-font-set="material-icons">cached</md-icon>
+        <p>Workflows</p>
+      </md-list-item>
+      <md-list-item ng-click="navigateTo()">
+        <md-icon md-font-set="material-icons">map</md-icon>
+        <p>Map</p>
+      </md-list-item>
+      <md-list-item ng-click="navigateTo()">
+        <md-icon md-font-set="material-icons">mail</md-icon>
+        <p>Messages</p>
+      </md-list-item>
+
+      <md-divider></md-divider>
+      
+      <md-subheader>Management</md-subheader>
+      
+      <md-list-item ng-click="navigateTo()">
+        <md-icon md-font-set="material-icons">settings</md-icon>
+        <p>Settings</p>
+      </md-list-item>
+      
+      <md-list-item ng-click="navigateTo()">
+        <md-icon md-font-set="material-icons">power_settings_new</md-icon>
+        <p>Logout</p>
+      </md-list-item>
+
+    </md-list>
+
+
   </md-sidenav>
 
   <md-content layout="column" flex id="content">
