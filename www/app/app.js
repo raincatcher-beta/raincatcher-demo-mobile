@@ -4,7 +4,8 @@ var angular = require('angular');
 require('../lib/feedhenry');
 
 angular.module('wfm-mobile', [
-  require('angular-ui-router')
+  require('angular-touch')
+, require('angular-ui-router')
 , require('angular-animate')
 , require('angular-aria')
 , require('angular-material')
@@ -30,8 +31,9 @@ angular.module('wfm-mobile', [
       templateUrl: 'app/main.tpl.html',
       controller: function($scope, $state, $mdSidenav){
         $scope.$state = $state;
-        $scope.toggleSidenav = function(menuId) {
+        $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();
+          event.stopPropagation();
         };
         $scope.navigateTo = function(state, params) {
           if (state) {

@@ -1,5 +1,4 @@
 'use strict';
-var angular = require('angular');
 var _ = require('lodash');
 
 angular.module('wfm-mobile.workflow', [
@@ -83,7 +82,7 @@ angular.module('wfm-mobile.workflow', [
 })
 
 
-.controller('WorkflowStepController', function($state, mediator, workflows, workorder) {
+.controller('WorkflowStepController', function($scope, $state, mediator, workflows, workorder) {
   var self = this;
 
   self.workorder = workorder;
@@ -118,17 +117,21 @@ angular.module('wfm-mobile.workflow', [
 
   self.next = function() {
     mediator.publish('workorder:save', self.workorder);
-    mediator.once('workorder:saved', function() {
+    mediator.once('workorder:saved:' + self.workorder.id, function() {
       self.stepIndex++;
-      if (self.stepIndex >= Object.keys(self.workorder.steps).length) {
-        $state.go('app.workflow-complete', {
-          workorderId: workorder.id
-        });
-      } else {
+      if (self.stepIndex < Object.keys(self.workflow.steps).length) {
         self.stepCurrent = self.steps[self.stepIndex];
+      } else {
+        $state.go('app.workflow-complete', {
+          workorderId: self.workorder.id
+        });
       }
     });
   };
+
+  $scope.$on("$destroy", function() {
+    mediator.remove('workflow:step:done', stepSubscription.id);
+  });
 })
 
 module.exports = 'wfm-mobile.workflow';

@@ -1,6 +1,6 @@
 <md-toolbar layout="row" class="md-primary md-hue-2 md-whiteframe-z1">
   <div class="md-toolbar-tools">
-    <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
+    <md-button ng-click="toggleSidenav($event, 'left')" hide-gt-sm class="md-icon-button">
       <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
     </md-button>
     <h1>FeedHenry</h1>
@@ -18,7 +18,7 @@
     </div>
 
     <md-list>
-      <md-list-item ng-click="navigateTo('app.workorders'); toggleSidenav('left')" ng-class="{active: $state.includes('app.workorder')}">
+      <md-list-item ng-click="navigateTo('app.workorders'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.workorder')}">
         <md-icon md-font-set="material-icons">assignment</md-icon>
         <p>Workorders</p>
       </md-list-item>

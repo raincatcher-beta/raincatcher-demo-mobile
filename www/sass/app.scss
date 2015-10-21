@@ -1,5 +1,5 @@
 // @import 'node_modules/fh-wfm-workorder/sass/workorder.scss';
-// @import 'node_modules/fh-wfm-workflow/sass/workflow.scss';
+@import 'node_modules/fh-wfm-workflow/sass/workflow.scss';
 // @import 'node_modules/fh-wfm-risk-assessment/sass/risk-assessment.scss';
 @import 'node_modules/fh-wfm-vehicle-inspection/sass/vehicle-inspection.scss';
 // @import 'node_modules/fh-wfm-appform/sass/appform.scss';
@@ -19,35 +19,6 @@ $secondary-color: #303F9F;
 
 .workflow {
   margin-bottom: 64px; }
-
-.workflow-steps {
-  background: #3F51B5;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #fff;
-  border-bottom: 2px solid #b8c6d4; }
-  .workflow-steps h3, .workflow-steps h5 {
-    margin: 5px 0 10px 0; }
-  .workflow-steps h5 {
-    text-transform: uppercase;
-    margin: 0;
-    padding-top: 10px;
-    color: rgba(255, 255, 255, 0.7); }
-  .workflow-steps ul {
-    list-style: none;
-    margin: 0 0 -1rem 0;
-    padding: 0; }
-  .workflow-steps li {
-    display: inline-block;
-    line-height: 2rem;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 100%;
-    background: #b8c6d4;
-    margin: 0 5px;
-    font-weight: 500; }
-    .workflow-steps li.active {
-      background: #46b3e7; }
 
 .workflow-actions {
   background: #fff;

@@ -1,5 +1,4 @@
 'use strict';
-var angular = require('angular');
 
 angular.module('wfm-mobile.workorders', [
   'ui.router',
