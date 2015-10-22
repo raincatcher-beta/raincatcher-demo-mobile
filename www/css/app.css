@@ -29,6 +29,9 @@
   .workflow-progress li.active {
     background: orange; }
 
+risk-assessment-signature canvas {
+  border: 1px solid rgba(0, 0, 0, 0.12); }
+
 .vehicle-inspection-form md-radio-button {
   display: inline; }
 
@@ -81,8 +84,5 @@
     margin: 0; }
   .sidenav-header h3 {
     margin: 0; }
-
-risk-assessment-signature canvas {
-  border: 1px solid rgba(0, 0, 0, 0.12); }
 
 /*# sourceMappingURL=app.css.map */

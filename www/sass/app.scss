@@ -1,16 +1,14 @@
-// @import 'node_modules/fh-wfm-workorder/sass/workorder.scss';
-@import 'node_modules/fh-wfm-workflow/sass/workflow.scss';
-// @import 'node_modules/fh-wfm-risk-assessment/sass/risk-assessment.scss';
-@import 'node_modules/fh-wfm-vehicle-inspection/sass/vehicle-inspection.scss';
-// @import 'node_modules/fh-wfm-appform/sass/appform.scss';
-
-
 $secondary-text-color: rgba(0,0,0,.54);
 $divider-text-color: rgba(0,0,0,.12);
 
 $primary-color: #3F51B5;
 $secondary-color: #303F9F;
 
+// @import 'node_modules/fh-wfm-workorder/sass/workorder.scss';
+@import 'node_modules/fh-wfm-workflow/sass/workflow.scss';
+@import 'node_modules/fh-wfm-risk-assessment/sass/risk-assessment.scss';
+@import 'node_modules/fh-wfm-vehicle-inspection/sass/vehicle-inspection.scss';
+// @import 'node_modules/fh-wfm-appform/sass/appform.scss';
 
 .md-toolbar-tools h1 {
   font-size: inherit;
@@ -49,9 +47,4 @@ $secondary-color: #303F9F;
   }
   h3{margin: 0;}
 
-}
-
-
-risk-assessment-signature canvas{
-  border: 1px solid $divider-text-color;
 }
