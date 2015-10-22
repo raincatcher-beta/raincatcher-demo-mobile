@@ -18,46 +18,94 @@ angular.module('wfm-mobile.workflow', [
   $stateProvider
     .state('app.workflow-begin', {
       url: '/workflow/begin/workorder/:workorderId',
-      templateUrl: 'app/workflow/workflow-begin.tpl.html',
-      controller: 'WorkflowController as ctrl',
-      resolve: {
-        workflows: function(mediator) {
-          mediator.publish('workflows:load');
-          return mediator.promise('workflows:loaded');
+      views: {
+        '': {
+          templateUrl: 'app/workflow/workflow-begin.tpl.html',
+          controller: 'WorkflowController as ctrl',
+          resolve: {
+            workflows: function(mediator) {
+              mediator.publish('workflows:load');
+              return mediator.promise('workflows:loaded');
+            },
+            workorder: function($stateParams, mediator) {
+              mediator.publish('workorder:load', $stateParams.workorderId);
+              return mediator.promise('workorder:loaded');
+            }
+          }
         },
-        workorder: function($stateParams, mediator) {
-          mediator.publish('workorder:load', $stateParams.workorderId);
-          return mediator.promise('workorder:loaded');
+        'title@app': {
+          template: 'Workorder {{workorder.id}}',
+          controller: function($scope, workorder) {
+            $scope.workorder = workorder;
+          },
+          resolve: {
+            workorder: function($stateParams, mediator) {
+              mediator.publish('workorder:load', $stateParams.workorderId);
+              return mediator.promise('workorder:loaded');
+            }
+          }
         }
       }
     })
     .state('app.workflow-steps', {
       url: '/workflow/steps/workorder/:workorderId',
-      templateUrl: 'app/workflow/workflow-steps.tpl.html',
-      controller: 'WorkflowStepController as ctrl',
-      resolve: {
-        workflows: function(mediator) {
-          mediator.publish('workflows:load');
-          return mediator.promise('workflows:loaded');
+      views: {
+        '': {
+          templateUrl: 'app/workflow/workflow-steps.tpl.html',
+          controller: 'WorkflowStepController as ctrl',
+          resolve: {
+            workflows: function(mediator) {
+              mediator.publish('workflows:load');
+              return mediator.promise('workflows:loaded');
+            },
+            workorder: function($stateParams, mediator) {
+              mediator.publish('workorder:load', $stateParams.workorderId);
+              return mediator.promise('workorder:loaded');
+            }
+          }
         },
-        workorder: function($stateParams, mediator) {
-          mediator.publish('workorder:load', $stateParams.workorderId);
-          return mediator.promise('workorder:loaded');
+        'title@app': {
+          template: 'Workorder {{workorder.id}}',
+          controller: function($scope, workorder) {
+            $scope.workorder = workorder;
+          },
+          resolve: {
+            workorder: function($stateParams, mediator) {
+              mediator.publish('workorder:load', $stateParams.workorderId);
+              return mediator.promise('workorder:loaded');
+            }
+          }
         }
       }
     })
     .state('app.workflow-complete', {
       url: '/workflow/complete/workorder/:workorderId',
-      templateUrl: 'app/workflow/workflow-complete.tpl.html',
-      controller: 'WorkflowController as ctrl',
-      resolve: {
-        workflows: function(mediator) {
-          mediator.publish('workflows:load');
-          return mediator.promise('workflows:loaded');
+      views: {
+        '': {
+          templateUrl: 'app/workflow/workflow-complete.tpl.html',
+          controller: 'WorkflowController as ctrl',
+          resolve: {
+            workflows: function(mediator) {
+              mediator.publish('workflows:load');
+              return mediator.promise('workflows:loaded');
+            },
+            workorder: function($stateParams, mediator) {
+              mediator.publish('workorder:load', $stateParams.workorderId);
+              return mediator.promise('workorder:loaded');
+            }
+          }
         },
-        workorder: function($stateParams, mediator) {
-          mediator.publish('workorder:load', $stateParams.workorderId);
-          return mediator.promise('workorder:loaded');
+        'title@app': {
+          template: 'Workorder {{workorder.id}}',
+          controller: function($scope, workorder) {
+            $scope.workorder = workorder;
+          },
+          resolve: {
+            workorder: function($stateParams, mediator) {
+              mediator.publish('workorder:load', $stateParams.workorderId);
+              return mediator.promise('workorder:loaded');
+            }
+          }
         }
       }
     })
