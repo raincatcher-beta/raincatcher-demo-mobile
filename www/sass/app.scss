@@ -13,6 +13,11 @@ $accent-color-2: #4d5bb3;
 $accent-color-3: #1aa094;
 $accent-color-4: #283593;
 
+$success: #388E3C;//green700
+$danger: #F44336; //red 500
+
+.success{ color: $success;}
+.danger{ color: $danger;}
 
 //  linear-gradient(135deg, rgba(0,0,0,.2) 20%, transparent 20%),  
 //  linear-gradient(135deg, rgba(0,0,0,.1) 25%, transparent 25%),  
@@ -30,7 +35,7 @@ $accent-color-4: #283593;
   font-size: inherit;
   font-weight: inherit;
   margin: inherit; }
-
+  
 .workflow {
   margin-bottom: 64px; }
 
