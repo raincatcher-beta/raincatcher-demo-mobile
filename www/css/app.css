@@ -38,6 +38,11 @@
 risk-assessment-signature canvas {
   border: 1px solid rgba(0, 0, 0, 0.12); }
 
+.with-image img {
+  margin-top: 16px;
+  width: 100%;
+  display: inline-block; }
+
 .vehicle-inspection-form md-radio-button {
   display: inline; }
 
