@@ -4,6 +4,23 @@
 .danger {
   color: #F44336; }
 
+.workorder-item .md-list-item-inner {
+  align-items: stretch !important; }
+
+workorder-status {
+  width: 30px; }
+  workorder-status md-icon {
+    vertical-align: top; }
+    workorder-status md-icon .success {
+      color: #388E3C; }
+    workorder-status md-icon .danger {
+      color: #F44336; }
+    workorder-status md-icon .warning {
+      color: #FFC107; }
+
+.md-list-item-text {
+  margin-left: 26px !important; }
+
 .workflow-progress {
   background: #3F51B5;
   text-align: center;
@@ -38,10 +55,12 @@
 risk-assessment-signature canvas {
   border: 1px solid rgba(0, 0, 0, 0.12); }
 
-.with-image img {
-  margin-top: 16px;
-  width: 100%;
-  display: inline-block; }
+risk-assessment .with-image {
+  height: auto; }
+  risk-assessment .with-image img {
+    margin-top: 16px;
+    width: 100%;
+    display: inline-block; }
 
 .vehicle-inspection-form md-radio-button {
   display: inline; }

@@ -7,7 +7,6 @@ $white-secondary-text-color: rgba(255,255,255,.7);
 $primary-color: #3F51B5;
 $secondary-color: #303F9F;
 
-
 $accent-color-1: #a63db8;
 $accent-color-2: #4d5bb3;
 $accent-color-3: #1aa094;
@@ -30,6 +29,9 @@ $danger: #F44336; //red 500
 @import 'node_modules/fh-wfm-risk-assessment/sass/risk-assessment.scss';
 @import 'node_modules/fh-wfm-vehicle-inspection/sass/vehicle-inspection.scss';
 // @import 'node_modules/fh-wfm-appform/sass/appform.scss';
+
+
+
 
 .md-toolbar-tools h1 {
   font-size: inherit;
