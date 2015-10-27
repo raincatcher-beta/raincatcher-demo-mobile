@@ -30,8 +30,7 @@ angular.module('wfm-mobile.workflow', [
           },
           resolve: {
             workorder: function($stateParams, mediator) {
-              mediator.publish('workorder:load', $stateParams.workorderId);
-              return mediator.promise('done:workorder:load');
+              return mediator.request('workorder:load', $stateParams.workorderId);
             }
           }
         }
@@ -47,8 +46,7 @@ angular.module('wfm-mobile.workflow', [
           return mediator.promise('workflows:loaded');
         },
         workorder: function($stateParams, mediator) {
-          mediator.publish('workorder:load', $stateParams.workorderId);
-          return mediator.promise('done:workorder:load');
+          return mediator.request('workorder:load', $stateParams.workorderId);
         }
       }
     })

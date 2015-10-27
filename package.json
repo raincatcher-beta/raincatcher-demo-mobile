@@ -43,7 +43,7 @@
     "config-chain": "^1.1.9",
     "express": "^4.13.2",
     "fh-wfm-appform": "^0.0.5",
-    "fh-wfm-mediator": "^0.0.5",
+    "fh-wfm-mediator": ">=0.0.6",
     "fh-wfm-risk-assessment": "^0.0.2",
     "fh-wfm-vehicle-inspection": "^0.0.2",
     "fh-wfm-workflow": "^0.0.10",

@@ -13,8 +13,7 @@ angular.module('wfm-mobile.workorders', [
         controller: 'WorkordersCtrl as ctrl',
         resolve: {
           workorders: function(mediator) {
-            mediator.publish('workorders:load');
-            return mediator.promise('done:workorders:load');
+            return mediator.request('workorders:load');
           }
         }
       })

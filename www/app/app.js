@@ -42,4 +42,21 @@ angular.module('wfm-mobile', [
         }
       }
     })
+})
+
+.run(function($rootScope) {
+  $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+    console.error('State change error: ', error, {
+      event: event,
+      toState: toState,
+      toParams: toParams,
+      fromState: fromState,
+      fromParams: fromParams,
+      error: error
+    });
+    if (error['get stack']) {
+      console.error(error['get stack']());
+    }
+    event.preventDefault();
+  });
 });
