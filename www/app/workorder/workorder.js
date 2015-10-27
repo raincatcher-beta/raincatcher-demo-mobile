@@ -14,7 +14,7 @@ angular.module('wfm-mobile.workorders', [
         resolve: {
           workorders: function(mediator) {
             mediator.publish('workorders:load');
-            return mediator.promise('workorders:loaded');
+            return mediator.promise('done:workorders:load');
           }
         }
       })
@@ -28,7 +28,7 @@ angular.module('wfm-mobile.workorders', [
     self.workorders.push(result);
   })
 
-  mediator.subscribe('workorder:saved', function(result){
+  mediator.subscribe('done:workorder:save', function(result){
     var updatedWorkorder = $filter('filter')(self.workorders, function (d) {return d.id === result.id;})[0];
     if (result !== updatedWorkorder) {
       angular.copy(result,updatedWorkorder);

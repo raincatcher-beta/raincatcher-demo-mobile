@@ -31,7 +31,7 @@ angular.module('wfm-mobile.workflow', [
           resolve: {
             workorder: function($stateParams, mediator) {
               mediator.publish('workorder:load', $stateParams.workorderId);
-              return mediator.promise('workorder:loaded');
+              return mediator.promise('done:workorder:load');
             }
           }
         }
@@ -48,7 +48,7 @@ angular.module('wfm-mobile.workflow', [
         },
         workorder: function($stateParams, mediator) {
           mediator.publish('workorder:load', $stateParams.workorderId);
-          return mediator.promise('workorder:loaded');
+          return mediator.promise('done:workorder:load');
         }
       }
     })
@@ -63,7 +63,7 @@ angular.module('wfm-mobile.workflow', [
         },
         workorder: function($stateParams, mediator) {
           mediator.publish('workorder:load', $stateParams.workorderId);
-          return mediator.promise('workorder:loaded');
+          return mediator.promise('done:workorder:load');
         }
       }
     })
@@ -78,7 +78,7 @@ angular.module('wfm-mobile.workflow', [
         },
         workorder: function($stateParams, mediator) {
           mediator.publish('workorder:load', $stateParams.workorderId);
-          return mediator.promise('workorder:loaded');
+          return mediator.promise('done:workorder:load');
         }
       }
     })
@@ -138,7 +138,7 @@ angular.module('wfm-mobile.workflow', [
 
   self.next = function() {
     mediator.publish('workorder:save', self.workorder);
-    mediator.once('workorder:saved:' + self.workorder.id, function() {
+    mediator.once('done:workorder:save:' + self.workorder.id, function() {
       self.stepIndex++;
       if (self.stepIndex < Object.keys(self.workflow.steps).length) {
         self.stepCurrent = self.steps[self.stepIndex];
