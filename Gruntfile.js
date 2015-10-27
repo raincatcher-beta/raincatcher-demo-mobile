@@ -120,6 +120,7 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      'sass',
       'clean:server',
       'connect:livereload',
       'browserify',

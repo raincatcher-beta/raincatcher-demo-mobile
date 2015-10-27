@@ -7,16 +7,16 @@
 .workorder-item .md-list-item-inner {
   align-items: stretch !important; }
 
-workorder-status {
+.workorder-item workorder-status {
   width: 30px; }
-  workorder-status md-icon {
+  .workorder-item workorder-status.success md-icon {
+    color: #388E3C; }
+  .workorder-item workorder-status.danger md-icon {
+    color: #F44336; }
+  .workorder-item workorder-status.warning md-icon {
+    color: #FFC107; }
+  .workorder-item workorder-status md-icon {
     vertical-align: top; }
-    workorder-status md-icon .success {
-      color: #388E3C; }
-    workorder-status md-icon .danger {
-      color: #F44336; }
-    workorder-status md-icon .warning {
-      color: #FFC107; }
 
 .md-list-item-text {
   margin-left: 26px !important; }
@@ -48,9 +48,11 @@ workorder-status {
     margin: 0 5px;
     font-weight: 500; }
   .workflow-progress li.complete {
-    background: #46b3e7; }
+    background: #a2d9f3;
+    color: rgba(255, 255, 255, 0.5); }
   .workflow-progress li.active {
-    background: orange; }
+    background: #46b3e7;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
 
 risk-assessment-signature canvas {
   border: 1px solid rgba(0, 0, 0, 0.12); }
