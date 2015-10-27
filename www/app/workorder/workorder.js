@@ -23,7 +23,7 @@ angular.module('wfm-mobile.workorders', [
   var self = this;
   self.workorders = workorders;
 
-  mediator.subscribe('workorder:created', function(result){
+  mediator.subscribe('done:workorder:create', function(result){
     self.workorders.push(result);
   })
 
