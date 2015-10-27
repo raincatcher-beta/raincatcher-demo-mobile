@@ -5,6 +5,7 @@ require('../lib/feedhenry');
 
 angular.module('wfm-mobile', [
   require('angular-touch')
+, require('angular-messages')
 , require('angular-ui-router')
 , require('angular-animate')
 , require('angular-aria')

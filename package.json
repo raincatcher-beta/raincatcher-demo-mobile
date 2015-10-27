@@ -35,6 +35,7 @@
     "angular": "^1.4.3",
     "angular-animate": "^1.4.7",
     "angular-material": "^0.11.4",
+    "angular-messages": "^1.4.7",
     "angular-timeago": "^0.2.0",
     "angular-touch": "^1.4.7",
     "angular-ui-router": "^0.2.15",
