@@ -22,7 +22,7 @@
         <md-icon md-font-set="material-icons">assignment</md-icon>
         <p>Workorders</p>
       </md-list-item>
-      <md-list-item ng-click="navigateTo()">
+      <md-list-item ng-click="navigateTo('app.map'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.map')}">
         <md-icon md-font-set="material-icons">map</md-icon>
         <p>Map</p>
       </md-list-item>
