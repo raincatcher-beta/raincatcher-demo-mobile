@@ -20,6 +20,7 @@ angular.module('wfm-mobile', [
 
 , require('./workorder/workorder')
 , require('./workflow/workflow')
+, require('./message/message')
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {
