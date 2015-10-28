@@ -82,6 +82,18 @@ risk-assessment .with-image {
 .vehicle-inspection-portal dd {
   margin-left: 180px; }
 
+.loading {
+  font-style: italic;
+  color: gray; }
+
+p.md-caption {
+  color: rgba(0, 0, 0, 0.54);
+  margin-bottom: 5px; }
+
+appform-field-signature canvas {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  width: 99%; }
+
 .md-toolbar-tools h1 {
   font-size: inherit;
   font-weight: inherit;

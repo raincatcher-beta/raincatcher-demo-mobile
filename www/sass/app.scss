@@ -18,19 +18,13 @@ $danger: #F44336; //red 500
 .success{ color: $success;}
 .danger{ color: $danger;}
 
-//  linear-gradient(135deg, rgba(0,0,0,.2) 20%, transparent 20%),
-//  linear-gradient(135deg, rgba(0,0,0,.1) 25%, transparent 25%),
-//  linear-gradient(-45deg, rgba(0,0,0,.2) 10%, transparent 10%),
-//  linear-gradient(-45deg, rgba(0,0,0,.1) 15%, transparent 15%),
 
 
 @import 'node_modules/fh-wfm-workorder/sass/workorder.scss';
 @import 'node_modules/fh-wfm-workflow/sass/workflow.scss';
 @import 'node_modules/fh-wfm-risk-assessment/sass/risk-assessment.scss';
 @import 'node_modules/fh-wfm-vehicle-inspection/sass/vehicle-inspection.scss';
-// @import 'node_modules/fh-wfm-appform/sass/appform.scss';
-
-
+@import 'node_modules/fh-wfm-appform/sass/appform.scss';
 
 
 .md-toolbar-tools h1 {
