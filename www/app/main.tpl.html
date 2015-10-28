@@ -35,7 +35,7 @@
 
       <md-subheader>Management</md-subheader>
 
-      <md-list-item ng-click="navigateTo()">
+      <md-list-item ng-click="navigateTo('app.setting'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.setting')}">
         <md-icon md-font-set="material-icons">settings</md-icon>
         <p>Settings</p>
       </md-list-item>
