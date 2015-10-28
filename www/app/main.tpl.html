@@ -40,7 +40,7 @@
         <p>Settings</p>
       </md-list-item>
 
-      <md-list-item ng-click="navigateTo()">
+      <md-list-item ng-click="navigateTo('app.login'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.login')}">
         <md-icon md-font-set="material-icons">power_settings_new</md-icon>
         <p>Logout</p>
       </md-list-item>

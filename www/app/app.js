@@ -23,6 +23,7 @@ angular.module('wfm-mobile', [
 , require('./message/message')
 , require('./map/map')
 , require('./setting/setting')
+, require('./auth/auth')
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {
