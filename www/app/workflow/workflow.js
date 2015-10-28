@@ -42,8 +42,7 @@ angular.module('wfm-mobile.workflow', [
       controller: 'WorkflowController as ctrl',
       resolve: {
         workflows: function(mediator) {
-          mediator.publish('workflows:load');
-          return mediator.promise('done:workflows:load');
+          return mediator.request('workflows:load');
         },
         workorder: function($stateParams, mediator) {
           return mediator.request('workorder:load', $stateParams.workorderId);
@@ -56,8 +55,7 @@ angular.module('wfm-mobile.workflow', [
       controller: 'WorkflowStepController as ctrl',
       resolve: {
         workflows: function(mediator) {
-          mediator.publish('workflows:load');
-          return mediator.promise('done:workflows:load');
+          return mediator.request('workflows:load');
         },
         workorder: function($stateParams, mediator) {
           return mediator.request('workorder:load', $stateParams.workorderId);
@@ -70,8 +68,7 @@ angular.module('wfm-mobile.workflow', [
       controller: 'WorkflowController as ctrl',
       resolve: {
         workflows: function(mediator) {
-          mediator.publish('workflows:load');
-          return mediator.promise('done:workflows:load');
+          return mediator.request('workflows:load');
         },
         workorder: function($stateParams, mediator) {
           return mediator.request('workorder:load', $stateParams.workorderId);
