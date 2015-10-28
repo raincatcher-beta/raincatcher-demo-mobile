@@ -60,8 +60,7 @@ angular.module('wfm-mobile.workflow', [
           return mediator.promise('workflows:loaded');
         },
         workorder: function($stateParams, mediator) {
-          mediator.publish('workorder:load', $stateParams.workorderId);
-          return mediator.promise('done:workorder:load');
+          return mediator.request('workorder:load', $stateParams.workorderId);
         }
       }
     })
@@ -75,8 +74,7 @@ angular.module('wfm-mobile.workflow', [
           return mediator.promise('workflows:loaded');
         },
         workorder: function($stateParams, mediator) {
-          mediator.publish('workorder:load', $stateParams.workorderId);
-          return mediator.promise('done:workorder:load');
+          return mediator.request('workorder:load', $stateParams.workorderId);
         }
       }
     })
@@ -135,8 +133,7 @@ angular.module('wfm-mobile.workflow', [
   });
 
   self.next = function() {
-    mediator.publish('workorder:save', self.workorder);
-    mediator.once('done:workorder:save:' + self.workorder.id, function() {
+    mediator.request('workorder:save', self.workorder, {uid: self.workorder.id}).then(function() {
       self.stepIndex++;
       if (self.stepIndex < Object.keys(self.workflow.steps).length) {
         self.stepCurrent = self.steps[self.stepIndex];
@@ -145,6 +142,8 @@ angular.module('wfm-mobile.workflow', [
           workorderId: self.workorder.id
         });
       }
+    }, function(error) {
+      console.error(error);
     });
   };
 
