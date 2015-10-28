@@ -43,7 +43,7 @@ angular.module('wfm-mobile.workflow', [
       resolve: {
         workflows: function(mediator) {
           mediator.publish('workflows:load');
-          return mediator.promise('workflows:loaded');
+          return mediator.promise('done:workflows:load');
         },
         workorder: function($stateParams, mediator) {
           return mediator.request('workorder:load', $stateParams.workorderId);
@@ -57,7 +57,7 @@ angular.module('wfm-mobile.workflow', [
       resolve: {
         workflows: function(mediator) {
           mediator.publish('workflows:load');
-          return mediator.promise('workflows:loaded');
+          return mediator.promise('done:workflows:load');
         },
         workorder: function($stateParams, mediator) {
           return mediator.request('workorder:load', $stateParams.workorderId);
@@ -71,7 +71,7 @@ angular.module('wfm-mobile.workflow', [
       resolve: {
         workflows: function(mediator) {
           mediator.publish('workflows:load');
-          return mediator.promise('workflows:loaded');
+          return mediator.promise('done:workflows:load');
         },
         workorder: function($stateParams, mediator) {
           return mediator.request('workorder:load', $stateParams.workorderId);
