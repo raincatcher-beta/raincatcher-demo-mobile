@@ -27,7 +27,7 @@ $danger: #F44336; //red 500
 @import 'node_modules/fh-wfm-appform/sass/appform.scss';
 
 
-// Login screen
+// Login screen ==========
 
 .login{
   background: $primary-color;
@@ -60,6 +60,30 @@ $danger: #F44336; //red 500
   }
 }
 
+// messages screen ==========
+
+.messages{
+  .md-list-item-text{
+    position: relative;
+  }
+  .new{
+    h3{
+      font-weight: bold!important;
+    }
+  }
+  .time-stamp{
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: $secondary-text-color;
+  }
+  
+  md-list-item md-divider[md-inset] {
+    left: 72px;
+    width: calc(100% - 72px);
+  }
+  
+}
 
 
 

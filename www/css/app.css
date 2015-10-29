@@ -137,6 +137,22 @@ appform-field-signature canvas {
     width: 100% !important;
     margin-left: 0px; }
 
+.messages .md-list-item-text {
+  position: relative; }
+
+.messages .new h3 {
+  font-weight: bold !important; }
+
+.messages .time-stamp {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: rgba(0, 0, 0, 0.54); }
+
+.messages md-list-item md-divider[md-inset] {
+  left: 72px;
+  width: calc(100% - 72px); }
+
 .md-toolbar-tools h1 {
   font-size: inherit;
   font-weight: inherit;
