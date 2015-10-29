@@ -3,6 +3,7 @@ $divider-text-color: rgba(0,0,0,.12);
 
 $white-text-color: rgba(255,255,255,1);
 $white-secondary-text-color: rgba(255,255,255,.7);
+$white-divider-color: rgba(255,255,255,.3);
 
 $primary-color: #3F51B5;
 $secondary-color: #303F9F;
@@ -19,7 +20,6 @@ $danger: #F44336; //red 500
 .danger{ color: $danger;}
 
 
-
 @import 'node_modules/fh-wfm-workorder/sass/workorder.scss';
 @import 'node_modules/fh-wfm-workflow/sass/workflow.scss';
 @import 'node_modules/fh-wfm-risk-assessment/sass/risk-assessment.scss';
@@ -27,22 +27,48 @@ $danger: #F44336; //red 500
 @import 'node_modules/fh-wfm-appform/sass/appform.scss';
 
 
+// Login screen
+
+.login{
+  background: $primary-color;
+  color: $white-text-color;
+  p{
+    color: $white-secondary-text-color;
+    text-align: center;
+  }
+  h1{
+    text-align: center;
+  }
+  input, input:focus {
+    color: $white-text-color!important;
+  }
+  
+  label {
+      color: $white-secondary-text-color !important;
+  }
+  
+  md-input-container .md-input{
+    border-color: $white-divider-color;
+    &:focus{
+      border-color: $white-secondary-text-color;
+    }
+  }
+  
+  button{
+    width: 100%!important;
+    margin-left: 0px;
+  }
+}
+
+
+
+
+
+
 .md-toolbar-tools h1 {
   font-size: inherit;
   font-weight: inherit;
   margin: inherit; }
-
-.workflow {
-  margin-bottom: 64px; }
-
-.workflow-actions {
-  background: #fff;
-  position: fixed;
-  text-align: right;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 99; }
 
 
 .sidenav-header{
