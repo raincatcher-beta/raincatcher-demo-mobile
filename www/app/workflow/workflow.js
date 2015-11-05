@@ -121,27 +121,60 @@ angular.module('wfm-mobile.workflow', [
 
   var stepSubscription = mediator.subscribe('workflow:step:done', function(submission) {
     console.log('Done called for workflow step', self.stepCurrent.code);
+    if (self.stepCurrent.formId) {
+      // map the appform submission into something we can store
+      var submissionResults = {
+        _submission: submission
+      , _submissionLocalId: submission.props._ludid
+      , submissionId: submission.props._id
+      , formId: submission.props.formId
+      , status: submission.props.status
+      }
+      submission = submissionResults;
+      // kick-off an appform upload, update the workorder when complete
+      // TODO: Move this to a batch job for when the app closes with incomplete workorder syncs
+      var step = angular.copy(self.stepCurrent);
+      mediator.request('appform:submission:submit', submissionResults._submission, {uid: submissionResults._submission.getLocalId(), timeout: 5000})
+      .then(function(submission) {
+        return mediator.request('appform:submission:upload', submission, {uid: submission.props._ludid, timeout: 5000})
+      })
+      .then(function(submission) {
+        submissionResults.submissionId = submission.props._id;
+        submissionResults._submission = submission;
+        self.workorder.steps[step.code] = {
+          workflowStep: step
+        , submission: submissionResults
+        , status: 'complete'
+        };
+        return mediator.request('workorder:save', self.workorder, {uid: self.workorder.id})
+      })
+      .then(function() {
+        console.log('************* workorder updated with appform remote id');
+        self.next();
+      }, function(error) {
+        console.error(error);
+      });
+    }
     self.workorder.steps[self.stepCurrent.code] = {
       workflowStep: self.stepCurrent
     , submission: submission
     , status: 'complete'
     };
-    self.next();
+    mediator.request('workorder:save', self.workorder, {uid: self.workorder.id}).then(function() {
+      console.log('workorder save successful');
+      self.next();
+    });
   });
 
   self.next = function() {
-    mediator.request('workorder:save', self.workorder, {uid: self.workorder.id}).then(function() {
-      self.stepIndex++;
-      if (self.stepIndex < Object.keys(self.workflow.steps).length) {
-        self.stepCurrent = self.steps[self.stepIndex];
-      } else {
-        $state.go('app.workflow.complete', {
-          workorderId: self.workorder.id
-        });
-      }
-    }, function(error) {
-      console.error(error);
-    });
+    self.stepIndex++;
+    if (self.stepIndex < Object.keys(self.workflow.steps).length) {
+      self.stepCurrent = self.steps[self.stepIndex];
+    } else {
+      $state.go('app.workflow.complete', {
+        workorderId: self.workorder.id
+      });
+    }
   };
 
   $scope.$on("$destroy", function() {
