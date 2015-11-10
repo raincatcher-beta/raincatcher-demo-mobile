@@ -12,7 +12,7 @@ angular.module('wfm-mobile.workorders', [
         templateUrl: 'app/workorder/workorder-list.tpl.html',
         controller: 'WorkordersCtrl as ctrl',
         resolve: {
-          workorders: function(mediator) {
+          workorders: function(mediator, workorderModuleInit) {
             return mediator.request('workorders:load');
           }
         }

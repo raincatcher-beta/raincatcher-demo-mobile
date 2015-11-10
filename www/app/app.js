@@ -34,6 +34,11 @@ angular.module('wfm-mobile', [
     .state('app', {
       abstract: true,
       templateUrl: 'app/main.tpl.html',
+      resolve: {
+        workorderModuleInit: function(mediator) {
+          return mediator.request('module:init:workorder')
+        }
+      },
       controller: function($scope, $state, $mdSidenav){
         $scope.$state = $state;
         $scope.toggleSidenav = function(event, menuId) {

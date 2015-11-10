@@ -29,7 +29,7 @@ angular.module('wfm-mobile.workflow', [
             $scope.workorder = workorder;
           },
           resolve: {
-            workorder: function($stateParams, mediator) {
+            workorder: function($stateParams, mediator, workorderModuleInit) {
               return mediator.request('workorder:load', $stateParams.workorderId);
             }
           }
@@ -44,7 +44,7 @@ angular.module('wfm-mobile.workflow', [
         workflows: function(mediator) {
           return mediator.request('workflows:load');
         },
-        workorder: function($stateParams, mediator) {
+        workorder: function($stateParams, mediator, workorderModuleInit) {
           return mediator.request('workorder:load', $stateParams.workorderId);
         }
       }
@@ -57,7 +57,7 @@ angular.module('wfm-mobile.workflow', [
         workflows: function(mediator) {
           return mediator.request('workflows:load');
         },
-        workorder: function($stateParams, mediator) {
+        workorder: function($stateParams, mediator, workorderModuleInit) {
           return mediator.request('workorder:load', $stateParams.workorderId);
         }
       }
@@ -70,7 +70,7 @@ angular.module('wfm-mobile.workflow', [
         workflows: function(mediator) {
           return mediator.request('workflows:load');
         },
-        workorder: function($stateParams, mediator) {
+        workorder: function($stateParams, mediator, workorderModuleInit) {
           return mediator.request('workorder:load', $stateParams.workorderId);
         }
       }
