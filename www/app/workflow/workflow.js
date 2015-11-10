@@ -145,8 +145,8 @@ angular.module('wfm-mobile.workflow', [
       .then(function(submission) {
         return mediator.request('appform:submission:upload', submission, {uid: submissionLocalId, timeout: 5000})
       })
-      .then(function(submission) {
-        self.workorder.steps[step.code].submission.submissionId = submission.props._id;
+      .then(function(submissionId) {
+        self.workorder.steps[step.code].submission.submissionId = submissionId;
         return mediator.request('workorder:save', self.workorder, {uid: self.workorder.id})
       })
       .then(function() {
