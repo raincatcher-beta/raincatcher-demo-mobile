@@ -84,8 +84,8 @@ angular.module('wfm-mobile.workflow', [
   self.workflow = workflows[workorder.workflowId];
   self.steps = self.workflow.steps;
 
-  if (!self.workorder.steps) {
-    self.workorder.steps = {};
+  if (!self.workorder.results) {
+    self.workorder.results = {};
   };
 
   self.begin = function() {
@@ -102,16 +102,16 @@ angular.module('wfm-mobile.workflow', [
   self.workorder = workorder;
   self.workflow = workflows[workorder.workflowId];
   self.steps = self.workflow.steps;
-  if (!self.workorder.steps) {
-    self.workorder.steps = {};
+  if (!self.workorder.results) {
+    self.workorder.results = {};
   };
 
   self.stepIndex = 0;
   self.stepCurrent = self.steps[0];
-  if (! _.isEmpty(self.workorder.steps)) {
+  if (! _.isEmpty(self.workorder.results)) {
     for (var i=1; i < self.steps.length; i++) {
-      var workorderStep = self.workorder.steps[self.steps[i].code];
-      if (!workorderStep || workorderStep.status !== 'complete') {
+      var result = self.workorder.results[self.steps[i].code];
+      if (!result || result.status !== 'complete') {
         self.stepIndex = i;
         self.stepCurrent = self.steps[i];
         break;
@@ -133,7 +133,7 @@ angular.module('wfm-mobile.workflow', [
       var submissionLocalId = submission.props._ludid;
       submissionResults.submissionLocalIdMap[$fh._getDeviceId()] = submissionLocalId;
 
-      self.workorder.steps[self.stepCurrent.code] = {
+      self.workorder.results[self.stepCurrent.code] = {
         workflowStep: self.stepCurrent
       , submission: submissionResults
       , status: 'complete'
@@ -146,7 +146,7 @@ angular.module('wfm-mobile.workflow', [
         return mediator.request('appform:submission:upload', submission, {uid: submissionLocalId, timeout: 5000})
       })
       .then(function(submissionId) {
-        self.workorder.steps[step.code].submission.submissionId = submissionId;
+        self.workorder.results[step.code].submission.submissionId = submissionId;
         return mediator.request('workorder:save', self.workorder, {uid: self.workorder.id})
       })
       .then(function() {
@@ -155,7 +155,7 @@ angular.module('wfm-mobile.workflow', [
         console.error(error);
       });
     } else {
-      self.workorder.steps[self.stepCurrent.code] = {
+      self.workorder.results[self.stepCurrent.code] = {
         workflowStep: self.stepCurrent
       , submission: submission
       , status: 'complete'
