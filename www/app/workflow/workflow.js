@@ -122,29 +122,11 @@ angular.module('wfm-mobile.workflow', [
   var stepSubscription = mediator.subscribe('workflow:step:done', function(submission) {
     console.log('Done called for workflow step', self.stepCurrent.code);
     if (self.stepCurrent.formId) {
-      // map the appform submission into something we can store
-      var submissionResults = {
-        _submission: submission
-      , submissionId: submission.props._id
-      , submissionLocalIdMap : {}
-      , formId: submission.props.formId
-      , status: submission.props.status
-      }
-      var submissionLocalId = submission.props._ludid;
-      submissionResults.submissionLocalIdMap[$fh._getDeviceId()] = submissionLocalId;
-
-      self.workorder.results[self.stepCurrent.code] = {
-        workflowStep: self.stepCurrent
-      , submission: submissionResults
-      , status: 'complete'
-      };
       // kick-off an appform upload, update the workorder when complete
       // TODO: Move this to a batch job for when the app closes with incomplete workorder syncs
       var step = angular.copy(self.stepCurrent);
-      mediator.request('appform:submission:submit', submissionResults._submission, {uid: submissionLocalId, timeout: 5000})
-      .then(function(submission) {
-        return mediator.request('appform:submission:upload', submission, {uid: submissionLocalId, timeout: 5000})
-      })
+      var submissionLocalId = submission.submissionLocalIdMap[$fh._getDeviceId()];
+      mediator.request('appform:submission:upload', submission._submission, {uid: submissionLocalId, timeout: 5000})
       .then(function(submissionId) {
         self.workorder.results[step.code].submission.submissionId = submissionId;
         return mediator.request('workorder:save', self.workorder, {uid: self.workorder.id})
@@ -154,13 +136,12 @@ angular.module('wfm-mobile.workflow', [
       }, function(error) {
         console.error(error);
       });
-    } else {
-      self.workorder.results[self.stepCurrent.code] = {
-        workflowStep: self.stepCurrent
-      , submission: submission
-      , status: 'complete'
-      };
     }
+    self.workorder.results[self.stepCurrent.code] = {
+      workflowStep: self.stepCurrent
+    , submission: submission
+    , status: 'complete'
+    };
     mediator.request('workorder:save', self.workorder, {uid: self.workorder.id}).then(function() {
       console.log('workorder save successful');
       self.next();
