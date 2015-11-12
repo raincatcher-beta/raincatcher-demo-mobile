@@ -22,37 +22,63 @@
     vertical-align: top; }
 
 .workflow-progress {
-  background: #3F51B5;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #fff;
-  border-bottom: 2px solid #b8c6d4; }
-  .workflow-progress h3, .workflow-progress h5 {
-    margin: 5px 0 10px 0; }
-  .workflow-progress h5 {
-    text-transform: uppercase;
-    margin: 0;
-    padding-top: 10px;
-    color: rgba(255, 255, 255, 0.7); }
-  .workflow-progress ul {
+  position: relative;
+  background-color: #3F51B5;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0px, transparent 6px);
+  background-blend-mode: multiply; }
+  .workflow-progress .scroll-box {
+    padding: 24px 0;
+    max-height: 135px;
+    overflow: auto; }
+  .workflow-progress.close .scroll-box {
+    height: 24px;
+    overflow: hidden; }
+  .workflow-progress ol {
+    position: relative;
     list-style: none;
-    margin: 0 0 -1rem 0;
-    padding: 0; }
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to bottom, #3F51B5 27px, transparent 27px), linear-gradient(to right, rgba(255, 255, 255, 0.12) 0, rgba(255, 255, 255, 0.12) 4px, transparent 4px);
+    background-position: 0 0, left 26px bottom 27px;
+    background-repeat: no-repeat; }
   .workflow-progress li {
-    display: inline-block;
-    line-height: 2rem;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 100%;
-    background: #b8c6d4;
-    margin: 0 5px;
-    font-weight: 500; }
-  .workflow-progress li.complete {
-    background: #a2d9f3;
-    color: rgba(255, 255, 255, 0.5); }
-  .workflow-progress li.active {
-    background: #46b3e7;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
+    line-height: 24px;
+    margin: 30px 0;
+    color: rgba(255, 255, 255, 0.7); }
+    .workflow-progress li span {
+      background: #b8c6d4;
+      border-radius: 50%;
+      display: inline-block;
+      line-height: 24px;
+      height: 24px;
+      width: 24px;
+      outline: 4px solid #3f51b5;
+      text-align: center;
+      margin: 0 32px 0 16px;
+      color: white;
+      z-index: 1;
+      position: relative; }
+      .workflow-progress li span .material-icons {
+        font-size: 18px;
+        line-height: 22px;
+        color: white; }
+    .workflow-progress li:first-child {
+      margin-top: 0; }
+    .workflow-progress li:last-child {
+      margin-bottom: 0; }
+    .workflow-progress li.active {
+      font-weight: bold;
+      color: white; }
+      .workflow-progress li.active span {
+        background: #46b3e7; }
+  .workflow-progress .expand-collapse {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 2; }
+    .workflow-progress .expand-collapse md-icon {
+      fill: rgba(255, 255, 255, 0.7) !important;
+      color: rgba(255, 255, 255, 0.7) !important; }
 
 .workflow {
   margin-bottom: 64px; }
@@ -163,18 +189,25 @@ appform-field-signature canvas {
   margin: inherit; }
 
 .sidenav-header {
+  position: relative;
   color: white;
   background: oldlace;
-  background-image: linear-gradient(135deg, #a63db8 18%, transparent 18%), linear-gradient(135deg, rgba(0, 0, 0, 0.2) 18%, transparent 19%), linear-gradient(135deg, #1aa094 22%, transparent 22%), linear-gradient(135deg, rgba(0, 0, 0, 0.2) 22%, transparent 24%), linear-gradient(135deg, #3F51B5 35%, transparent 35%), linear-gradient(-45deg, #a63db8 10%, transparent 10%), linear-gradient(-45deg, rgba(0, 0, 0, 0.2) 10%, transparent 11%), linear-gradient(-45deg, #1aa094 12%, transparent 12%), linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 12%, transparent 13%), linear-gradient(-45deg, #283593 20%, transparent 20%), linear-gradient(to bottom, #3F51B5 30%, #283593);
+  background-image: linear-gradient(135deg, #a63db8 18%, transparent 18%), linear-gradient(135deg, rgba(0, 0, 0, 0.2) 18%, transparent 19%), linear-gradient(135deg, #1aa094 22%, transparent 22%), linear-gradient(135deg, rgba(0, 0, 0, 0.2) 22%, transparent 24%), linear-gradient(135deg, #3F51B5 35%, transparent 35%), linear-gradient(-45deg, #a63db8 5%, transparent 5%), linear-gradient(-45deg, rgba(0, 0, 0, 0.2) 5%, transparent 6%), linear-gradient(-45deg, #1aa094 7%, transparent 7%), linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 7%, transparent 8%), linear-gradient(-45deg, #283593 20%, transparent 20%), linear-gradient(to bottom, #3F51B5 30%, #283593);
   padding: 16px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  .sidenav-header .md-button {
+    position: absolute;
+    right: 0;
+    bottom: 10px; }
+    .sidenav-header .md-button md-icon {
+      color: rgba(255, 255, 255, 0.7) !important; }
   .sidenav-header img {
     border-radius: 50%;
     height: 64px;
     width: 64px;
     display: block;
     margin-bottom: 8px;
-    background: red; }
+    background: rgba(0, 0, 0, 0.5); }
   .sidenav-header p {
     color: rgba(255, 255, 255, 0.7);
     margin: 0; }
