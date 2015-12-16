@@ -25,6 +25,7 @@ $danger: #F44336; //red 500
 @import 'node_modules/fh-wfm-risk-assessment/sass/risk-assessment.scss';
 @import 'node_modules/fh-wfm-vehicle-inspection/sass/vehicle-inspection.scss';
 @import 'node_modules/fh-wfm-appform/sass/appform.scss';
+@import 'node_modules/fh-wfm-component-signature/sass/signature.scss';
 
 
 // Login screen ==========
@@ -42,18 +43,18 @@ $danger: #F44336; //red 500
   input, input:focus {
     color: $white-text-color!important;
   }
-  
+
   label {
       color: $white-secondary-text-color !important;
   }
-  
+
   md-input-container .md-input{
     border-color: $white-divider-color;
     &:focus{
       border-color: $white-secondary-text-color;
     }
   }
-  
+
   button{
     width: 100%!important;
     margin-left: 0px;
@@ -77,12 +78,12 @@ $danger: #F44336; //red 500
     top: 0;
     color: $secondary-text-color;
   }
-  
+
   md-list-item md-divider[md-inset] {
     left: 72px;
     width: calc(100% - 72px);
   }
-  
+
 }
 
 
