@@ -12,8 +12,8 @@ angular.module('wfm-mobile.workorders', [
         templateUrl: 'app/workorder/workorder-list.tpl.html',
         controller: 'WorkordersCtrl as ctrl',
         resolve: {
-          workorders: function(mediator, workorderModuleInit) {
-            return mediator.request('workorders:load');
+          workorders: function(mediator, workorderManager) {
+            return workorderManager.list();
           }
         }
       })
@@ -22,18 +22,6 @@ angular.module('wfm-mobile.workorders', [
 .controller('WorkordersCtrl', function($scope, $filter, mediator, workorders) {
   var self = this;
   self.workorders = workorders;
-
-  mediator.subscribe('done:workorder:create', function(result){
-    self.workorders.push(result);
-  })
-
-  mediator.subscribe('done:workorder:save', function(result){
-    var updatedWorkorder = $filter('filter')(self.workorders, function (d) {return d.id === result.id;})[0];
-    if (result !== updatedWorkorder) {
-      angular.copy(result,updatedWorkorder);
-    };
-  })
-
 })
 
 ;

@@ -29,8 +29,8 @@ angular.module('wfm-mobile.workflow', [
             $scope.workorder = workorder;
           },
           resolve: {
-            workorder: function($stateParams, mediator, workorderModuleInit) {
-              return mediator.request('workorder:load', $stateParams.workorderId);
+            workorder: function($stateParams, workorderManager) {
+              return workorderManager.read($stateParams.workorderId);
             }
           }
         }
@@ -44,8 +44,8 @@ angular.module('wfm-mobile.workflow', [
         workflows: function(mediator) {
           return mediator.request('workflows:load');
         },
-        workorder: function($stateParams, mediator, workorderModuleInit) {
-          return mediator.request('workorder:load', $stateParams.workorderId);
+        workorder: function($stateParams, workorderManager) {
+          return workorderManager.read($stateParams.workorderId);
         }
       }
     })
@@ -57,8 +57,8 @@ angular.module('wfm-mobile.workflow', [
         workflows: function(mediator) {
           return mediator.request('workflows:load');
         },
-        workorder: function($stateParams, mediator, workorderModuleInit) {
-          return mediator.request('workorder:load', $stateParams.workorderId);
+        workorder: function($stateParams, workorderManager) {
+          return workorderManager.read($stateParams.workorderId);
         }
       }
     })
@@ -70,8 +70,8 @@ angular.module('wfm-mobile.workflow', [
         workflows: function(mediator) {
           return mediator.request('workflows:load');
         },
-        workorder: function($stateParams, mediator, workorderModuleInit) {
-          return mediator.request('workorder:load', $stateParams.workorderId);
+        workorder: function($stateParams, workorderManager) {
+          return workorderManager.read($stateParams.workorderId);
         }
       }
     })
@@ -96,7 +96,7 @@ angular.module('wfm-mobile.workflow', [
 })
 
 
-.controller('WorkflowStepController', function($scope, $state, mediator, appformClient, workflows, workorder) {
+.controller('WorkflowStepController', function($scope, $state, mediator, workorderManager, appformClient, workflows, workorder) {
   var self = this;
 
   self.workorder = workorder;
@@ -128,7 +128,7 @@ angular.module('wfm-mobile.workflow', [
         console.log('metaData', metaData);
         if (self.workorder.id == metaData.workorderId) {
           self.workorder.results[metaData.stepCode].submission.submissionId = remoteSubmission.props.submissionId;
-          mediator.request('workorder:save', self.workorder, {uid: workorder.id}).then(function() {
+          workorderManager.update(self.workorder).then(function() {
             console.log('************* workorder updated with appform remote id');
             console.log(self.workorder.results[metaData.stepCode]);
           });
@@ -140,7 +140,7 @@ angular.module('wfm-mobile.workflow', [
     , submission: submission
     , status: 'complete'
     };
-    mediator.request('workorder:save', self.workorder, {uid: self.workorder.id}).then(function() {
+    workorderManager.update(self.workorder).then(function() {
       console.log('workorder save successful');
       self.next();
     });

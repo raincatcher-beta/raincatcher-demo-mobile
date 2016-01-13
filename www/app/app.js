@@ -35,8 +35,8 @@ angular.module('wfm-mobile', [
       abstract: true,
       templateUrl: 'app/main.tpl.html',
       resolve: {
-        workorderModuleInit: function(mediator) {
-          return mediator.request('module:init:workorder')
+        workorderManager: function(workorderSync) {
+          return workorderSync.managerPromise;
         }
       },
       controller: function($scope, $state, $mdSidenav){
