@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('wfm-mobile.workorders', [
-  'ui.router',
-, 'wfm.core.mediator'
+  'ui.router'
 ])
 
 .config(function($stateProvider) {
@@ -12,14 +11,14 @@ angular.module('wfm-mobile.workorders', [
         templateUrl: 'app/workorder/workorder-list.tpl.html',
         controller: 'WorkordersCtrl as ctrl',
         resolve: {
-          workorders: function(mediator, workorderManager) {
+          workorders: function(workorderManager) {
             return workorderManager.list();
           }
         }
       })
 })
 
-.controller('WorkordersCtrl', function($scope, $filter, mediator, workorders) {
+.controller('WorkordersCtrl', function($scope, $filter, workorders) {
   var self = this;
   self.workorders = workorders;
 })

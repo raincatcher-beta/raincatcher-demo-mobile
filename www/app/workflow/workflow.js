@@ -41,8 +41,8 @@ angular.module('wfm-mobile.workflow', [
       templateUrl: 'app/workflow/workflow-begin.tpl.html',
       controller: 'WorkflowController as ctrl',
       resolve: {
-        workflows: function(mediator) {
-          return mediator.request('workflows:load');
+        workflows: function(workflowManager) {
+          return workflowManager.list();
         },
         workorder: function($stateParams, workorderManager) {
           return workorderManager.read($stateParams.workorderId);
@@ -54,8 +54,8 @@ angular.module('wfm-mobile.workflow', [
       templateUrl: 'app/workflow/workflow-steps.tpl.html',
       controller: 'WorkflowStepController as ctrl',
       resolve: {
-        workflows: function(mediator) {
-          return mediator.request('workflows:load');
+        workflows: function(workflowManager) {
+          return workflowManager.list();
         },
         workorder: function($stateParams, workorderManager) {
           return workorderManager.read($stateParams.workorderId);
@@ -67,8 +67,8 @@ angular.module('wfm-mobile.workflow', [
       templateUrl: 'app/workflow/workflow-complete.tpl.html',
       controller: 'WorkflowController as ctrl',
       resolve: {
-        workflows: function(mediator) {
-          return mediator.request('workflows:load');
+        workflows: function(workflowManager) {
+          return workflowManager.list();
         },
         workorder: function($stateParams, workorderManager) {
           return workorderManager.read($stateParams.workorderId);
@@ -77,7 +77,7 @@ angular.module('wfm-mobile.workflow', [
     })
 })
 
-.controller('WorkflowController', function($state, mediator, workflows, workorder) {
+.controller('WorkflowController', function($state, workflows, workorder) {
   var self = this;
   console.log('workorder', workorder)
   self.workorder = workorder;
