@@ -96,7 +96,7 @@ angular.module('wfm-mobile.workflow', [
 })
 
 
-.controller('WorkflowStepController', function($scope, $state, mediator, workflows, workorder) {
+.controller('WorkflowStepController', function($scope, $state, mediator, appformClient, workflows, workorder) {
   var self = this;
 
   self.workorder = workorder;
@@ -122,19 +122,15 @@ angular.module('wfm-mobile.workflow', [
   var stepSubscription = mediator.subscribe('workflow:step:done', function(submission) {
     console.log('Done called for workflow step', self.stepCurrent.code);
     if (self.stepCurrent.formId) {
-      // kick-off an appform upload, update the workorder when complete
-      // TODO: Move this to a batch job for when the app closes with incomplete workorder syncs
-      var step = angular.copy(self.stepCurrent);
-      var submissionLocalId = submission.submissionLocalIdMap[$fh._getDeviceId()];
-      mediator.request('appform:submission:upload', submission._submission, {uid: submissionLocalId, timeout: 5000})
-      .then(function(submissionId) {
-        self.workorder.results[step.code].submission.submissionId = submissionId;
-        return mediator.request('workorder:save', self.workorder, {uid: self.workorder.id})
-      })
-      .then(function() {
-        console.log('************* workorder updated with appform remote id');
-      }, function(error) {
-        console.error(error);
+      appformClient.synchSubmissionResult(self.workorder, self.stepCurrent, submission)
+      .then(function(response) {
+        if (response.workorder.id == self.workorder.id) {
+          self.workorder.results[response.step.code].submission.submissionId = response.remoteSubmission.props.submissionId;
+          mediator.request('workorder:save', self.workorder, {uid: workorder.id}).then(function() {
+            console.log('************* workorder updated with appform remote id');
+            console.log(self.workorder.results[response.step.code]);
+          });
+        }
       });
     }
     self.workorder.results[self.stepCurrent.code] = {
