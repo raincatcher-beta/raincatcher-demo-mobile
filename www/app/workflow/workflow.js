@@ -123,12 +123,14 @@ angular.module('wfm-mobile.workflow', [
     console.log('Done called for workflow step', self.stepCurrent.code);
     if (self.stepCurrent.formId) {
       appformClient.synchSubmissionResult(self.workorder, self.stepCurrent, submission)
-      .then(function(response) {
-        if (response.workorder.id == self.workorder.id) {
-          self.workorder.results[response.step.code].submission.submissionId = response.remoteSubmission.props.submissionId;
+      .then(function(remoteSubmission) {
+        var metaData = remoteSubmission.get('metaData').wfm;
+        console.log('metaData', metaData);
+        if (self.workorder.id == metaData.workorderId) {
+          self.workorder.results[metaData.stepCode].submission.submissionId = remoteSubmission.props.submissionId;
           mediator.request('workorder:save', self.workorder, {uid: workorder.id}).then(function() {
             console.log('************* workorder updated with appform remote id');
-            console.log(self.workorder.results[response.step.code]);
+            console.log(self.workorder.results[metaData.stepCode]);
           });
         }
       });
