@@ -13,6 +13,11 @@ angular.module('wfm-mobile.auth', [
         url: '/login',
         templateUrl: 'app/auth/login.tpl.html',
         controller: 'LoginCtrl as ctrl',
+        resolve: {
+          hasSession: function(userClient) {
+            return userClient.hasSession();
+          }
+        }
       })
     .state('app.profile', {
         url: '/profile',
@@ -21,7 +26,30 @@ angular.module('wfm-mobile.auth', [
       })
 })
 
-.controller('LoginCtrl', function() {
+.controller('LoginCtrl', function(userClient, hasSession) {
+  var self = this;
+
+  self.hasSession = hasSession;
+
+  self.login = function() {
+    userClient.auth('test', 'pass')
+    .then(userClient.hasSession)
+    .then(function(hasSession) {
+      self.hasSession = hasSession;
+    }, function(err) {
+      console.err(err);
+    });
+  }
+
+  self.logout = function() {
+    userClient.clearSession()
+    .then(userClient.hasSession)
+    .then(function(hasSession) {
+      self.hasSession = hasSession;
+    }, function(err) {
+      console.err(err);
+    });
+  }
 })
 
 .controller('ProfileCtrl', function() {

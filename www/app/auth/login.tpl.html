@@ -1,26 +1,32 @@
 <div class="login" flex>
-  
-  <div layout-padding layout-margin>
 
-  <form >
-    <h1 class="md-headline">Name of the Company</h1>
-  
-    <md-input-container>
-      <label>ID number</label>
-      <input type="number">
-    </md-input-container>
-    <md-input-container>
-      <label>Password</label>
-      <input type="password">
-    </md-input-container>
-    
-    <md-button class="md-raised md-primary md-hue-2">Log in</md-button>
-    
-  </form>
-  
-  <p class="md-body-1">Problems to login? Call Max the Manager</p>
-  
-  </md-content>
-  
-  
+  <div layout-padding layout-margin>
+    <div ng-hide="ctrl.hasSession">
+      <form>
+        <h1 class="md-headline">Name of the Company</h1>
+
+        <md-input-container>
+          <label>ID number</label>
+          <input type="number">
+        </md-input-container>
+        <md-input-container>
+          <label>Password</label>
+          <input type="password">
+        </md-input-container>
+
+        <md-button class="md-raised md-primary md-hue-2" ng-click="ctrl.login()">Log in</md-button>
+
+      </form>
+    </div>
+
+    <div ng-show="ctrl.hasSession">
+      <md-button class="md-raised md-primary md-hue-2" ng-click="ctrl.logout()">Log out</md-button>
+    </div>
+
+    <p class="md-body-1">Trouble logging in? Contact the switchboard.</p>
+
+    </md-content>
+
+  </div>
+
 </div><!-- login -->
