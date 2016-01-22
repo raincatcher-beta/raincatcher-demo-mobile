@@ -55,7 +55,19 @@ angular.module('wfm-mobile', [
     })
 })
 
-.run(function($rootScope) {
+.run(function($rootScope, $state, userClient) {
+  $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
+    if(toState.name !== "app.login"){
+      userClient.hasSession().then(function(hasSession) {
+        if(!hasSession) {
+          e.preventDefault();
+          $rootScope.toState = toState;
+          $rootScope.toParams = toParams;
+          $state.go('app.login');
+        }
+      });
+    };
+  });
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
     console.error('State change error: ', error, {
       event: event,

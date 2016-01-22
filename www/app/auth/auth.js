@@ -26,7 +26,7 @@ angular.module('wfm-mobile.auth', [
       })
 })
 
-.controller('LoginCtrl', function(userClient, hasSession) {
+.controller('LoginCtrl', function($state, $rootScope, userClient, hasSession) {
   var self = this;
 
   self.hasSession = hasSession;
@@ -36,6 +36,13 @@ angular.module('wfm-mobile.auth', [
     .then(userClient.hasSession)
     .then(function(hasSession) {
       self.hasSession = hasSession;
+      if ($rootScope.toState) {
+        $state.go($rootScope.toState, $rootScope.toParams);
+        delete $rootScope.toState;
+        delete $rootScope.toParams;
+      } else {
+        $state.go('app.workorders');
+      }
     }, function(err) {
       console.err(err);
     });
