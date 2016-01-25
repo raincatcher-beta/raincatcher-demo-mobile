@@ -1,6 +1,6 @@
 <md-toolbar ui-view="toolbar" layout="row" class="md-primary md-hue-2 md-whiteframe-z1">
   <div class="md-toolbar-tools">
-    <md-button ng-click="toggleSidenav($event, 'left')" hide-gt-sm class="md-icon-button">
+    <md-button ng-show="profileData" ng-click="toggleSidenav($event, 'left')" hide-gt-sm class="md-icon-button">
       <md-icon aria-label="Menu" md-font-set="material-icons">menu</md-icon>
     </md-button>
     <h1>FeedHenry</h1>
@@ -9,12 +9,12 @@
 
 <div layout="row" flex>
 
-  <md-sidenav layout="column" flex="10" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+  <md-sidenav ng-show="profileData" layout="column" flex="10" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
 
     <div class="sidenav-header">
-      <img ng-src="https://dl.dropboxusercontent.com/u/4371641/queen.jpg" class="md-avatar" alt="The Queen" />
-      <h3 class="md-body-2">Firstname Lastname</h3>
-      <p class="md-body-1">email@domainname.com</p>
+      <img ng-src="{{profileData.avatar}}" class="md-avatar" alt="Photo of {{profileData.name}}"/>
+      <h3 class="md-body-2">{{profileData.name}}</h3>
+      <p class="md-body-1">{{profileData.email}}</p>
       <md-button class="md-icon-button" ng-click="navigateTo('app.profile'); toggleSidenav($event, 'left')" aria-label="Edit">
         <md-icon md-font-set="material-icons">edit</md-icon>
       </md-button>

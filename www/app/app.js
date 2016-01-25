@@ -38,9 +38,17 @@ angular.module('wfm-mobile', [
       resolve: {
         workorderManager: function(workorderSync) {
           return workorderSync.managerPromise;
+        },
+        profileData: function(userClient) {
+          return userClient.getProfile();
         }
       },
-      controller: function($scope, $state, $mdSidenav){
+      controller: function($scope, $state, $mdSidenav, mediator, profileData){
+        console.log('profileData', profileData);
+        $scope.profileData = profileData;
+        mediator.subscribe('wfm:auth:profile:change', function(_profileData) {
+          $scope.profileData = _profileData;
+        });
         $scope.$state = $state;
         $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();

@@ -32,7 +32,7 @@ angular.module('wfm-mobile.auth', [
   self.hasSession = hasSession;
 
   self.login = function() {
-    userClient.auth('test', 'pass')
+    userClient.auth(self.username, self.password)
     .then(userClient.hasSession)
     .then(function(hasSession) {
       self.hasSession = hasSession;
@@ -44,7 +44,7 @@ angular.module('wfm-mobile.auth', [
         $state.go('app.workorders');
       }
     }, function(err) {
-      console.err(err);
+      console.error(err);
     });
   }
 
