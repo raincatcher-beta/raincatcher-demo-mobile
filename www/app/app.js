@@ -13,6 +13,7 @@ angular.module('wfm-mobile', [
 
 , require('fh-wfm-mediator')
 , require('fh-wfm-workorder')
+, require('fh-wfm-result')
 , require('fh-wfm-workflow')
 , require('fh-wfm-appform')
 , require('fh-wfm-risk-assessment')
@@ -39,12 +40,14 @@ angular.module('wfm-mobile', [
         workorderManager: function(workorderSync) {
           return workorderSync.managerPromise;
         },
+        resultManager: function(resultSync) {
+          return resultSync.managerPromise;
+        },
         profileData: function(userClient) {
           return userClient.getProfile();
         }
       },
       controller: function($scope, $state, $mdSidenav, mediator, profileData){
-        console.log('profileData', profileData);
         $scope.profileData = profileData;
         mediator.subscribe('wfm:auth:profile:change', function(_profileData) {
           $scope.profileData = _profileData;

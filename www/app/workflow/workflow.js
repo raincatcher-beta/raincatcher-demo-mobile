@@ -19,6 +19,28 @@ angular.module('wfm-mobile.workflow', [
     .state('app.workflow', {
       abstract: true,
       url: '/workflow/workorder/:workorderId',
+      resolve: {
+        workflows: function(workflowManager) {
+          return workflowManager.list();
+        },
+        workorder: function($stateParams, workorderManager) {
+          return workorderManager.read($stateParams.workorderId);
+        },
+        results: function($stateParams, resultManager) {
+          return resultManager.list().then(function(resultsArray) {
+            var results = {};
+            resultsArray.filter(function(result) {
+              return result.workorderId === parseInt($stateParams.workorderId);
+            }).forEach(function(result) {
+              if (!results[result.stepCode] || (results[result.stepCode] && results[result.stepCode].timestamp < result.timestamp)) {
+                results[result.stepCode] = result;
+              }
+            });
+            console.log('workorderId', $stateParams.workorderId, 'results', results);
+            return results;
+          });
+        }
+      },
       views: {
         '': {
           template: '<div ui-view></div>'
@@ -40,53 +62,27 @@ angular.module('wfm-mobile.workflow', [
       url: '/begin',
       templateUrl: 'app/workflow/workflow-begin.tpl.html',
       controller: 'WorkflowController as ctrl',
-      resolve: {
-        workflows: function(workflowManager) {
-          return workflowManager.list();
-        },
-        workorder: function($stateParams, workorderManager) {
-          return workorderManager.read($stateParams.workorderId);
-        }
-      }
     })
     .state('app.workflow.steps', {
       url: '/steps',
       templateUrl: 'app/workflow/workflow-steps.tpl.html',
       controller: 'WorkflowStepController as ctrl',
-      resolve: {
-        workflows: function(workflowManager) {
-          return workflowManager.list();
-        },
-        workorder: function($stateParams, workorderManager) {
-          return workorderManager.read($stateParams.workorderId);
-        }
-      }
     })
     .state('app.workflow.complete', {
       url: '/complete',
       templateUrl: 'app/workflow/workflow-complete.tpl.html',
       controller: 'WorkflowController as ctrl',
-      resolve: {
-        workflows: function(workflowManager) {
-          return workflowManager.list();
-        },
-        workorder: function($stateParams, workorderManager) {
-          return workorderManager.read($stateParams.workorderId);
-        }
-      }
     })
 })
 
-.controller('WorkflowController', function($state, workflows, workorder) {
+.controller('WorkflowController', function($state, workflows, workorder, results) {
   var self = this;
   console.log('workorder', workorder)
   self.workorder = workorder;
   self.workflow = workflows[workorder.workflowId];
   self.steps = self.workflow.steps;
 
-  if (!self.workorder.results) {
-    self.workorder.results = {};
-  };
+  self.results = results;
 
   self.begin = function() {
     $state.go('app.workflow.steps', {
@@ -96,21 +92,20 @@ angular.module('wfm-mobile.workflow', [
 })
 
 
-.controller('WorkflowStepController', function($scope, $state, mediator, workorderManager, appformClient, workflows, workorder) {
+.controller('WorkflowStepController', function($scope, $state, mediator, resultManager, appformClient, workflows, workorder, results) {
+  console.log('manager', resultManager);
   var self = this;
 
   self.workorder = workorder;
   self.workflow = workflows[workorder.workflowId];
   self.steps = self.workflow.steps;
-  if (!self.workorder.results) {
-    self.workorder.results = {};
-  };
+  self.results = results;
 
   self.stepIndex = 0;
   self.stepCurrent = self.steps[0];
-  if (! _.isEmpty(self.workorder.results)) {
+  if (! _.isEmpty(self.results)) {
     for (var i=1; i < self.steps.length; i++) {
-      var result = self.workorder.results[self.steps[i].code];
+      var result = self.results[self.steps[i].code];
       if (!result || result.status !== 'complete') {
         self.stepIndex = i;
         self.stepCurrent = self.steps[i];
@@ -121,27 +116,37 @@ angular.module('wfm-mobile.workflow', [
 
   var stepSubscription = mediator.subscribe('workflow:step:done', function(submission) {
     console.log('Done called for workflow step', self.stepCurrent.code);
-    if (self.stepCurrent.formId) {
-      appformClient.synchSubmissionResult(self.workorder, self.stepCurrent, submission)
-      .then(function(remoteSubmission) {
-        var metaData = remoteSubmission.get('metaData').wfm;
-        console.log('metaData', metaData);
-        if (self.workorder.id == metaData.workorderId) {
-          self.workorder.results[metaData.stepCode].submission.submissionId = remoteSubmission.props.submissionId;
-          workorderManager.update(self.workorder).then(function() {
-            console.log('************* workorder updated with appform remote id');
-            console.log(self.workorder.results[metaData.stepCode]);
-          });
-        }
-      });
-    }
-    self.workorder.results[self.stepCurrent.code] = {
-      workflowStep: self.stepCurrent
+    var result = {
+      workorderId: self.workorder.id,
+      stepCode: self.stepCurrent.code
     , submission: submission
-    , status: 'complete'
-    };
-    workorderManager.update(self.workorder).then(function() {
-      console.log('workorder save successful');
+    , type: self.stepCurrent.formId ? 'appform' : 'static'
+    , status: self.stepCurrent.formId ? 'pending' : 'complete'
+    , timestamp: new Date().getTime()
+    }
+    self.results[self.stepCurrent.code] = result;
+    resultManager.create(result).then(function() {
+      console.log('result save successful');
+      if (self.stepCurrent.formId) {
+        appformClient.synchSubmissionResult(result)
+        .then(function(remoteSubmission) {
+          var metaData = remoteSubmission._submission.get('metaData').wfm;
+          console.log('metaData', metaData);
+          if (self.workorder.id == metaData.workorderId) {
+            var newResult = {
+              workorderId: metaData.workorderId,
+              stepCode: metaData.stepCode
+            , submission: remoteSubmission
+            , status: 'complete'
+            , timestamp: new Date().getTime()
+            }
+            resultManager.create(newResult).then(function() {
+              console.log('************* result created with appform remote id');
+              console.log(newResult);
+            });
+          }
+        });
+      }
       self.next();
     });
   });
