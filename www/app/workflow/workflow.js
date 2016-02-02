@@ -92,7 +92,7 @@ angular.module('wfm-mobile.workflow', [
 })
 
 
-.controller('WorkflowStepController', function($scope, $state, mediator, resultManager, appformClient, workflows, workorder, results) {
+.controller('WorkflowStepController', function($scope, $state, mediator, resultManager, appformClient, workflows, workorder, results, profileData) {
   console.log('manager', resultManager);
   var self = this;
 
@@ -123,6 +123,7 @@ angular.module('wfm-mobile.workflow', [
     , type: self.stepCurrent.formId ? 'appform' : 'static'
     , status: self.stepCurrent.formId ? 'pending' : 'complete'
     , timestamp: new Date().getTime()
+    , submitter: profileData.id
     }
     self.results[self.stepCurrent.code] = result;
     resultManager.create(result).then(function() {
@@ -141,6 +142,7 @@ angular.module('wfm-mobile.workflow', [
             , timestamp: new Date().getTime()
             }
             resultManager.create(newResult).then(function() {
+              self.results[newResult.stepCode] = newResult;
               console.log('************* result created with appform remote id');
               console.log(newResult);
             });
