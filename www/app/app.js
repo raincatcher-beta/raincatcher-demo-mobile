@@ -37,8 +37,16 @@ angular.module('wfm-mobile', [
       abstract: true,
       templateUrl: 'app/main.tpl.html',
       resolve: {
-        workorderManager: function(workorderSync) {
-          return workorderSync.managerPromise;
+        workorderManager: function(workorderSync, profileData) {
+          if (profileData && profileData.id) {
+            var filter = {
+              key: 'assignee',
+              value: profileData.id
+            }
+            return workorderSync.createManager({filter: filter});
+          } else {
+            return null;
+          }
         },
         resultManager: function(resultSync) {
           return resultSync.managerPromise;
@@ -47,10 +55,39 @@ angular.module('wfm-mobile', [
           return userClient.getProfile();
         }
       },
-      controller: function($scope, $state, $mdSidenav, mediator, profileData){
+      controller: function($rootScope, $scope, $state, $mdSidenav, mediator, profileData, userClient, workorderSync) {
         $scope.profileData = profileData;
         mediator.subscribe('wfm:auth:profile:change', function(_profileData) {
-          $scope.profileData = _profileData;
+          if (_profileData === null) { // a logout
+            workorderSync.removeManager()
+            .then(function() {
+              $state.go('app.login', undefined, {reload: true});
+            }, function(err) {
+              console.err(err);
+            });
+          } else { // a login
+            $scope.profileData = _profileData;
+            return workorderSync.createManager({
+              filter: {
+                key: 'assignee',
+                value: _profileData.id
+              }
+            })
+            .then(function(manager) {
+              return manager.forceSync().then(manager.waitForSync)
+            })
+            .then(function() {
+              if ($rootScope.toState) {
+                $state.go($rootScope.toState, $rootScope.toParams, {reload: true});
+                delete $rootScope.toState;
+                delete $rootScope.toParams;
+              } else {
+                $state.go('app.workorders', undefined, {reload: true});
+              }
+            }, function(err) {
+              console.error(err);
+            });
+          };
         });
         $scope.$state = $state;
         $scope.toggleSidenav = function(event, menuId) {
