@@ -56,7 +56,7 @@ module.exports = function (grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
-        files: ['<%= app.app %>/scripts/{,*/}*.js'],
+        files: ['<%= app.app %>/**/*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: 35730
