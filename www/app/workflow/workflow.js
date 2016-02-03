@@ -27,18 +27,10 @@ angular.module('wfm-mobile.workflow', [
           return workorderManager.read($stateParams.workorderId);
         },
         results: function($stateParams, resultManager) {
-          return resultManager.list().then(function(resultsArray) {
-            var results = {};
-            resultsArray.filter(function(result) {
-              return result.workorderId === parseInt($stateParams.workorderId);
-            }).forEach(function(result) {
-              if (!results[result.stepCode] || (results[result.stepCode] && results[result.stepCode].timestamp < result.timestamp)) {
-                results[result.stepCode] = result;
-              }
+          return resultManager.list()
+            .then(function(results) {
+              return resultManager.filter(results, $stateParams.workorderId);
             });
-            console.log('workorderId', $stateParams.workorderId, 'results', results);
-            return results;
-          });
         }
       },
       views: {
@@ -103,14 +95,14 @@ angular.module('wfm-mobile.workflow', [
 
   self.stepIndex = 0;
   self.stepCurrent = self.steps[0];
-  if (! _.isEmpty(self.results)) {
-    for (var i=1; i < self.steps.length; i++) {
-      var result = self.results[self.steps[i].code];
-      if (!result || result.status !== 'complete') {
-        self.stepIndex = i;
-        self.stepCurrent = self.steps[i];
-        break;
-      };
+
+  // fast-forward to the first incomplete step
+  self.steps.forEach(function(step, i) {
+    var result = self.results[step.code];
+    if (!result || result.status !== 'complete') {
+      self.stepIndex = i;
+      self.stepCurrent = steps;
+      break;
     };
   };
 
