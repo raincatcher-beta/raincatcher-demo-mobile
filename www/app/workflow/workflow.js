@@ -97,44 +97,51 @@ angular.module('wfm-mobile.workflow', [
   self.stepCurrent = self.steps[0];
 
   // fast-forward to the first incomplete step
-  self.steps.forEach(function(step, i) {
+  for (var i=0; i < self.steps.length; i++) {
+    var step = self.steps[i];
     var result = self.results[step.code];
     if (!result || result.status !== 'complete') {
       self.stepIndex = i;
-      self.stepCurrent = steps;
+      self.stepCurrent = step;
       break;
     };
   };
 
   var stepSubscription = mediator.subscribe('workflow:step:done', function(submission) {
     console.log('Done called for workflow step', self.stepCurrent.code);
+    var step = angular.copy(self.stepCurrent);
+    delete step['$$hashKey']; // this property breaks appform submissions;
     var result = {
-      workorderId: self.workorder.id,
-      stepCode: self.stepCurrent.code
+      workorderId: self.workorder.id
+    , step: step
     , submission: submission
-    , type: self.stepCurrent.formId ? 'appform' : 'static'
-    , status: self.stepCurrent.formId ? 'pending' : 'complete'
+    , type: step.formId ? 'appform' : 'static'
+    , status: step.formId ? 'pending' : 'complete'
     , timestamp: new Date().getTime()
     , submitter: profileData.id
     }
-    self.results[self.stepCurrent.code] = result;
+    self.results[step.code] = result;
+    var _submission = result.submission._submission;  // TODO: bad workaround: _submission gets stripped in the create
     resultManager.create(result).then(function() {
+      result.submission._submission = _submission;
       console.log('result save successful');
-      if (self.stepCurrent.formId) {
+      if (step.formId) {
         appformClient.synchSubmissionResult(result)
         .then(function(remoteSubmission) {
           var metaData = remoteSubmission._submission.get('metaData').wfm;
           console.log('metaData', metaData);
           if (self.workorder.id == metaData.workorderId) {
             var newResult = {
-              workorderId: metaData.workorderId,
-              stepCode: metaData.stepCode
+              workorderId: metaData.workorderId
+            , step: metaData.step
             , submission: remoteSubmission
+            , type: 'appform'
             , status: 'complete'
             , timestamp: new Date().getTime()
+            , submitter: profileData.id
             }
             resultManager.create(newResult).then(function() {
-              self.results[newResult.stepCode] = newResult;
+              self.results[newResult.step.code] = newResult;
               console.log('************* result created with appform remote id');
               console.log(newResult);
             });
