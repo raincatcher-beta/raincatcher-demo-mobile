@@ -121,31 +121,32 @@ angular.module('wfm-mobile.workflow', [
     , submitter: profileData.id
     }
     self.results[step.code] = result;
-    var _submission = result.submission._submission;  // TODO: bad workaround: _submission gets stripped in the create
     resultManager.create(result).then(function() {
-      result.submission._submission = _submission;
       console.log('result save successful');
       if (step.formId) {
         appformClient.synchSubmissionResult(result)
         .then(function(remoteSubmission) {
-          var metaData = remoteSubmission._submission.get('metaData').wfm;
-          console.log('metaData', metaData);
-          if (self.workorder.id == metaData.workorderId) {
-            var newResult = {
-              workorderId: metaData.workorderId
-            , step: metaData.step
-            , submission: remoteSubmission
-            , type: 'appform'
-            , status: 'complete'
-            , timestamp: new Date().getTime()
-            , submitter: profileData.id
-            }
-            resultManager.create(newResult).then(function() {
-              self.results[newResult.step.code] = newResult;
-              console.log('************* result created with appform remote id');
-              console.log(newResult);
-            });
-          }
+          appformClient.getSubmission(remoteSubmission.submissionId)
+            .then(function(_submission) {
+              var metaData = _submission.get('metaData').wfm;
+              console.log('metaData', metaData);
+              if (self.workorder.id == metaData.workorderId) {
+                var newResult = {
+                  workorderId: metaData.workorderId
+                , step: metaData.step
+                , submission: remoteSubmission
+                , type: 'appform'
+                , status: 'complete'
+                , timestamp: new Date().getTime()
+                , submitter: profileData.id
+                }
+                resultManager.create(newResult).then(function() {
+                  self.results[newResult.step.code] = newResult;
+                  console.log('************* result created with appform remote id');
+                  console.log(newResult);
+                });
+              }
+            })
         });
       }
       self.next();
