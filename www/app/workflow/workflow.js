@@ -93,19 +93,31 @@ angular.module('wfm-mobile.workflow', [
   self.steps = self.workflow.steps;
   self.results = results;
 
-  self.stepIndex = 0;
-  self.stepCurrent = self.steps[0];
+  self.stepIndex = -1;
+
+  self.next = function() {
+    self.stepIndex++;
+    if (self.stepIndex < Object.keys(self.workflow.steps).length) {
+      self.stepCurrent = self.steps[self.stepIndex];
+    } else {
+      $state.go('app.workflow.complete', {
+        workorderId: self.workorder.id
+      });
+    }
+  };
 
   // fast-forward to the first incomplete step
   for (var i=0; i < self.steps.length; i++) {
     var step = self.steps[i];
     var result = self.results[step.code];
-    if (!result || result.status !== 'complete') {
+    if (result && result.status === 'complete') {
       self.stepIndex = i;
-      self.stepCurrent = step;
+    } else {
       break;
     };
   };
+
+  self.next();
 
   var stepSubscription = mediator.subscribe('workflow:step:done', function(submission) {
     console.log('Done called for workflow step', self.stepCurrent.code);
@@ -152,17 +164,6 @@ angular.module('wfm-mobile.workflow', [
       self.next();
     });
   });
-
-  self.next = function() {
-    self.stepIndex++;
-    if (self.stepIndex < Object.keys(self.workflow.steps).length) {
-      self.stepCurrent = self.steps[self.stepIndex];
-    } else {
-      $state.go('app.workflow.complete', {
-        workorderId: self.workorder.id
-      });
-    }
-  };
 
   $scope.$on("$destroy", function() {
     mediator.remove('workflow:step:done', stepSubscription.id);
