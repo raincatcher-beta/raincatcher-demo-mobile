@@ -31,8 +31,18 @@ angular.module('wfm-mobile.auth', [
 
   self.hasSession = hasSession;
 
-  self.login = function() {
-    userClient.auth(self.username, self.password)
+  self.loginMessages = {success: false, error: false};
+
+  self.login = function(valid) {
+    if (valid) {
+      userClient.auth(self.username, self.password)
+      .then(function() {
+        self.loginMessages.success = true;
+      }, function(err) {
+        console.log(err);
+        self.loginMessages.error = true;
+      });
+    }
   }
 
   self.logout = function() {
