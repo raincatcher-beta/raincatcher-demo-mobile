@@ -119,6 +119,17 @@ angular.module('wfm-mobile.workflow', [
 
   self.next();
 
+  var backSubscription = mediator.subscribe('workflow:step:back', function(submission) {
+    self.stepIndex--;
+    if (self.stepIndex >= 0) {
+      self.stepCurrent = self.steps[self.stepIndex];
+    } else {
+      $state.go('app.workflow.begin', {
+        workorderId: self.workorder.id
+      });
+    }
+  });
+
   var stepSubscription = mediator.subscribe('workflow:step:done', function(submission) {
     console.log('Done called for workflow step', self.stepCurrent.code);
     var step = angular.copy(self.stepCurrent);
@@ -167,6 +178,7 @@ angular.module('wfm-mobile.workflow', [
 
   $scope.$on("$destroy", function() {
     mediator.remove('workflow:step:done', stepSubscription.id);
+    mediator.remove('workflow:step:back', backSubscription.id);
   });
 })
 
