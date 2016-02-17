@@ -1,3 +1,8 @@
+/**
+* CONFIDENTIAL
+* Copyright 2016 Red Hat, Inc. and/or its affiliates.
+* This is unpublished proprietary source code of Red Hat.
+**/
 // Generated on 2014-03-05 using generator-angular 0.7.1
 'use strict';
 
