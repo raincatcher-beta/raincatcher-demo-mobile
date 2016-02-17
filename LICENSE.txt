@@ -1,0 +1,80 @@
+FEEDHENRY END USER LICENSE AGREEMENT
+
+PLEASE READ THIS END USER LICENSE AGREEMENT CAREFULLY BEFORE USING
+THIS SOFTWARE. BY USING THIS SOFTWARE, YOU SIGNIFY YOUR ASSENT TO AND
+ACCEPTANCE OF THIS END USER LICENSE AGREEMENT AND ACKNOWLEDGE YOU HAVE
+READ AND UNDERSTAND THE TERMS. AN INDIVIDUAL ACTING ON BEHALF OF AN
+ENTITY REPRESENTS THAT HE OR SHE HAS THE AUTHORITY TO ENTER INTO THIS
+END USER LICENSE AGREEMENT ON BEHALF OF THAT ENTITY. IF YOU DO NOT
+ACCEPT THE TERMS OF THIS AGREEMENT, THEN YOU MUST NOT USE THE
+SOFTWARE.
+
+This end user license agreement ("EULA") governs the use of the
+software contained in those private repositories, located at
+http://github.com/feedhenry-staff, that contain a copy of this EULA,
+and any related updates, upgrades, versions, appearance, structure and
+organization (the "Software"), regardless of the delivery mechanism.
+
+1. Relationship to NDA. You may use the Software only if You have also
+signed a Mutual Non-Disclosure Agreement with Red Hat, Inc. or one of
+its affiliates, as set forth at https://www.redhat.com/wapps/tnc/nda
+("NDA"). In the event of any conflict between the terms and conditions
+of this EULA and the NDA, the NDA shall take precedence. However, the
+NDA shall not be construed to expand the license terms governing the
+Software beyond what is stated in this EULA.
+
+2.  License Grant.  Subject to the terms of this EULA, Red Hat,
+Inc. and its affiliates ("Red Hat") grant to you ("You") a
+non-transferable, non-exclusive, worldwide, non-sublicensable,
+limited, revocable license to use the Software. You acquire only the
+right to use the Software and do not acquire any rights of
+ownership. Red Hat reserves all rights to the Software not expressly
+granted to You. This license grant does not limit Your rights under
+the license terms of any software that is subject to an open source
+license. If, at a later date, any portion of the Software is publicly
+released by Red Hat under an open source license, then this EULA shall
+automatically terminate as to such portion and the portion shall
+instead be licensed to You under such open source license.
+ 
+3.  Intellectual Property Rights.  The Software and each of its
+components are owned by Red Hat and other licensors and are protected
+under copyright law and other laws as applicable. Title to the
+Software and any component, or to any copy, modification, or merged
+portion shall remain with Red Hat and other licensors, subject to the
+applicable license. This EULA does not authorize You to: (a) copy,
+distribute, reproduce, use or allow third party access to the Software
+except as expressly authorized hereunder; (b) create a derivative work
+of any part of the Software; or (c) remove any trademarks, trade names
+or titles, copyright notices or any other proprietary marking on the
+Software.
+
+4.  Use Limitation. All use of the Software shall be limited to review
+and testing purposes and not for production use.
+
+5.  No Warranty.  Except as specifically stated in this Section
+5, TO THE MAXIMUM EXTENT PERMITTED UNDER APPLICABLE LAW, THE SOFTWARE
+AND THE COMPONENTS ARE LICENSED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF
+MERCHANTABILITY, NON-INFRINGEMENT OR FITNESS FOR A PARTICULAR PURPOSE.
+
+6.  Limitation of Liability. TO THE MAXIMUM EXTENT PERMITTED UNDER
+APPLICABLE LAW, UNDER NO CIRCUMSTANCES WILL RED HAT OR ITS AFFILIATES
+BE LIABLE TO YOU FOR ANY INCIDENTAL OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS OR LOST SAVINGS ARISING OUT OF THE USE OR
+INABILITY TO USE THE SOFTWARE, EVEN IF RED HAT OR ITS AFFILIATES HAVE
+BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+6.  General.  If any provision of this EULA is held to be
+unenforceable, the enforceability of the remaining provisions shall
+not be affected. Any claim, controversy or dispute arising under or
+relating to this EULA shall be governed by the laws of the State of
+New York and of the United States, without regard to any conflict of
+laws provisions. The rights and obligations of the parties to this
+EULA shall not be governed by the United Nations Convention on the
+International Sale of Goods.
+
+Copyright 2016 Red Hat, Inc.  "Red Hat" and "FeedHenry" are
+registered trademarks of Red Hat, Inc.
+
+
+
