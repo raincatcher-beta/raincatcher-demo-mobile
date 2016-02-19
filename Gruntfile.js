@@ -26,9 +26,24 @@ module.exports = function (grunt) {
     // Project settings
     app: {
       // configurable paths
-      app: 'www',
+      src: 'src',
+      dist: 'www',
       url: '',
       default_local_server_url: 'http://localhost:8001'
+    },
+
+    copy: {
+      static: {
+        files: [
+          {expand: true, cwd: '<%= app.src %>/', src: ['**/*.html'], dest: '<%= app.dist %>', filter: 'isFile'},
+          {expand: true, cwd: '<%= app.src %>/', src: ['**/*.json'], dest: '<%= app.dist %>', filter: 'isFile'},
+        ],
+      },
+      css: {
+        files: [
+          {src: 'node_modules/angular-material/angular-material.css', dest: '<%= app.dist %>/css/', expand: true, flatten: true },
+        ]
+      }
     },
 
     sass: {
@@ -37,7 +52,7 @@ module.exports = function (grunt) {
         },
         dist: {
             files: {
-                'www/css/app.css': 'www/sass/app.scss'
+                '<%= app.dist %>/css/app.css': '<%= app.src %>/sass/app.scss'
             }
         }
     },
@@ -50,7 +65,7 @@ module.exports = function (grunt) {
       },
       all: {
         files: {
-          "www/app/bundle.js": ["www/app/app.js"]
+          "<%= app.dist %>/app/bundle.js": ["<%= app.src %>/app/app.js"]
         },
         options: {
           watch: true
@@ -61,13 +76,17 @@ module.exports = function (grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
-        files: ['<%= app.app %>/app/bundle.js'],
+        files: ['<%= app.dist %>/app/bundle.js'],
         options: {
-          livereload: 35730
+          livereload: '<%= connect.options.livereload %>'
         }
       },
+      html: {
+        files: ['<%= app.src %>/sass/{,*/}*.html'],
+        tasks: ['copy:html']
+      },
       sass: {
-        files: ['<%= app.app %>/sass/{,*/}*.scss'],
+        files: ['<%= app.src %>/sass/{,*/}*.scss'],
         tasks: ['sass']
       },
       gruntfile: {
@@ -78,9 +97,9 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= app.app %>/**/*.html',
-          '<%= app.app %>/css/{,*/}*.css',
-          '<%= app.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= app.dist %>/**/*.html',
+          '<%= app.dist %>/css/{,*/}*.css',
+          '<%= app.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
@@ -100,7 +119,7 @@ module.exports = function (grunt) {
           },
           base: [
             '.tmp',
-            '<%= app.app %>'
+            '<%= app.dist %>'
           ]
         }
       }
@@ -108,6 +127,7 @@ module.exports = function (grunt) {
 
     // Empties folders to start fresh
     clean: {
+      dist: ['<%= app.dist %>'],
       server: '.tmp'
     }
   });
@@ -124,7 +144,9 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      'clean:dist',
       'sass',
+      'copy',
       'clean:server',
       'connect:livereload',
       'browserify',
