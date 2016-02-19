@@ -45,6 +45,7 @@
     "express": "^4.13.2",
     "fh-wfm-appform": "^0.0.5",
     "fh-wfm-component-signature": "0.0.3",
+    "fh-wfm-map": "0.0.1",
     "fh-wfm-mediator": ">=0.0.7",
     "fh-wfm-result": "0.0.1",
     "fh-wfm-risk-assessment": "^0.0.2",
