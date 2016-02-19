@@ -83,7 +83,7 @@ module.exports = function (grunt) {
       },
       html: {
         files: ['<%= app.src %>/sass/{,*/}*.html'],
-        tasks: ['copy:html']
+        tasks: ['copy:static']
       },
       sass: {
         files: ['<%= app.src %>/sass/{,*/}*.scss'],
