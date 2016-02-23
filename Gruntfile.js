@@ -148,8 +148,8 @@ module.exports = function (grunt) {
       'sass',
       'copy',
       'clean:server',
-      'connect:livereload',
       'browserify',
+      'connect:livereload',
       'watch'
     ]);
   });
