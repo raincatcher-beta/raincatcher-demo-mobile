@@ -86,7 +86,7 @@ module.exports = function (grunt) {
         tasks: ['copy:static']
       },
       sass: {
-        files: ['<%= app.src %>/sass/{,*/}*.scss'],
+        files: ['**/*.scss'],
         tasks: ['sass']
       },
       gruntfile: {
