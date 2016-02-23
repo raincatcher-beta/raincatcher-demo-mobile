@@ -109,7 +109,21 @@ angular.module('wfm-mobile', [
     })
 })
 
-.run(function($rootScope, $state, userClient) {
+.run(function($rootScope, $state, $q, mediator, userClient) {
+  var initPromises = [];
+  var initListener = mediator.subscribe('promise:init', function(promise) {
+    initPromises.push(promise);
+  });
+  mediator.publish('init');
+  console.log(initPromises.length, 'init promises to resolve.');
+  var all = (initPromises.length > 0) ? $q.all(initPromises) : $q.when(null);
+  all.then(function() {
+    $rootScope.ready = true;
+    console.log(initPromises.length, 'init promises resolved.');
+    mediator.remove('promise:init', initListener.id);
+    return null;
+  });
+
   $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
     if(toState.name !== "app.login"){
       userClient.hasSession().then(function(hasSession) {

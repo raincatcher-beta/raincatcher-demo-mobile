@@ -3,6 +3,9 @@
  Copyright 2016 Red Hat, Inc. and/or its affiliates.
  This is unpublished proprietary source code of Red Hat.
 -->
+<svg ng-if="!ready" class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+  <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+</svg>
 <md-toolbar ui-view="toolbar" layout="row" class="md-primary md-hue-2 md-whiteframe-z1">
   <div class="md-toolbar-tools">
     <md-button ng-show="profileData" ng-click="toggleSidenav($event, 'left')" hide-gt-sm class="md-icon-button">
