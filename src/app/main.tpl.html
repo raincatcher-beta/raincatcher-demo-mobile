@@ -17,7 +17,7 @@
 
 <div layout="row" flex>
 
-  <md-sidenav ng-show="profileData" layout="column" flex="10" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+  <md-sidenav ng-show="profileData" layout="column" flex="30" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
 
     <div class="sidenav-header">
       <img ng-src="{{profileData.avatar}}" class="md-avatar" alt="Photo of {{profileData.name}}"/>
@@ -26,8 +26,6 @@
       <md-button class="md-icon-button" ng-click="navigateTo('app.profile'); toggleSidenav($event, 'left')" aria-label="Edit">
         <md-icon md-font-set="material-icons">edit</md-icon>
       </md-button>
-
-
     </div>
 
     <md-list>
