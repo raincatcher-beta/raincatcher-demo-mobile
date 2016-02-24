@@ -81,6 +81,20 @@ angular.module('wfm-mobile.workflow', [
 
   self.results = results;
 
+  self.stepIndex = -1;
+  self.stepCount = Object.keys(self.workflow.steps).length;
+
+  // fast-forward to the first incomplete step
+  for (var i=0; i < self.steps.length; i++) {
+    var step = self.steps[i];
+    var result = self.results[step.code];
+    if (result && result.status === 'complete') {
+      self.stepIndex = i;
+    } else {
+      break;
+    };
+  };
+
   self.begin = function() {
     $state.go('app.workflow.steps', {
       workorderId: workorder.id

@@ -82,7 +82,11 @@ module.exports = function (grunt) {
         }
       },
       html: {
+<<<<<<< HEAD
         files: ['<%= app.src %>/{,*/}*.html'],
+=======
+        files: ['<%= app.src %>/**/*.html'],
+>>>>>>> ef2984af0c13c46584640b0a66168c8423c0360c
         tasks: ['copy:static']
       },
       sass: {
