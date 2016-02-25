@@ -10,14 +10,14 @@
       <form name="loginForm" ng-submit="ctrl.login(loginForm.$valid)" novalidate>
         <h1 class="md-headline">FeedHenry WFM Demo</h1>
 
-        <md-input-container>
+        <md-input-container class="md-block">
           <label>Username</label>
           <input ng-model="ctrl.username" id="username" name="username" required>
           <div ng-messages="loginForm.username.$error" ng-show="loginForm.$submitted || loginForm.username.$dirty">
             <div ng-message="required">A username is required.</div>
           </div>
         </md-input-container>
-        <md-input-container>
+        <md-input-container class="md-block">
           <label>Password</label>
           <input ng-model="ctrl.password" id="password" name="password" type="password" required>
           <div ng-messages="loginForm.password.$error" ng-show="loginForm.$submitted || loginForm.password.$dirty">
