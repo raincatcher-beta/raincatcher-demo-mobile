@@ -72,28 +72,15 @@ angular.module('wfm-mobile.workflow', [
     })
 })
 
-.controller('WorkflowController', function($state, workflows, workorder, results) {
+.controller('WorkflowController', function($state, workflowManager, workflows, workorder, results) {
   var self = this;
   console.log('workorder', workorder)
   self.workorder = workorder;
   self.workflow = workflows[workorder.workflowId];
-  self.steps = self.workflow.steps;
 
   self.results = results;
 
-  self.stepIndex = -1;
-  self.stepCount = Object.keys(self.workflow.steps).length;
-
-  // fast-forward to the first incomplete step
-  for (var i=0; i < self.steps.length; i++) {
-    var step = self.steps[i];
-    var result = self.results[step.code];
-    if (result && result.status === 'complete') {
-      self.stepIndex = i;
-    } else {
-      break;
-    };
-  };
+  self.stepIndex = workflowManager.nextStepIndex(self.workorder, self.workflow, self.results);
 
   self.begin = function() {
     $state.go('app.workflow.steps', {
@@ -103,21 +90,20 @@ angular.module('wfm-mobile.workflow', [
 })
 
 
-.controller('WorkflowStepController', function($scope, $state, mediator, resultManager, appformClient, workflows, workorder, results, profileData) {
+.controller('WorkflowStepController', function($scope, $state, mediator, workflowManager, resultManager, appformClient, workflows, workorder, results, profileData) {
   console.log('manager', resultManager);
   var self = this;
 
   self.workorder = workorder;
   self.workflow = workflows[workorder.workflowId];
-  self.steps = self.workflow.steps;
   self.results = results;
 
-  self.stepIndex = -1;
+  self.stepIndex = workflowManager.nextStepIndex(self.workorder, self.workflow, self.results);
 
   self.next = function() {
     self.stepIndex++;
-    if (self.stepIndex < Object.keys(self.workflow.steps).length) {
-      self.stepCurrent = self.steps[self.stepIndex];
+    if (self.stepIndex < self.workflow.steps.length) {
+      self.stepCurrent = self.workflow.steps[self.stepIndex];
     } else {
       $state.go('app.workflow.complete', {
         workorderId: self.workorder.id
@@ -125,23 +111,12 @@ angular.module('wfm-mobile.workflow', [
     }
   };
 
-  // fast-forward to the first incomplete step
-  for (var i=0; i < self.steps.length; i++) {
-    var step = self.steps[i];
-    var result = self.results[step.code];
-    if (result && result.status === 'complete') {
-      self.stepIndex = i;
-    } else {
-      break;
-    };
-  };
-
   self.next();
 
   var backSubscription = mediator.subscribe('workflow:step:back', function(submission) {
     self.stepIndex--;
     if (self.stepIndex >= 0) {
-      self.stepCurrent = self.steps[self.stepIndex];
+      self.stepCurrent = self.workflow.steps[self.stepIndex];
     } else {
       $state.go('app.workflow.begin', {
         workorderId: self.workorder.id
