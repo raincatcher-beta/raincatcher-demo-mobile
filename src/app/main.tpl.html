@@ -37,6 +37,10 @@
         <md-icon md-font-set="material-icons">map</md-icon>
         <p>Map</p>
       </md-list-item>
+      <md-list-item ng-click="navigateTo('app.calendar'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.calendar')}">
+        <md-icon md-font-set="material-icons">calendar</md-icon>
+        <p>Calendar</p>
+      </md-list-item>
       <md-list-item ng-click="navigateTo('app.messages'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.messages')}">
         <md-icon md-font-set="material-icons">mail</md-icon>
         <p>Messages</p>
