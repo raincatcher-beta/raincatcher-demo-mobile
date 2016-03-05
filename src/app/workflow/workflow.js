@@ -31,11 +31,8 @@ angular.module('wfm-mobile.workflow', [
         workorder: function($stateParams, workorderManager) {
           return workorderManager.read($stateParams.workorderId);
         },
-        results: function($stateParams, resultManager) {
-          return resultManager.list()
-            .then(function(results) {
-              return resultManager.filter(results, $stateParams.workorderId);
-            });
+        result: function($stateParams, resultManager) {
+          return resultManager.getByWorkorderId($stateParams.workorderId);
         }
       },
       views: {
@@ -72,15 +69,15 @@ angular.module('wfm-mobile.workflow', [
     })
 })
 
-.controller('WorkflowController', function($state, workflowManager, workflows, workorder, results) {
+.controller('WorkflowController', function($state, workflowManager, workflows, workorder, result) {
   var self = this;
   console.log('workorder', workorder)
   self.workorder = workorder;
   self.workflow = workflows[workorder.workflowId];
 
-  self.results = results;
+  self.result = result;
 
-  self.stepIndex = workflowManager.nextStepIndex(self.workorder, self.workflow, self.results);
+  self.stepIndex = workflowManager.nextStepIndex(self.workflow.steps, self.result);
 
   self.begin = function() {
     $state.go('app.workflow.steps', {
@@ -90,15 +87,18 @@ angular.module('wfm-mobile.workflow', [
 })
 
 
-.controller('WorkflowStepController', function($scope, $state, mediator, workflowManager, resultManager, appformClient, workflows, workorder, results, profileData) {
+.controller('WorkflowStepController', function($scope, $state, mediator, workflowManager, resultManager, appformClient, workflows, workorder, result, profileData) {
   console.log('manager', resultManager);
   var self = this;
 
   self.workorder = workorder;
   self.workflow = workflows[workorder.workflowId];
-  self.results = results;
+  self.result = result;
+  self.result.stepResults = self.result.stepResults || {};
+  self.result.workorderId = self.result.workorderId || workorder.id;
+  self.result.status = workflowManager.checkStatus(self.workorder, self.workflow, self.result);
 
-  self.stepIndex = workflowManager.nextStepIndex(self.workorder, self.workflow, self.results);
+  self.stepIndex = workflowManager.nextStepIndex(self.workflow.steps, self.result);
 
   self.next = function() {
     self.stepIndex++;
@@ -128,27 +128,37 @@ angular.module('wfm-mobile.workflow', [
     console.log('Done called for workflow step', self.stepCurrent.code);
     var step = angular.copy(self.stepCurrent);
     delete step['$$hashKey']; // this property breaks appform submissions;
-    var result = {
-      workorderId: self.workorder.id
-    , step: step
-    , submission: submission
-    , type: step.formId ? 'appform' : 'static'
-    , status: step.formId ? 'pending' : 'complete'
-    , timestamp: new Date().getTime()
-    , submitter: profileData.id
+    var create = ! (self.result.id || self.result._localuid || self.result.id === 0);
+    var stepResult = {
+      step: step,
+      submission: submission,
+      type: step.formId ? 'appform' : 'static',
+      status: step.formId ? 'pending' : 'complete',
+      timestamp: new Date().getTime(),
+      submitter: profileData.id
     }
-    self.results[step.code] = result;
-    resultManager.create(result).then(function() {
+    self.result.stepResults[step.code] = stepResult;
+    self.result.status = workflowManager.checkStatus(self.workorder, self.workflow, self.result);
+    var promise = ! create ? resultManager.update(self.result) : resultManager.create(self.result)
+    promise.then(function(promiseResult) {
+      if (create) {
+        resultManager.stream.filter(function(notification) {
+          return notification.code === 'remote_update_applied'
+            && notification.message.hash === self.result._localuid;
+        }).take(1).subscribe(function(notification) {
+          self.result.id = notification.uid;
+        });
+      }
       console.log('result save successful');
       if (step.formId) {
-        appformClient.synchSubmissionResult(result)
+        appformClient.syncStepResult(workorder, stepResult)
         .then(function(remoteSubmission) {
           appformClient.getSubmission(remoteSubmission.submissionId)
             .then(function(_submission) {
               var metaData = _submission.get('metaData').wfm;
               console.log('metaData', metaData);
               if (self.workorder.id == metaData.workorderId) {
-                var newResult = {
+                var newStepResult = {
                   workorderId: metaData.workorderId
                 , step: metaData.step
                 , submission: remoteSubmission
@@ -157,16 +167,18 @@ angular.module('wfm-mobile.workflow', [
                 , timestamp: new Date().getTime()
                 , submitter: profileData.id
                 }
-                resultManager.create(newResult).then(function() {
-                  self.results[newResult.step.code] = newResult;
+                self.result.stepResults[newStepResult.step.code] = newStepResult;
+                resultManager.update(self.result).then(function() {
                   console.log('************* result created with appform remote id');
-                  console.log(newResult);
+                  console.log(newStepResult);
                 });
               }
             })
         });
       }
       self.next();
+    }, function(error) {
+      console.error(error);
     });
   });
 
