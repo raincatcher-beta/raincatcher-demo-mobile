@@ -6,6 +6,7 @@
 'use strict';
 
 var angular = require('angular');
+var _ = require('lodash');
 require('../lib/feedhenry');
 
 angular.module('wfm-mobile', [
@@ -44,59 +45,21 @@ angular.module('wfm-mobile', [
       abstract: true,
       templateUrl: 'app/main.tpl.html',
       resolve: {
-        workorderManager: function(workorderSync, profileData) {
-          if (profileData && profileData.id) {
-            var filter = {
-              key: 'assignee',
-              value: profileData.id
-            }
-            return workorderSync.createManager({filter: filter});
-          } else {
-            return null;
-          }
-        },
-        resultManager: function(resultSync) {
-          return resultSync.managerPromise;
-        },
         profileData: function(userClient) {
           return userClient.getProfile();
+        },
+        syncManagers: function(syncPool, profileData) {
+          return syncPool.syncManagerMap(profileData);
+        },
+        workorderManager: function(syncManagers) {
+          return syncManagers.workorders;
+        },
+        resultManager: function(syncManagers) {
+          return syncManagers.result;
         }
       },
       controller: function($rootScope, $scope, $state, $mdSidenav, mediator, profileData, userClient, workorderSync) {
         $scope.profileData = profileData;
-        mediator.subscribe('wfm:auth:profile:change', function(_profileData) {
-          if (_profileData === null) { // a logout
-            workorderSync.removeManager()
-            .then(function() {
-              $state.go('app.login', undefined, {reload: true});
-            }, function(err) {
-              console.err(err);
-            });
-          } else { // a login
-            $scope.profileData = _profileData;
-            return workorderSync.createManager({
-              filter: {
-                key: 'assignee',
-                value: _profileData.id
-              }
-            })
-            .then(function(manager) {
-              return manager.forceSync().then(manager.waitForSync)
-            })
-            .then(function() {
-              if ($rootScope.toState) {
-                $state.go($rootScope.toState, $rootScope.toParams, {reload: true});
-                delete $rootScope.toState;
-                delete $rootScope.toParams;
-              } else {
-                $state.go('app.workorders', undefined, {reload: true});
-              }
-            }, function(err) {
-              console.error(err);
-            });
-          };
-        });
-        $scope.$state = $state;
         $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();
           event.stopPropagation();
@@ -108,6 +71,82 @@ angular.module('wfm-mobile', [
         }
       }
     })
+})
+
+.run(function($rootScope, $state, mediator, syncPool) {
+  mediator.subscribe('wfm:auth:profile:change', function(_profileData) {
+    if (_profileData === null) { // a logout
+      syncPool.removeManagers().then(function() {
+        $state.go('app.login', undefined, {reload: true});
+      }, function(err) {
+        console.err(err);
+      });
+    } else {
+      syncPool.syncManagerMap(_profileData)  // created managers will be cached
+      .then(syncPool.forceSync)
+      .then(function() {
+        if ($rootScope.toState) {
+          $state.go($rootScope.toState, $rootScope.toParams, {reload: true});
+          delete $rootScope.toState;
+          delete $rootScope.toParams;
+        } else {
+          $state.go('app.workorders', undefined, {reload: true});
+        };
+      });
+    };
+  });
+})
+
+.factory('syncPool', function($q, $state, workorderSync, resultSync) {
+  var syncPool = {};
+
+  syncPool.removeManagers = function() {
+    var promises = [];
+    // add any additonal manager cleanups here
+    // TODO: replace this with a mediator event that modules can listen for
+    promises.push(workorderSync.removeManager());
+    // promises.push(resultSync.removeManager());
+    return $q.all(promises);
+  }
+
+  syncPool.syncManagerMap = function(profileData) {
+    if (! profileData) {
+      return $q.when({});
+    }
+    var promises = [];
+    if (profileData && profileData.id) {
+      var filter = {
+        key: 'assignee',
+        value: profileData.id
+      }
+    };
+    // add any additonal manager creates here
+    promises.push(workorderSync.createManager({filter: filter}));
+    promises.push(resultSync.managerPromise);
+    return $q.all(promises).then(function(managers) {
+      var map = {};
+      managers.forEach(function(managerWrapper) {
+        map[managerWrapper.manager.datasetId] = managerWrapper;
+      });
+      return map;
+    });
+  }
+
+  syncPool.forceSync = function(managers) {
+    var promises = [];
+    _.forOwn(managers, function(manager) {
+      promises.push(
+        manager.forceSync()
+          .then(manager.waitForSync)
+          .then(function() {
+            return manager;
+          })
+      );
+    });
+    return $q.all(promises)
+  }
+
+  return syncPool;
 })
 
 .run(function($rootScope, $state, $q, mediator, userClient) {
