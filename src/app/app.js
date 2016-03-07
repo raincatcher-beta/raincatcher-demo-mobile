@@ -70,7 +70,7 @@ angular.module('wfm-mobile', [
           return syncManagers.result;
         }
       },
-      controller: function($rootScope, $scope, $state, $mdSidenav, $q, mediator, profileData, userClient, workorderSync, messageSync) {
+      controller: function($rootScope, $scope, $state, $mdSidenav, mediator, profileData, userClient, workorderSync, messageSync) {
         $scope.profileData = profileData;
         $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();
@@ -109,7 +109,7 @@ angular.module('wfm-mobile', [
   });
 })
 
-.factory('syncPool', function($q, $state, workorderSync, resultSync) {
+.factory('syncPool', function($q, $state, workorderSync, resultSync, messageSync) {
   var syncPool = {};
 
   syncPool.removeManagers = function() {
@@ -117,6 +117,7 @@ angular.module('wfm-mobile', [
     // add any additonal manager cleanups here
     // TODO: replace this with a mediator event that modules can listen for
     promises.push(workorderSync.removeManager());
+    promises.push(messageSync.removeManager());
     // promises.push(resultSync.removeManager());
     return $q.all(promises);
   }
@@ -130,10 +131,15 @@ angular.module('wfm-mobile', [
       var filter = {
         key: 'assignee',
         value: profileData.id
+      };
+      var messageFilter = {
+        key: 'receiver',
+        value: profileData.id
       }
     };
     // add any additonal manager creates here
     promises.push(workorderSync.createManager({filter: filter}));
+    promises.push(messageSync.createManager({filter: messageFilter}));
     promises.push(resultSync.managerPromise);
     return $q.all(promises).then(function(managers) {
       var map = {};
