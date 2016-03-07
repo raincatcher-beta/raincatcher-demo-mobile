@@ -16,7 +16,7 @@ angular.module('wfm-mobile', [
 , require('angular-animate')
 , require('angular-aria')
 , require('angular-material')
-
+, require('fh-wfm-message')
 , require('fh-wfm-mediator')
 , require('fh-wfm-workorder')
 , require('fh-wfm-result')
@@ -57,10 +57,57 @@ angular.module('wfm-mobile', [
         },
         resultManager: function(syncManagers) {
           return syncManagers.result;
+        },
+        messageManager: function(messageSync) {
+          return messageSync.createManager();
         }
       },
-      controller: function($rootScope, $scope, $state, $mdSidenav, mediator, profileData, userClient, workorderSync) {
+      controller: function($rootScope, $scope, $state, $mdSidenav, $q, mediator, profileData, userClient, workorderSync, messageSync) {
         $scope.profileData = profileData;
+        mediator.subscribe('wfm:auth:profile:change', function(_profileData) {
+          if (_profileData === null) { // a logout
+            $q.all([workorderSync.removeManager(),messageSync.removeManager()])
+            .then(function() {
+              $state.go('app.login', undefined, {reload: true});
+            }, function(err) {
+              console.err(err);
+            });
+          } else { // a login
+            $scope.profileData = _profileData;
+            return $q.all([
+              workorderSync.createManager({
+                filter: {
+                  key: 'assignee',
+                  value: _profileData.id
+                }
+              }),
+              messageSync.createManager({
+                filter: {
+                  key: 'receiver',
+                  value: _profileData.id
+                }
+              })])
+            .then(function(managers) {
+              return $q.all([managers[0].forceSync(),managers[1].forceSync()])
+              .then( function(_managers) {
+                _managers[0].waitForSync;
+                _managers[1].waitForSync;
+              })
+            })
+            .then(function() {
+              if ($rootScope.toState) {
+                $state.go($rootScope.toState, $rootScope.toParams, {reload: true});
+                delete $rootScope.toState;
+                delete $rootScope.toParams;
+              } else {
+                $state.go('app.workorders', undefined, {reload: true});
+              }
+            }, function(err) {
+              console.error(err);
+            });
+          };
+        });
+        $scope.$state = $state;
         $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();
           event.stopPropagation();

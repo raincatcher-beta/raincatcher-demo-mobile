@@ -18,9 +18,16 @@ angular.module('wfm-mobile.messages', [
         url: '/messages',
         templateUrl: 'app/message/message-list.tpl.html',
         controller: 'MessagesCtrl as ctrl',
-      })
+        resolve: {
+          messages: function(messageManager) {
+            return messageManager.list();
+          }
+      }
+    })
 })
 
 .controller('MessagesCtrl', function() {
 })
 ;
+
+module.exports = 'wfm-mobile.messages';
