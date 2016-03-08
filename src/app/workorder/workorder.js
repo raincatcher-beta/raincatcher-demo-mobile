@@ -18,14 +18,25 @@ angular.module('wfm-mobile.workorders', [
         resolve: {
           workorders: function(workorderManager) {
             return workorderManager.list();
+          },
+          resultMap: function(resultManager) {
+            return resultManager.list()
+            .then(function(results) {
+              var map = {};
+              results.forEach(function(result) {
+                map[result.workorderId] = result;
+              });
+              return map;
+            })
           }
         }
       })
 })
 
-.controller('WorkordersCtrl', function($scope, $filter, workorders) {
+.controller('WorkordersCtrl', function($scope, $filter, workorders, resultMap) {
   var self = this;
   self.workorders = workorders;
+  self.resultMap = resultMap;
 })
 
 ;

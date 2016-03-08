@@ -69,13 +69,23 @@ angular.module('wfm-mobile.workflow', [
     })
 })
 
-.controller('WorkflowController', function($state, workflowManager, workflows, workorder, result) {
+.controller('WorkflowController', function($state, workflowManager, resultManager, workflows, workorder, result) {
   var self = this;
   console.log('workorder', workorder)
   self.workorder = workorder;
   self.workflow = workflows[workorder.workflowId];
 
   self.result = result;
+  var oldStatus = self.result.status;
+  self.result.status = workflowManager.checkStatus(self.workorder, self.workflow, self.result);
+  if (oldStatus !== self.result.status) {
+    var create = ! (self.result.id || self.result._localuid || self.result.id === 0);
+    if (create) {
+      resultManager.update(self.result);
+    } else {
+      resultManager.create(self.result)
+    };
+  };
 
   self.stepIndex = workflowManager.nextStepIndex(self.workflow.steps, self.result);
 
@@ -96,6 +106,7 @@ angular.module('wfm-mobile.workflow', [
   self.result = result;
   self.result.stepResults = self.result.stepResults || {};
   self.result.workorderId = self.result.workorderId || workorder.id;
+
   self.result.status = workflowManager.checkStatus(self.workorder, self.workflow, self.result);
 
   self.stepIndex = workflowManager.nextStepIndex(self.workflow.steps, self.result);
@@ -168,6 +179,7 @@ angular.module('wfm-mobile.workflow', [
                 , submitter: profileData.id
                 }
                 self.result.stepResults[newStepResult.step.code] = newStepResult;
+                self.result.status = workflowManager.checkStatus(self.workorder, self.workflow, self.result);
                 resultManager.update(self.result).then(function() {
                   console.log('************* result created with appform remote id');
                   console.log(newStepResult);
