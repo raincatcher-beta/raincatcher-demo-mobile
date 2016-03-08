@@ -23,10 +23,9 @@
     <script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
   </head>
   <body layout="column" ng-app="wfm-mobile">
-    <div ui-view layout="column" flex>
-      <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-      </svg>
+    <div ng-if="!ready" flex layout="row" layout-align="center center" class="spinner-overlay">
+      <md-progress-circular md-diameter="160" md-mode="indeterminate"></md-progress-circular>
     </div>
+    <div ui-view layout="column" flex></div>
   </body>
 </html>
