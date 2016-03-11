@@ -26,7 +26,12 @@ angular.module('wfm-mobile.messages', [
     })
 })
 
-.controller('MessagesCtrl', function() {
+.controller('MessagesCtrl', function($scope, $filter, mediator, messages) {
+  var self = this;
+  self.messages = messages;
+  mediator.subscribe('message:created', function(message) {
+      $state.go('app.messages', {messages: messages}, {reload: true});
+    });
 })
 ;
 
