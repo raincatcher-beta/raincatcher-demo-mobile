@@ -134,7 +134,6 @@ $danger: #F44336; //red 500
     margin: 0;
   }
   h3{margin: 0;}
-
 }
 
 .spinner-overlay {
@@ -145,4 +144,38 @@ $danger: #F44336; //red 500
   height: 100%;
   z-index: 100;
   background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
+
+// wfm-mobile-calendar
+.wfm-mobile-calendar md-datepicker{
+  margin-left: 4px;
+}
+.wfm-mobile-calendar-table{
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid $divider-text-color;
+  tr{
+    border-bottom: 1px solid $divider-text-color;
+  }
+  td{
+    padding: 15px 10px;
+    position: relative;
+  }
+}
+.wfm-mobile-calendar-time{
+  width: 20%;
+  text-align: right;
+  border-right: 1px solid $divider-text-color;
+}
+.wfm-mobile-calendar-entry{
+  background: $secondary-color;
+  color: $white-text-color;
+  border-radius: 10px;
+  padding: 10px;
+  position: absolute;
+  top:5px;
+  left: 10px;
+  right: 10px;
+  height: 20px;
 }
