@@ -58,19 +58,8 @@ angular.module('wfm-mobile', [
         resultManager: function(syncManagers) {
           return syncManagers.result;
         },
-        messageManager: function(messageSync) {
-          return messageSync.createManager();
-        syncManagers: function(syncPool, profileData) {
-          return syncPool.syncManagerMap(profileData);
-        },
-        workorderManager: function(syncManagers) {
-          return syncManagers.workorders;
-        },
         messageManager: function(syncManagers) {
-          return syncManagers.messages;
-        },
-        resultManager: function(syncManagers) {
-          return syncManagers.result;
+          return messageSync.createManager();
         }
       },
       controller: function($rootScope, $scope, $state, $mdSidenav, mediator, profileData, userClient, workorderSync, messageSync) {
