@@ -12339,7 +12339,7 @@ var self = {
 
   getUID: function(oldOrNewUid){
     var uid = self.uid_map[oldOrNewUid];
-    if(uid){
+    if(uid || uid === 0){
       return uid;
     } else {
       return oldOrNewUid;
