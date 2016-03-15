@@ -171,6 +171,7 @@ angular.module('wfm-mobile.workflow', [
         .then(function(remoteSubmission) {
           self.next();
         }, function(error) {
+          console.error(error);
           throw error;
         });
       } else {
@@ -178,6 +179,7 @@ angular.module('wfm-mobile.workflow', [
       }
     }, function(error) {
       console.error(error);
+      throw error;
     });
   });
 
