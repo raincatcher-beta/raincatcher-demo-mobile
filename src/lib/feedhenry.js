@@ -8932,7 +8932,7 @@ module.exports = function(val){
   };
 
   // Shuffle an array, using the modern version of the
-  // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisherâ€“Yates_shuffle).
+  // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher–Yates_shuffle).
   _.shuffle = function(obj) {
     var rand;
     var index = 0;
