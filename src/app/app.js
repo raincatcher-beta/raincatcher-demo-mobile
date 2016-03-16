@@ -34,6 +34,7 @@ angular.module('wfm-mobile', [
 , require('./setting/setting')
 , require('./auth/auth')
 , require('./calendar/calendar')
+, require('./file/file')
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {
