@@ -14,7 +14,7 @@ angular.module('wfm-mobile.messages', [
 
 .config(function($stateProvider) {
   $stateProvider
-    .state('app.messages', {
+    .state('app.message', {
         url: '/messages',
         templateUrl: 'app/message/message-list.tpl.html',
         controller: 'MessagesCtrl as ctrl',
@@ -24,14 +24,33 @@ angular.module('wfm-mobile.messages', [
           }
       }
     })
+    .state('app.message-detail', {
+      url: '/message/:messageId',
+      templateUrl: 'app/message/message-detail.tpl.html',
+      controller: 'MessageDetailController as ctrl',
+      resolve: {
+        message: function($stateParams, messageManager) {
+          return messageManager.read($stateParams.messageId);
+        }
+      }
+    })
 })
-
+.run(function($state, mediator) {
+  mediator.subscribe('message:selected', function(message) {
+    $state.go('app.message-detail', {
+      messageId: message.id
+    });
+  });
+})
 .controller('MessagesCtrl', function($scope, $filter, mediator, messages) {
   var self = this;
   self.messages = messages;
-  mediator.subscribe('message:created', function(message) {
-      $state.go('app.messages', {messages: messages}, {reload: true});
-    });
+})
+.controller('MessageDetailController', function (message, messageManager) {
+  var self = this;
+  self.message = message;
+  message.status = "read";
+  messageManager.update(message);
 })
 ;
 
