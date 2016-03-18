@@ -9,66 +9,42 @@ module.exports = 'wfm-mobile.file';
 
 angular.module('wfm-mobile.file', [
   'ui.router',
-, 'wfm.core.mediator'
+  'wfm.core.mediator'
 ])
 
 .config(function($stateProvider) {
   $stateProvider
-    .state('app.file', {
-        url: '/file',
-        templateUrl: 'app/file/file-list.tpl.html',
-        controller: 'FileListCtrl as ctrl'
-      })
+  .state('app.file', {
+    url: '/file',
+    templateUrl: 'app/file/file-list.tpl.html',
+    controller: 'FileListCtrl as ctrl',
+    resolve: {
+      files: function(fileClient) {
+        return fileClient.list();
+      }
+    }
+  })
+  .state('app.camera', {
+    url: '/photo',
+    templateUrl: 'app/file/camera.tpl.html',
+    controller: 'CameraCtrl as ctrl'
+  })
 })
 
-.controller('FileListCtrl', function($window, $timeout, $scope) {
+.controller('CameraCtrl', function($state, fileClient, $scope) {
   var self = this;
-  var window = $window;
-  var document = window.document
+  self.model = {};
 
-  var canvas, context, video, videoObj, errBack, stream;
+  self.upload = function() {
+    fileClient.uploadDataUrl(self.model).then(function(fileMeta) {
+      console.log('fileMeta', fileMeta);
+      $state.go('app.file');
+    });
+  }
+})
 
-  // Put event listeners into place
-  $timeout(function() {
-  	// Grab elements, create settings, etc.
-	  canvas = document.getElementById('canvas'),
-		context = canvas.getContext('2d'),
-		video = document.getElementById('video'),
-		videoObj = { 'video': true },
-		errBack = function(error) {
-			console.log('Video capture error: ', error.code);
-		};
-
-  	// TODO: https://www.npmjs.com/package/getusermedia-js
-  	if(navigator.getUserMedia) { // Standard
-  		navigator.getUserMedia(videoObj, function(_stream) {
-        stream = _stream;
-  			video.src = stream;
-  			video.play();
-  		}, errBack);
-  	} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
-  		navigator.webkitGetUserMedia(videoObj, function(_stream){
-        stream = _stream;
-  			video.src = window.webkitURL.createObjectURL(stream);
-  			video.play();
-  		}, errBack);
-  	}
-  	else if(navigator.mozGetUserMedia) { // Firefox-prefixed
-  		navigator.mozGetUserMedia(videoObj, function(_stream){
-        stream = _stream;
-  			video.src = window.URL.createObjectURL(stream);
-  			video.play();
-  		}, errBack);
-  	}
-  }, 0);
-
-  // Trigger photo take
-  self.snap = function() {
-    context.drawImage(video, 0, 0, 320, 240);
-  };
-
-  $scope.$on('$destroy', function() {
-    stream.getVideoTracks()[0].stop();
-  });
+.controller('FileListCtrl', function($state, files) {
+  self = this;
+  self.files = files.slice().reverse();
 })
 ;

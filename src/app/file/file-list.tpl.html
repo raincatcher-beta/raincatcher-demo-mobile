@@ -3,8 +3,18 @@
  Copyright 2016 Red Hat, Inc. and/or its affiliates.
  This is unpublished proprietary source code of Red Hat.
 -->
-<div>
-<video id="video" width="320" height="240" autoplay></video>
-<button id='snap' ng-click="ctrl.snap()">Snap Photo</button>
-<canvas id="canvas" width="320" height="240"></canvas>
-</div>
+
+<md-button class="md-fab" aria-label="Take photo" ui-sref="app.camera" style="position:absolute; bottom:0; right:0">
+  <!-- TODO: Position this md-fab element correctly -->
+  <md-icon md-font-set="material-icons">photo_camera</md-icon>
+</md-button>
+
+<md-list>
+  <md-list-item class="md-2-line" ng-click="navigateTo('app.group.detail', {groupId: group.id})" ng-repeat="file in ctrl.files">
+    <div class="md-list-item-text">
+      <h3>{{file.name}}</h3>
+      <img ng-src="http://localhost:8001/file/wfm/get/{{file.uid}}" style="max-height: 100px">
+    </div>
+    <md-divider></md-divider>
+  </md-list-item>
+</md-list>

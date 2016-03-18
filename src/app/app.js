@@ -26,6 +26,8 @@ angular.module('wfm-mobile', [
 , require('fh-wfm-vehicle-inspection')
 , require('fh-wfm-user')
 , require('fh-wfm-map')
+, require('fh-wfm-file')
+, require('fh-wfm-camera')
 
 , require('./workorder/workorder')
 , require('./workflow/workflow')
