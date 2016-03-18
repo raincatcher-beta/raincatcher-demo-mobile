@@ -55,6 +55,9 @@ angular.module('wfm-mobile', [
         workorderManager: function(syncManagers) {
           return syncManagers.workorders;
         },
+        workflowManager: function(syncManagers) {
+          return syncManagers.workflows;
+        },
         resultManager: function(syncManagers) {
           return syncManagers.result;
         },
@@ -101,7 +104,7 @@ angular.module('wfm-mobile', [
   });
 })
 
-.factory('syncPool', function($q, $state, workorderSync, resultSync, messageSync) {
+.factory('syncPool', function($q, $state, workorderSync, workflowSync, resultSync, messageSync) {
   var syncPool = {};
 
   syncPool.removeManagers = function() {
@@ -110,6 +113,7 @@ angular.module('wfm-mobile', [
     // TODO: replace this with a mediator event that modules can listen for
     promises.push(workorderSync.removeManager());
     promises.push(messageSync.removeManager());
+    promises.push(workflowSync.removeManager());
     // promises.push(resultSync.removeManager());
     return $q.all(promises);
   }
@@ -131,6 +135,7 @@ angular.module('wfm-mobile', [
     };
     // add any additonal manager creates here
     promises.push(workorderSync.createManager({filter: filter}));
+    promises.push(workflowSync.createManager());
     promises.push(messageSync.createManager({filter: messageFilter}));
     promises.push(resultSync.managerPromise);
     return $q.all(promises).then(function(managers) {
