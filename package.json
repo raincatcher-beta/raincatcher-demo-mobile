@@ -54,6 +54,7 @@
     "fh-wfm-vehicle-inspection": "^0.0.2",
     "fh-wfm-workflow": "^0.0.10",
     "fh-wfm-workorder": ">=0.0.12",
+    "fh-wfm-message": "0.0.1",
     "grunt-browserify": "^4.0.1",
     "grunt-contrib-copy": "^0.8.2",
     "lodash": "^3.10.1",
