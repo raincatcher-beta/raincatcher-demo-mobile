@@ -32,7 +32,12 @@ angular.module('wfm-mobile.workflow', [
           return workorderManager.read($stateParams.workorderId);
         },
         result: function($stateParams, resultManager, workflowManager, workorder, workflows) {
-          var workflow = workflows[workorder.workflowId];
+          var workflow = workflows.filter(function(workflow) {
+            return workflow.id = workorder.workflowId
+          });
+          if (workflow.length) {
+            workflow = workflow[0];
+          }
           return resultManager.getByWorkorderId($stateParams.workorderId)
             .then(function(result) {
               var oldStatus = result.status;
@@ -88,7 +93,12 @@ angular.module('wfm-mobile.workflow', [
   var self = this;
   console.log('workorder', workorder)
   self.workorder = workorder;
-  self.workflow = workflows[workorder.workflowId];
+  var workflow = workflows.filter(function(workflow) {
+    return workflow.id = workorder.workflowId
+  });
+  if (workflow.length) {
+    self.workflow = workflow[0];
+  }
 
   self.result = result;
 
@@ -107,7 +117,12 @@ angular.module('wfm-mobile.workflow', [
   var self = this;
 
   self.workorder = workorder;
-  self.workflow = workflows[workorder.workflowId];
+  var workflow = workflows.filter(function(workflow) {
+    return workflow.id = workorder.workflowId
+  });
+  if (workflow.length) {
+    self.workflow = workflow[0];
+  }
   self.result = result;
   self.result.stepResults = self.result.stepResults || {};
   self.result.workorderId = self.result.workorderId || workorder.id;
