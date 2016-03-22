@@ -179,3 +179,29 @@ $danger: #F44336; //red 500
   right: 10px;
   height: 20px;
 }
+
+
+.wfm-camera{
+  background: #ddd;
+}
+.wfm-camera-actions{
+  background: #000;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  padding: 10px 0;
+}
+.wfm-camera-btn{
+  min-width: auto;
+  display: inline-block;
+  padding: 3px;
+  background:#6d6f88;
+  background-clip: content-box;
+  border: 4px solid #444557;
+  width: 56px;
+  height: 56px;
+
+  border-radius: 50%;
+}
