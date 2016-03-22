@@ -33,7 +33,7 @@ angular.module('wfm-mobile.workflow', [
         },
         result: function($stateParams, resultManager, workflowManager, workorder, workflows) {
           var workflow = workflows.filter(function(workflow) {
-            return workflow.id = workorder.workflowId
+            return String(workflow.id) === String(workorder.workflowId);
           });
           if (workflow.length) {
             workflow = workflow[0];
@@ -94,7 +94,7 @@ angular.module('wfm-mobile.workflow', [
   console.log('workorder', workorder)
   self.workorder = workorder;
   var workflow = workflows.filter(function(workflow) {
-    return workflow.id = workorder.workflowId
+    return String(workflow.id) === String(workorder.workflowId);
   });
   if (workflow.length) {
     self.workflow = workflow[0];
@@ -118,7 +118,7 @@ angular.module('wfm-mobile.workflow', [
 
   self.workorder = workorder;
   var workflow = workflows.filter(function(workflow) {
-    return workflow.id = workorder.workflowId
+    return String(workflow.id) === String(workorder.workflowId);
   });
   if (workflow.length) {
     self.workflow = workflow[0];
