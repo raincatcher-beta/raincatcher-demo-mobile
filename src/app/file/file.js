@@ -31,7 +31,7 @@ angular.module('wfm-mobile.file', [
   })
 })
 
-.controller('CameraCtrl', function($state, fileClient, $scope) {
+.controller('CameraCtrl', function($state, fileClient, $scope, mediator) {
   var self = this;
   self.model = {};
 
@@ -41,6 +41,10 @@ angular.module('wfm-mobile.file', [
       $state.go('app.file');
     });
   }
+
+  mediator.subscribeForScope('wfm:camera:cancel', $scope, function() {
+    $state.go('app.file');
+  });
 })
 
 .controller('FileListCtrl', function($state, files) {
