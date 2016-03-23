@@ -211,6 +211,13 @@ $danger: #F44336; //red 500
 .wfm-camera{
   background: #ddd;
 }
+.wfm-camera-close{
+  position: absolute;
+  right: 0px;
+  top: 8px;
+  z-index: 99;
+  background: rgba(255, 255, 255, .4);
+}
 .wfm-camera-actions{
   background: #000;
   position: absolute;
