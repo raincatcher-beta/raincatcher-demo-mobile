@@ -4,17 +4,17 @@
  This is unpublished proprietary source code of Red Hat.
 -->
 
-<md-button class="md-fab" aria-label="Take photo" ui-sref="app.camera" style="position:absolute; bottom:0; right:0">
-  <!-- TODO: Position this md-fab element correctly -->
+<md-button class="md-fab" aria-label="Take photo" ui-sref="app.camera">
   <md-icon md-font-set="material-icons">photo_camera</md-icon>
 </md-button>
 
-<md-list>
-  <md-list-item class="md-2-line" ng-click="navigateTo('app.group.detail', {groupId: group.id})" ng-repeat="file in ctrl.files">
-    <div class="md-list-item-text">
-      <h3>{{file.name}}</h3>
-      <img ng-src="http://localhost:8001/file/wfm/get/{{file.uid}}" style="max-height: 100px">
-    </div>
+<md-list class="wfm-file-list">
+  <md-list-item ng-click="navigateTo('app.group.detail', {groupId: group.id})" ng-repeat="file in ctrl.files">
+    <p>
+      <img ng-src="http://localhost:8001/file/wfm/get/{{file.uid}}">
+      {{file.name}}
+    </p>
+    <md-icon class="md-secondary" md-font-set="material-icons">delete</md-icon>
     <md-divider></md-divider>
   </md-list-item>
 </md-list>
