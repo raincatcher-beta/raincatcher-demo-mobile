@@ -32,6 +32,32 @@ $danger: #F44336; //red 500
 @import 'node_modules/fh-wfm-appform/sass/appform.scss';
 @import 'node_modules/fh-wfm-component-signature/sass/signature.scss';
 
+// Fab ==========
+
+.md-fab{
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+}
+
+// wfm-file-list ==========
+
+.wfm-file-list{
+  md-icon {margin-top: 0!important}
+  md-list-item{
+    display: flex;
+    align-items: center;
+    p{
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      img{
+        max-height: 70px;
+        margin-right: 10px;
+      }
+    }
+  }
+}
 // Login screen ==========
 
 .login{
