@@ -7,6 +7,8 @@
 
 module.exports = 'wfm-mobile.file';
 
+var _ = require('lodash');
+
 angular.module('wfm-mobile.file', [
   'ui.router',
   'wfm.core.mediator'
@@ -34,6 +36,13 @@ angular.module('wfm-mobile.file', [
 .controller('CameraCtrl', function($state, fileClient, $scope, mediator) {
   var self = this;
   self.model = {};
+
+  $scope.$watch('ctrl.model', function() {
+    console.log(self.model)
+    if (! _.isEmpty(self.model) ) {
+      self.upload();
+    }
+  })
 
   self.upload = function() {
     fileClient.uploadDataUrl(self.model).then(function(fileMeta) {
