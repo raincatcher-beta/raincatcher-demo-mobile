@@ -228,6 +228,15 @@ $danger: #F44336; //red 500
   border: 4px solid #444557;
   width: 56px;
   height: 56px;
-
   border-radius: 50%;
+}
+.wfm-camera-confirmation-btn{
+//  background:#6d6f88;
+  color: orange;
+  width: 40%;
+  md-icon{
+    color: #fff;
+  }
+//  margin: 0;
+//  padding: 0;
 }
