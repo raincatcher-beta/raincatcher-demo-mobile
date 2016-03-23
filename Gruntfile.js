@@ -144,15 +144,11 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-      'clean:dist',
-      'sass',
-      'copy',
-      'clean:server',
-      'browserify',
-      'connect:livereload',
-      'watch'
+      'build', 'connect:livereload', 'watch'
     ]);
   });
+
+  grunt.registerTask('build', ['clean:dist', 'sass', 'copy', 'clean:server', 'browserify']);
 
   grunt.registerTask('default', ['serve']);
 };
