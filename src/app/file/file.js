@@ -56,8 +56,30 @@ angular.module('wfm-mobile.file', [
   });
 })
 
-.controller('FileListCtrl', function($state, files) {
+.controller('FileListCtrl', function($state, $window, mobileCamera, fileClient, files) {
   self = this;
   self.files = files.slice().reverse();
+
+  self.capturePhoto = function() {
+    if ($window.cordova) {
+      mobileCamera.capture()
+      .then(function(capture) {
+        return fileClient.uploadFile(capture.fileURI, {fileName: capture.fileName})
+      })
+      .then(function() {
+        mobileCamera.clearCache();
+        console.log('Photo upload complete');
+        return;
+      })
+      .then(function() {
+        $state.go('app.file', undefined, {reload:true});
+        return;
+      }, function(error) {
+        console.error(error);
+      });
+    } else {
+      $state.go('app.camera');
+    }
+  }
 })
 ;

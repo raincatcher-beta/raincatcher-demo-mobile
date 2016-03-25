@@ -83,7 +83,8 @@
     "cordova-plugin-file@0.2.5",
     "cordova-plugin-geolocation@0.3.10",
     "https://github.com/feedhenry/cordova-plugin-file-transfer.git#fh0.4.0",
-    "cordova-plugin-inappbrowser@0.3.1"
+    "cordova-plugin-inappbrowser@0.3.1",
+    "cordova-plugin-camera@0.3.2"
   ],
   "cordovaPlatforms": []
 }
