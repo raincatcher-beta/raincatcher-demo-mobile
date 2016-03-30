@@ -21,8 +21,11 @@ angular.module('wfm-mobile.file', [
     templateUrl: 'app/file/file-list.tpl.html',
     controller: 'FileListCtrl as ctrl',
     resolve: {
-      files: function(fileClient) {
-        return fileClient.list();
+      profileData: function(userClient) {
+        return userClient.getProfile();
+      },
+      files: function(fileClient, profileData) {
+        return fileClient.list(profileData.id);
       }
     }
   })
@@ -33,19 +36,18 @@ angular.module('wfm-mobile.file', [
   })
 })
 
-.controller('CameraCtrl', function($state, fileClient, $scope, mediator) {
+.controller('CameraCtrl', function($state, fileClient, $scope, mediator, profileData) {
   var self = this;
   self.model = {};
 
   $scope.$watch('ctrl.model', function() {
-    console.log(self.model)
     if (! _.isEmpty(self.model) ) {
       self.upload();
     }
   })
 
   self.upload = function() {
-    fileClient.uploadDataUrl(self.model).then(function(fileMeta) {
+    fileClient.uploadDataUrl(profileData.id, self.model).then(function(fileMeta) {
       console.log('fileMeta', fileMeta);
       $state.go('app.file');
     });
@@ -64,7 +66,7 @@ angular.module('wfm-mobile.file', [
     if ($window.cordova) {
       mobileCamera.capture()
       .then(function(capture) {
-        return fileClient.uploadFile(capture.fileURI, {fileName: capture.fileName})
+        return fileClient.uploadFile(profileData.id, capture.fileURI, {fileName: capture.fileName})
       })
       .then(function() {
         mobileCamera.clearCache();
