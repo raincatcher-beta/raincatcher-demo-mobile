@@ -12,7 +12,7 @@ angular.module('wfm-mobile.workflow', [
 ])
 
 .run(function($state, mediator) {
-  mediator.subscribe('workorder:selected', function(workorder) {
+  mediator.subscribe('wfm:workorder:selected', function(workorder) {
     $state.go('app.workflow.begin', {
       workorderId: workorder.id
     });
@@ -144,7 +144,7 @@ angular.module('wfm-mobile.workflow', [
 
   self.next();
 
-  var backSubscription = mediator.subscribe('workflow:step:back', function(submission) {
+  var backSubscription = mediator.subscribe('wfm:workflow:step:back', function(submission) {
     self.stepIndex--;
     if (self.stepIndex >= 0) {
       self.stepCurrent = self.workflow.steps[self.stepIndex];
@@ -155,7 +155,7 @@ angular.module('wfm-mobile.workflow', [
     }
   });
 
-  var stepSubscription = mediator.subscribe('workflow:step:done', function(submission) {
+  var stepSubscription = mediator.subscribe('wfm:workflow:step:done', function(submission) {
     console.log('Done called for workflow step', self.stepCurrent.code);
     var step = angular.copy(self.stepCurrent);
     delete step['$$hashKey']; // this property breaks appform submissions;
@@ -199,8 +199,8 @@ angular.module('wfm-mobile.workflow', [
   });
 
   $scope.$on("$destroy", function() {
-    mediator.remove('workflow:step:done', stepSubscription.id);
-    mediator.remove('workflow:step:back', backSubscription.id);
+    mediator.remove('wfm:workflow:step:done', stepSubscription.id);
+    mediator.remove('wfm:workflow:step:back', backSubscription.id);
   });
 })
 

@@ -36,7 +36,7 @@ angular.module('wfm-mobile.messages', [
     })
 })
 .run(function($state, mediator) {
-  mediator.subscribe('message:selected', function(message) {
+  mediator.subscribe('wfm:message:selected', function(message) {
     $state.go('app.message-detail', {
       messageId: message.id
     });
