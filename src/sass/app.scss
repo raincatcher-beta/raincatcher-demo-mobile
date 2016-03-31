@@ -25,13 +25,14 @@ $danger: #F44336; //red 500
 .danger{ color: $danger;}
 
 
-@import 'node_modules/fh-wfm-workorder/sass/workorder.scss';
-@import 'node_modules/fh-wfm-workflow/sass/workflow.scss';
-@import 'node_modules/fh-wfm-risk-assessment/sass/risk-assessment.scss';
-@import 'node_modules/fh-wfm-vehicle-inspection/lib/vehicle-inspection.scss';
 @import 'node_modules/fh-wfm-appform/lib/appform.scss';
-@import 'node_modules/fh-wfm-component-signature/sass/signature.scss';
 @import 'node_modules/fh-wfm-camera/lib/camera.scss';
+@import 'node_modules/fh-wfm-component-signature/lib/signature.scss';
+@import 'node_modules/fh-wfm-message/lib/message.scss';
+@import 'node_modules/fh-wfm-risk-assessment/lib/risk-assessment.scss';
+@import 'node_modules/fh-wfm-vehicle-inspection/lib/vehicle-inspection.scss';
+@import 'node_modules/fh-wfm-workflow/lib/workflow.scss';
+@import 'node_modules/fh-wfm-workorder/lib/workorder.scss';
 
 // Fab ==========
 
