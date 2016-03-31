@@ -28,8 +28,8 @@ $danger: #F44336; //red 500
 @import 'node_modules/fh-wfm-workorder/sass/workorder.scss';
 @import 'node_modules/fh-wfm-workflow/sass/workflow.scss';
 @import 'node_modules/fh-wfm-risk-assessment/sass/risk-assessment.scss';
-@import 'node_modules/fh-wfm-vehicle-inspection/sass/vehicle-inspection.scss';
-@import 'node_modules/fh-wfm-appform/sass/appform.scss';
+@import 'node_modules/fh-wfm-vehicle-inspection/lib/vehicle-inspection.scss';
+@import 'node_modules/fh-wfm-appform/lib/appform.scss';
 @import 'node_modules/fh-wfm-component-signature/sass/signature.scss';
 @import 'node_modules/fh-wfm-camera/lib/camera.scss';
 
