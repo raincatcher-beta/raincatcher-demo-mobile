@@ -93,30 +93,6 @@ $danger: #F44336; //red 500
   }
 }
 
-// messages screen ==========
-
-.messages{
-  .md-list-item-text{
-    position: relative;
-  }
-  .new{
-    h3{
-      font-weight: bold!important;
-    }
-  }
-  .time-stamp{
-    position: absolute;
-    right: 0;
-    top: 0;
-    color: $secondary-text-color;
-  }
-
-  md-list-item md-divider[md-inset] {
-    left: 72px;
-    width: calc(100% - 72px);
-  }
-
-}
 
 .md-toolbar-tools h1 {
   font-size: inherit;
@@ -206,46 +182,4 @@ $danger: #F44336; //red 500
   left: 10px;
   right: 10px;
   height: 20px;
-}
-
-
-.wfm-camera{
-  background: #ddd;
-}
-.wfm-camera-close{
-  position: absolute;
-  right: 0px;
-  top: 8px;
-  z-index: 99;
-  background: rgba(255, 255, 255, .4);
-}
-.wfm-camera-actions{
-  background: #000;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  text-align: center;
-  padding: 10px 0;
-}
-.wfm-camera-btn{
-  min-width: auto;
-  display: inline-block;
-  padding: 3px;
-  background:#6d6f88;
-  background-clip: content-box;
-  border: 4px solid #444557;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-}
-.wfm-camera-confirmation-btn{
-//  background:#6d6f88;
-  color: orange;
-  width: 40%;
-  md-icon{
-    color: #fff;
-  }
-//  margin: 0;
-//  padding: 0;
 }
