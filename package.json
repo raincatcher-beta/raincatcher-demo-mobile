@@ -60,7 +60,6 @@
     "grunt-browserify": "5.0.0",
     "grunt-contrib-copy": "1.0.0",
     "lodash": "4.7.0",
-    "patternfly": "3.3.2",
     "q": "1.4.1"
   },
   "devDependencies": {
