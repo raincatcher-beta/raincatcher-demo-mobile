@@ -29,59 +29,34 @@ angular.module('wfm-mobile.file', [
       }
     }
   })
-  .state('app.camera', {
-    url: '/photo',
-    templateUrl: 'app/file/camera.tpl.html',
-    controller: 'CameraCtrl as ctrl'
-  })
 })
 
-.controller('CameraCtrl', function($state, fileClient, $scope, mediator, profileData) {
-  var self = this;
-  self.model = {};
-
-  $scope.$watch('ctrl.model', function() {
-    if (! _.isEmpty(self.model) ) {
-      self.upload();
-    }
-  })
-
-  self.upload = function() {
-    fileClient.uploadDataUrl(profileData.id, self.model).then(function(fileMeta) {
-      console.log('fileMeta', fileMeta);
-      $state.go('app.file');
-    });
-  }
-
-  mediator.subscribeForScope('wfm:camera:cancel', $scope, function() {
-    $state.go('app.file');
-  });
-})
-
-.controller('FileListCtrl', function($state, $window, mobileCamera, fileClient, files) {
+.controller('FileListCtrl', function($state, $window, $mdDialog, mobileCamera, desktopCamera, fileClient, files, profileData) {
   self = this;
   self.files = files.slice().reverse();
 
-  self.capturePhoto = function() {
+  var captureThenUpload = function() {
     if ($window.cordova) {
-      mobileCamera.capture()
+      return mobileCamera.capture()
       .then(function(capture) {
-        return fileClient.uploadFile(profileData.id, capture.fileURI, {fileName: capture.fileName})
+        return fileClient.uploadFile(profileData.id, capture.fileURI, {fileName: capture.fileName}).then(mobileCamera.clearCache);
       })
-      .then(function() {
-        mobileCamera.clearCache();
-        console.log('Photo upload complete');
-        return;
-      })
-      .then(function() {
-        $state.go('app.file', undefined, {reload:true});
-        return;
-      }, function(error) {
-        console.error(error);
-      });
     } else {
-      $state.go('app.camera');
+      return desktopCamera.capture()
+      .then(function(dataUrl) {
+        return fileClient.uploadDataUrl(profileData.id, dataUrl)
+      })
     }
+  }
+
+  self.capturePhoto = function() {
+    captureThenUpload().then(function() {
+      console.log('Photo upload complete');
+      $state.go('app.file', undefined, {reload:true});
+      return;
+    }, function(error) {
+      console.error(error);
+    });
   }
 })
 ;
