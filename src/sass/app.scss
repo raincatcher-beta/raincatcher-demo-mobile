@@ -34,6 +34,22 @@ $danger: #F44336; //red 500
 @import 'node_modules/fh-wfm-workflow/lib/workflow.scss';
 @import 'node_modules/fh-wfm-workorder/lib/workorder.scss';
 
+
+.wfm-night{
+  &:after{
+    content: "";
+    background: #F5EDDC;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    mix-blend-mode: multiply;
+     pointer-events: none;
+  }
+}
+
 // Fab ==========
 
 .md-fab{
