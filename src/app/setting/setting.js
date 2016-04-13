@@ -17,10 +17,21 @@ angular.module('wfm-mobile.setting', [
     .state('app.setting', {
         url: '/settings',
         templateUrl: 'app/setting/setting-list.tpl.html',
-        controller: 'SettingsCtrl as ctrl',
+        controller: 'SettingCtrl as ctrl',
       })
 })
 
-.controller('SettingsCtrl', function() {
+.controller('SettingCtrl', function($document) {
+  var self = this;
+  self.enabled = false;
+
+  self.setNightTimeMode = function() {
+    console.log(self.enabled);
+    if (self.enabled) {
+      $document[0].body.classList.add('wfm-night');
+    } else {
+      $document[0].body.classList.remove('wfm-night');
+    }
+  }
 })
 ;
