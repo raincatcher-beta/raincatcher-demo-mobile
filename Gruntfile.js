@@ -3,14 +3,11 @@
 * Copyright 2016 Red Hat, Inc. and/or its affiliates.
 * This is unpublished proprietary source code of Red Hat.
 **/
-// Generated on 2014-03-05 using generator-angular 0.7.1
 'use strict';
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
+var browserifyNgannotate = require('browserify-ngannotate'),
+    uglifyify = require('uglifyify'),
+    _ = require('lodash');
 
 module.exports = function (grunt) {
 
@@ -19,6 +16,22 @@ module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+
+  var browserifyConfg = {
+    alias: {
+      'feedhenry': './src/lib/feedhenry.js'
+    },
+    external: [
+      'feedhenry', 'lodash', 'q', 'rx', 'async', 'mediator-js', 'angular', 'angular-ui-router', 'angular-material', 'angular-messages'
+    ]
+  }
+
+  browserifyConfg.vendor = browserifyConfg.external.reduce(function(alias, lib) {
+    if (! alias[lib]) {
+      alias[lib] = null;
+    }
+    return alias;
+  }, _.clone(browserifyConfg.alias));
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -63,12 +76,29 @@ module.exports = function (grunt) {
            debug: true
         }
       },
-      all: {
+      bundle: {
         files: {
           "<%= app.dist %>/app/bundle.js": ["<%= app.src %>/app/app.js"]
         },
         options: {
-          watch: true
+          watch: true,
+          alias: browserifyConfg.alias,
+          external: browserifyConfg.external,
+          transform: [
+            // [browserifyNgannotate, {global: true}]
+            // , [uglifyify, {global: true}]
+          ]
+        }
+      },
+      vendor: {
+        src: ['.'],
+        dest: '<%= app.dist %>/app/vendor.js',
+        options: {
+          debug: false,
+          alias: browserifyConfg.vendor,
+          transform: [
+            [uglifyify, {global: true}]
+          ]
         }
       }
     },

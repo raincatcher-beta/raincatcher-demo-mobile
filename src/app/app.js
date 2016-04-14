@@ -7,13 +7,11 @@
 
 var angular = require('angular');
 var _ = require('lodash');
-require('../lib/feedhenry');
+require('feedhenry');
 
 angular.module('wfm-mobile', [
 , require('angular-messages')
 , require('angular-ui-router')
-, require('angular-animate')
-, require('angular-aria')
 , require('angular-material')
 , require('fh-wfm-message')
 , require('fh-wfm-mediator')
