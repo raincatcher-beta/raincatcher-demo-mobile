@@ -23,7 +23,7 @@ angular.module('wfm-mobile.setting', [
 
 .controller('SettingCtrl', function($document) {
   var self = this;
-  self.enabled = false;
+  self.enabled = $document[0].body.classList.contains('wfm-night');;
 
   self.setNightTimeMode = function() {
     console.log(self.enabled);
