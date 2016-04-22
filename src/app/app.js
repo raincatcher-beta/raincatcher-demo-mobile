@@ -103,7 +103,7 @@ angular.module('wfm-mobile', [
   });
 })
 
-.factory('syncPool', function($q, $state, workorderSync, workflowSync, resultSync, messageSync) {
+.factory('syncPool', function($q, $state, mediator, workorderSync, workflowSync, resultSync, messageSync) {
   var syncPool = {};
 
   syncPool.removeManagers = function() {
@@ -142,6 +142,7 @@ angular.module('wfm-mobile', [
       managers.forEach(function(managerWrapper) {
         map[managerWrapper.manager.datasetId] = managerWrapper;
       });
+      map.workorders.manager.publishRecordDeltaReceived(mediator)
       return map;
     });
   }

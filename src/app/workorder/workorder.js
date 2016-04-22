@@ -33,10 +33,16 @@ angular.module('wfm-mobile.workorders', [
       })
 })
 
-.controller('WorkordersCtrl', function($scope, $filter, workorders, resultMap) {
+.controller('WorkordersCtrl', function($scope, $filter, workorderManager, mediator, workorders, resultMap) {
   var self = this;
   self.workorders = workorders;
   self.resultMap = resultMap;
+  mediator.subscribeForScope('wfm:sync:record_delta_received:workorders', $scope, function(notification) {
+    console.log(notification);
+     workorderManager.list().then(function(workorders) {
+       self.workorders = workorders;
+     })
+  })
 })
 
 ;
