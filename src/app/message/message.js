@@ -46,7 +46,10 @@ angular.module('wfm-mobile.messages', [
   var self = this;
   self.messages = messages;
 })
-.controller('MessageDetailController', function (message, messageManager) {
+.controller('MessageDetailController', function ($scope, $state, mediator, message, messageManager) {
+  mediator.subscribeForScope('wfm:message:close:' + message.id, $scope, function() {
+    $state.go('app.message');
+  })
   var self = this;
   self.message = message;
   message.status = "read";
