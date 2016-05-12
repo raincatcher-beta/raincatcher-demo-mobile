@@ -7,23 +7,7 @@
     "node": "0.10.0",
     "npm": "2.0.0"
   },
-  "main": "server/server.js",
   "scripts": {
-    "start": "npm run serve-portal & npm run serve-mobile",
-    "watch": "npm run watch-mobile-js & npm run watch-portal-js & npm run watch-server & npm run serve-mobile & npm run livereload & npm run sass-mobile-watch & npm run sass-portal-watch",
-    "serve-portal": "node server/server.js",
-    "serve-mobile": "node server/mobile-dev.js",
-    "build": "npm run build-mobile-js & npm run build-portal-js & npm run sass-mobile & npm run sass-portal",
-    "build-portal-js": "browserify portal/app/main.js > portal/app/bundle.js",
-    "build-mobile-js": "browserify www/app/app.js > www/app/bundle.js",
-    "watch-portal-js": "watchify portal/app/main.js -o portal/app/bundle.js -dv --ignore-watch=\"!**/*.js|**/bundle.js|www/**|**/node_modules/**\"",
-    "watch-mobile-js": "watchify www/app/app.js -o www/app/bundle.js -dv --ignore-watch=\"!**/*.js|**/bundle.js|portal/**|**/node_modules/**\"",
-    "watch-server": "nodemon -w server server/server.js",
-    "sass-mobile": "node-sass www/sass/app.scss www/css/app.css",
-    "sass-mobile-watch": "nodemon -e scss -w www/sass -x 'npm run sass-mobile'",
-    "sass-portal": "node-sass portal/sass/portal.scss portal/css/portal.css",
-    "sass-portal-watch": "nodemon -e scss -w portal/sass -x 'npm run sass-portal'",
-    "livereload": "node scripts/livereload",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
