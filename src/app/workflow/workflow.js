@@ -168,10 +168,14 @@ angular.module('wfm-mobile.workflow', [
       timestamp: new Date().getTime(),
       submitter: profileData.id
     }
-    self.result.stepResults[step.code] = stepResult;
-    self.result.status = workflowManager.checkStatus(self.workorder, self.workflow, self.result);
-    var promise = ! create ? resultManager.update(self.result) : resultManager.create(self.result)
-    promise.then(function(promiseResult) {
+    resultManager.getByWorkorderId(self.workorder.id)
+    .then(function(freshResult) {
+      self.result.stepResults = freshResult.stepResults || self.result.stepResults; // refresh the stepResults
+      self.result.stepResults[step.code] = stepResult;
+      self.result.status = workflowManager.checkStatus(self.workorder, self.workflow, self.result);
+      return !create ? resultManager.update(self.result) : resultManager.create(self.result);
+    })
+    .then(function(promiseResult) {
       if (create) {
         resultManager.stream.filter(function(notification) {
           return notification.code === 'remote_update_applied'
