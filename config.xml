@@ -18,4 +18,60 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
+  <platform name="android">
+     <!--
+         ldpi    : 36x36 px
+         mdpi    : 48x48 px
+         hdpi    : 72x72 px
+         xhdpi   : 96x96 px
+         xxhdpi  : 144x144 px
+         xxxhdpi : 192x192 px
+     -->
+    <icon src="www/res/icons/android/icon.png" density="ldpi" />
+    <icon src="www/res/icons/android/icon-mdpi.png" density="mdpi" />
+    <icon src="www/res/icons/android/icon-hdpi.png" density="hdpi" />
+    <icon src="www/res/icons/android/icon-xhdpi.png" density="xhdpi" />
+    <icon src="www/res/icons/android/icon-xxhdpi.png" density="xxhdpi" />
+    <icon src="www/res/icons/android/icon-xxxhdpi.png" density="xxxhdpi" />
+
+    <splash src="www/res/splash/android/splash-land-hdpi.png" density="land-hdpi"/>
+    <splash src="www/res/splash/android/splash-land-ldpi.png" density="land-ldpi"/>
+    <splash src="www/res/splash/android/splash-land-mdpi.png" density="land-mdpi"/>
+    <splash src="www/res/splash/android/splash-land-xhdpi.png" density="land-xhdpi"/>
+
+    <splash src="www/res/splash/android/splash-port-hdpi.png" density="port-hdpi"/>
+    <splash src="www/res/splash/android/splash-port-ldpi.png" density="port-ldpi"/>
+    <splash src="www/res/splash/android/splash-port-mdpi.png" density="port-mdpi"/>
+    <splash src="www/res/splash/android/splash-port-xhdpi.png" density="port-xhdpi"/>
+
+    <preference name="SplashScreen" value="screen"/>
+  </platform>
+  <platform name="ios">
+    <!-- iOS 8.0+ -->
+    <!-- iPhone 6 Plus  -->
+    <icon src="www/res/icons/ios/Icon-60@3x.png" width="180" height="180" />
+    <!-- iOS 7.0+ -->
+    <!-- iPhone / iPod Touch  -->
+    <icon src="www/res/icons/ios/Icon-60.png" width="60" height="60" />
+    <icon src="www/res/icons/ios/Icon-60@2x.png" width="120" height="120" />
+    <!-- iPad -->
+    <icon src="www/res/icons/ios/Icon-76.png" width="76" height="76" />
+    <icon src="www/res/icons/ios/Icon-76@2x.png" width="152" height="152" />
+    <!-- iOS 6.1 -->
+    <!-- Spotlight Icon -->
+    <icon src="www/res/icons/ios/Icon-40.png" width="40" height="40" />
+    <icon src="www/res/icons/ios/Icon-40@2x.png" width="80" height="80" />
+    <!-- iPhone / iPod Touch -->
+    <icon src="www/res/icons/ios/icon.png" width="57" height="57" />
+    <icon src="www/res/icons/ios/icon@2x.png" width="114" height="114" />
+    <!-- iPad -->
+    <icon src="www/res/icons/ios/Icon-72.png" width="72" height="72" />
+    <icon src="www/res/icons/ios/Icon-72@2x.png" width="144" height="144" />
+    <!-- iPhone Spotlight and Settings Icon -->
+    <icon src="www/res/icons/ios/Icon-small.png" width="29" height="29" />
+    <icon src="www/res/icons/ios/Icon-small@2x.png" width="58" height="58" />
+    <!-- iPad Spotlight and Settings Icon -->
+    <icon src="www/res/icons/ios/Icon-50.png" width="50" height="50" />
+    <icon src="www/res/icons/ios/Icon-50@2x.png" width="100" height="100" />
+  </platform>
 </widget>
