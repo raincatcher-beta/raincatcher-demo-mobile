@@ -60,18 +60,5 @@
     "load-grunt-tasks": "3.4.1",
     "time-grunt": "1.3.0",
     "uglifyify": "^3.0.1"
-  },
-  "cordovaPlugins": [
-    "cordova-plugin-device@0.2.8",
-    "cordova-plugin-console@0.2.6",
-    "cordova-plugin-whitelist@1.2.0",
-    "https://github.com/feedhenry/cordova-plugin-splashscreen.git#fh0.3.5",
-    "cordova-plugin-network-information@0.2.9",
-    "cordova-plugin-file@0.2.5",
-    "cordova-plugin-geolocation@0.3.10",
-    "https://github.com/feedhenry/cordova-plugin-file-transfer.git#fh0.4.0",
-    "cordova-plugin-inappbrowser@0.3.1",
-    "cordova-plugin-camera@0.3.2"
-  ],
-  "cordovaPlatforms": []
+  }
 }
