@@ -15,3 +15,8 @@ This repository should be used in conjonction with these following repos :
 ## Starting (locally)
 
 `grunt serve:local --url=http://localhost:8001`
+
+## Emulator
+
+`cordova prepare`
+`cordova emulate android`
