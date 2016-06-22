@@ -14,7 +14,7 @@
     "wfm"
   ],
   "author": "Brian Leathem",
-  "license": "SEE LICENSE IN LICENSE.txt",
+  "license": "MIT",
   "dependencies": {
     "angular": "1.5.3",
     "angular-animate": "^1.5.3",
