@@ -1,4 +1,4 @@
-# FeedHenry WFM Mobile
+# FeedHenry WFM Mobile [![Build Status](https://travis-ci.org/feedhenry-staff/wfm-mobile.png)](https://travis-ci.org/feedhenry-staff/wfm-mobile)
 
 This is a reference/demo implementation of the Mobile Client application of a WFM project.
 
