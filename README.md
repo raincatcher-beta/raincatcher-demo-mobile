@@ -1,4 +1,4 @@
-# FeedHenry WFM Mobile [![Build Status](https://travis-ci.org/feedhenry-staff/wfm-mobile.png)](https://travis-ci.org/feedhenry-staff/wfm-mobile)
+# FeedHenry WFM Mobile [![Build Status](https://travis-ci.org/feedhenry-raincatcher/raincatcher-demo-mobile.png)](https://travis-ci.org/feedhenry-raincatcher/raincatcher-demo-mobile)
 
 This is a reference/demo implementation of the Mobile Client application of a WFM project.
 
