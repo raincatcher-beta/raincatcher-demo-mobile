@@ -1,0 +1,15 @@
+
+<md-list>
+  <md-list-item ng-click="" class="md-2-line">
+    <!-- <md-icon md-font-set="material-icons">settings</md-icon> -->
+    <div class="md-list-item-text" ng-class="{'md-offset': $index == 2 }">
+      <h3>Change Day to Night mode</h3>
+      <p>Low-glare UI for safer nighttime driving</p>
+    </div>
+    <md-switch class="md-secondary" ng-model="ctrl.enabled" ng-change="ctrl.setNightTimeMode(ctrl.enabled)"></md-switch>
+    <md-divider></md-divider>
+  </md-list-item>
+</md-list>
+
+<md-subheader>About this app</md-subheader>
+<p layout-padding layout-margin class="md-body-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
