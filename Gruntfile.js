@@ -155,9 +155,14 @@ module.exports = function (grunt) {
     clean: {
       dist: ['<%= app.dist %>'],
       server: '.tmp'
+    },
+
+    eslint: {
+      src: ["src/app/**/*.js"]
     }
   });
 
+  grunt.loadNpmTasks("grunt-eslint");
   grunt.registerTask('serve', function (target) {
     if (target === 'local') {
       var conn = 'http://' + grunt.config.get('connect.options.hostname') + ':' +
