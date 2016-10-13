@@ -1,8 +1,7 @@
 'use strict';
-var _ = require('lodash');
 
 angular.module('wfm-mobile.workflow', [
-  'ui.router',
+  'ui.router'
 , 'wfm.core.mediator'
 ])
 
@@ -40,13 +39,13 @@ angular.module('wfm-mobile.workflow', [
               if (oldStatus !== result.status) {
                 var create = ! (result.id || result._localuid || result.id === 0);
                 if (create) {
-                  return resultManager.create(result)
+                  return resultManager.create(result);
                 } else {
                   return resultManager.update(result);
-                };
+                }
               } else {
                 return result;
-              };
+              }
             });
         }
       },
@@ -70,23 +69,23 @@ angular.module('wfm-mobile.workflow', [
     .state('app.workflow.begin', {
       url: '/begin',
       templateUrl: 'app/workflow/workflow-begin.tpl.html',
-      controller: 'WorkflowController as ctrl',
+      controller: 'WorkflowController as ctrl'
     })
     .state('app.workflow.steps', {
       url: '/steps',
       templateUrl: 'app/workflow/workflow-steps.tpl.html',
-      controller: 'WorkflowStepController as ctrl',
+      controller: 'WorkflowStepController as ctrl'
     })
     .state('app.workflow.complete', {
       url: '/complete',
       templateUrl: 'app/workflow/workflow-complete.tpl.html',
-      controller: 'WorkflowController as ctrl',
-    })
+      controller: 'WorkflowController as ctrl'
+    });
 })
 
 .controller('WorkflowController', function($state, workflowManager, resultManager, workflows, workorder, result) {
   var self = this;
-  console.log('workorder', workorder)
+  console.log('workorder', workorder);
   self.workorder = workorder;
   var workflow = workflows.filter(function(workflow) {
     return String(workflow.id) === String(workorder.workflowId);
@@ -103,7 +102,7 @@ angular.module('wfm-mobile.workflow', [
     $state.go('app.workflow.steps', {
       workorderId: workorder.id
     });
-  }
+  };
 })
 
 
@@ -139,7 +138,7 @@ angular.module('wfm-mobile.workflow', [
 
   self.next();
 
-  var backSubscription = mediator.subscribe('wfm:workflow:step:back', function(submission) {
+  var backSubscription = mediator.subscribe('wfm:workflow:step:back', function() {
     self.stepIndex--;
     if (self.stepIndex >= 0) {
       self.stepCurrent = self.workflow.steps[self.stepIndex];
@@ -162,7 +161,7 @@ angular.module('wfm-mobile.workflow', [
       status: step.formId ? 'pending' : 'complete',
       timestamp: new Date().getTime(),
       submitter: profileData.id
-    }
+    };
     resultManager.getByWorkorderId(self.workorder.id)
     .then(function(freshResult) {
       self.result.stepResults = freshResult.stepResults || self.result.stepResults; // refresh the stepResults
@@ -170,7 +169,7 @@ angular.module('wfm-mobile.workflow', [
       self.result.status = workflowManager.checkStatus(self.workorder, self.workflow, self.result);
       return !create ? resultManager.update(self.result) : resultManager.create(self.result);
     })
-    .then(function(promiseResult) {
+    .then(function() {
       if (create) {
         resultManager.stream.filter(function(notification) {
           return notification.code === 'remote_update_applied'
@@ -182,7 +181,7 @@ angular.module('wfm-mobile.workflow', [
       console.log('result save successful');
       if (step.formId) {
         appformClient.syncStepResult(workorder, stepResult)
-        .then(function(remoteSubmission) {
+        .then(function() {
           self.next();
         }, function(error) {
           console.error(error);
@@ -201,6 +200,6 @@ angular.module('wfm-mobile.workflow', [
     mediator.remove('wfm:workflow:step:done', stepSubscription.id);
     mediator.remove('wfm:workflow:step:back', backSubscription.id);
   });
-})
+});
 
 module.exports = 'wfm-mobile.workflow';

@@ -2,8 +2,6 @@
 
 module.exports = 'wfm-mobile.file';
 
-var _ = require('lodash');
-
 angular.module('wfm-mobile.file', [
   'ui.router',
   'wfm.core.mediator'
@@ -23,11 +21,11 @@ angular.module('wfm-mobile.file', [
         return fileClient.list(profileData.id);
       }
     }
-  })
+  });
 })
 
 .controller('FileListCtrl', function($state, $window, $mdDialog, mobileCamera, desktopCamera, fileClient, files, profileData) {
-  self = this;
+  var self = this;
   self.files = files.slice().reverse();
 
   var captureThenUpload = function() {
@@ -35,14 +33,14 @@ angular.module('wfm-mobile.file', [
       return mobileCamera.capture()
       .then(function(capture) {
         return fileClient.uploadFile(profileData.id, capture.fileURI, {fileName: capture.fileName}).then(mobileCamera.clearCache);
-      })
+      });
     } else {
       return desktopCamera.capture()
       .then(function(dataUrl) {
-        return fileClient.uploadDataUrl(profileData.id, dataUrl)
-      })
+        return fileClient.uploadDataUrl(profileData.id, dataUrl);
+      });
     }
-  }
+  };
 
   self.capturePhoto = function() {
     captureThenUpload().then(function() {
@@ -52,6 +50,6 @@ angular.module('wfm-mobile.file', [
     }, function(error) {
       console.error(error);
     });
-  }
+  };
 })
 ;

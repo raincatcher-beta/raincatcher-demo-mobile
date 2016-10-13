@@ -3,7 +3,7 @@
 module.exports = 'wfm-mobile.map';
 
 angular.module('wfm-mobile.map', [
-  'ui.router',
+  'ui.router'
 , 'wfm.core.mediator'
 ])
 
@@ -17,11 +17,11 @@ angular.module('wfm-mobile.map', [
         }
       },
       templateUrl: 'app/map/map.tpl.html',
-      controller: 'MapCtrl as ctrl',
-    })
+      controller: 'MapCtrl as ctrl'
+    });
 })
 
-.controller('MapCtrl', function ($window, $document, $timeout, workorders) {
+.controller('MapCtrl', function($window, $document, $timeout, workorders) {
   this.center = [49.28, -123.12];
   this.workorders = workorders;
 })

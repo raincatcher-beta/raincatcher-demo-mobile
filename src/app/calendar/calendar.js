@@ -3,7 +3,7 @@
 module.exports = 'wfm-mobile.calendar';
 
 angular.module('wfm-mobile.calendar', [
-  'ui.router',
+  'ui.router'
 , 'wfm.core.mediator'
 ])
 
@@ -17,11 +17,11 @@ angular.module('wfm-mobile.calendar', [
         }
       },
       templateUrl: 'app/calendar/calendar.tpl.html',
-      controller: 'calendarCtrl as ctrl',
-    })
+      controller: 'calendarCtrl as ctrl'
+    });
 })
 
-.controller('calendarCtrl', function (workorders) {
+.controller('calendarCtrl', function(workorders) {
   this.workorders = workorders;
 })
 
