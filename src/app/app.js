@@ -5,7 +5,7 @@ var _ = require('lodash');
 require('feedhenry');
 
 angular.module('wfm-mobile', [
-, require('angular-messages')
+  require('angular-messages')
 , require('angular-ui-router')
 , require('angular-material')
 , require('fh-wfm-message')
@@ -59,7 +59,7 @@ angular.module('wfm-mobile', [
           return syncManagers.messages;
         }
       },
-      controller: function($rootScope, $scope, $state, $mdSidenav, mediator, profileData, userClient, workorderSync, messageSync) {
+      controller: function($rootScope, $scope, $state, $mdSidenav, mediator, profileData) {
         $scope.profileData = profileData;
         $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();
@@ -69,9 +69,9 @@ angular.module('wfm-mobile', [
           if (state) {
             $state.go(state, params);
           }
-        }
+        };
       }
-    })
+    });
 })
 
 .run(function($rootScope, $state, mediator, syncPool) {
@@ -92,9 +92,9 @@ angular.module('wfm-mobile', [
           delete $rootScope.toParams;
         } else {
           $state.go('app.workorders', undefined, {reload: true});
-        };
+        }
       });
-    };
+    }
   });
 })
 
@@ -110,7 +110,7 @@ angular.module('wfm-mobile', [
     promises.push(workflowSync.removeManager());
     // promises.push(resultSync.removeManager());
     return $q.all(promises);
-  }
+  };
 
   syncPool.syncManagerMap = function(profileData) {
     if (! profileData) {
@@ -125,8 +125,8 @@ angular.module('wfm-mobile', [
       var messageFilter = {
         key: 'receiverId',
         value: profileData.id
-      }
-    };
+      };
+    }
     // add any additonal manager creates here
     promises.push(workorderSync.createManager({filter: filter}));
     promises.push(workflowSync.createManager());
@@ -137,10 +137,10 @@ angular.module('wfm-mobile', [
       managers.forEach(function(managerWrapper) {
         map[managerWrapper.manager.datasetId] = managerWrapper;
       });
-      map.workorders.manager.publishRecordDeltaReceived(mediator)
+      map.workorders.manager.publishRecordDeltaReceived(mediator);
       return map;
     });
-  }
+  };
 
   syncPool.forceSync = function(managers) {
     var promises = [];
@@ -153,8 +153,8 @@ angular.module('wfm-mobile', [
           })
       );
     });
-    return $q.all(promises)
-  }
+    return $q.all(promises);
+  };
 
   return syncPool;
 })
@@ -174,17 +174,17 @@ angular.module('wfm-mobile', [
     return null;
   });
 
-  $rootScope.$on('$stateChangeStart', function(e, toState, toParams, fromState, fromParams) {
-    if(toState.name !== "app.login"){
+  $rootScope.$on('$stateChangeStart', function(e, toState, toParams) {
+    if (toState.name !== "app.login") {
       userClient.hasSession().then(function(hasSession) {
-        if(!hasSession) {
+        if (!hasSession) {
           e.preventDefault();
           $rootScope.toState = toState;
           $rootScope.toParams = toParams;
           $state.go('app.login');
         }
       });
-    };
+    }
   });
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
     console.error('State change error: ', error, {
