@@ -3,8 +3,10 @@
 module.exports = 'wfm-mobile.auth';
 
 angular.module('wfm-mobile.auth', [
-  'ui.router'
-, 'wfm.core.mediator'
+  'ui.router',
+  'wfm.core.mediator',
+  //Loading the wfm-mobile.location module to allow polling of the mobile user location.
+  'wfm-mobile.location'
 ])
 
 .config(function($stateProvider) {
@@ -26,7 +28,7 @@ angular.module('wfm-mobile.auth', [
     });
 })
 
-.controller('LoginCtrl', function(userClient, hasSession) {
+.controller('LoginCtrl', ['userClient', 'hasSession', 'UserLocationService', function(userClient, hasSession) {
   var self = this;
 
   self.hasSession = hasSession;
@@ -36,20 +38,18 @@ angular.module('wfm-mobile.auth', [
   self.login = function(valid) {
     if (valid) {
       userClient.auth(self.username, self.password)
-      .then(function() {
-        self.loginMessages.success = true;
-      }, function(err) {
-        console.log(err);
-        self.loginMessages.error = true;
-      });
+        .then(function() {
+          self.loginMessages.success = true;
+          //The user has logged in successfully,
+        }, function(err) {
+          console.log(err);
+          self.loginMessages.error = true;
+        });
     }
   };
 
   self.logout = function() {
     userClient.clearSession();
   };
-})
-
-.controller('ProfileCtrl', function() {
-})
-;
+}]).controller('ProfileCtrl', function() {
+});

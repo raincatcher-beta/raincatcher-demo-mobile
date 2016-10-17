@@ -20,6 +20,7 @@ angular.module('wfm-mobile', [
 , require('fh-wfm-map')
 , require('fh-wfm-file')
 , require('fh-wfm-camera')
+  , require('fh-wfm-gps')
 
 , require('./workorder/workorder')
 , require('./workflow/workflow')
@@ -28,7 +29,8 @@ angular.module('wfm-mobile', [
 , require('./setting/setting')
 , require('./auth/auth')
 , require('./calendar/calendar')
-, require('./file/file')
+, require('./file/file'),
+  require('./location/user-location-service')
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -169,7 +171,7 @@ angular.module('wfm-mobile', [
   var all = (initPromises.length > 0) ? $q.all(initPromises) : $q.when(null);
   all.then(function() {
     $rootScope.ready = true;
-    console.log(initPromises.length, 'init promises resolved.');
+    console.log(initPromises.length, 'init promises resdsolved.');
     mediator.remove('promise:init', initListener.id);
     return null;
   });
