@@ -1,6 +1,6 @@
 {
   "name": "wfm2",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0-alpha.5",
   "description": "A WFM2 PoC using the mediator pattern",
   "repository": "https://github.com/feedhenry-staff/wfm2-poc.git",
   "engines": {
@@ -38,7 +38,7 @@
     "fh-wfm-risk-assessment": "0.0.13",
     "fh-wfm-signature": "0.0.14",
     "fh-wfm-sync": "0.0.14",
-    "fh-wfm-user": "0.0.23",
+    "fh-wfm-user": "0.0.24-alpha.1",
     "fh-wfm-vehicle-inspection": "0.0.12",
     "fh-wfm-workflow": "0.0.24",
     "fh-wfm-workorder": "0.0.26",
