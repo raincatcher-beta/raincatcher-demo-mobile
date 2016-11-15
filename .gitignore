@@ -4,3 +4,4 @@ platforms/*
 !platforms/.keep
 plugins/
 www/
+.idea/
