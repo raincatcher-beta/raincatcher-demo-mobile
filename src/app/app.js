@@ -126,19 +126,12 @@ angular.module('wfm-mobile', [
         key: 'receiverId',
         value: profileData.id
       };
-
-      //Filtering results by assigned work order.
-      //This prevents users getting errors
-      var resultFilter = {
-        key: 'assignee',
-        value: profileData.id
-      };
     }
     // add any additonal manager creates here
     promises.push(workorderSync.createManager({filter: filter}));
     promises.push(workflowSync.createManager());
     promises.push(messageSync.createManager({filter: messageFilter}));
-    promises.push(resultSync.createManager({filter: resultFilter}));
+    promises.push(resultSync.createManager({}));
     return $q.all(promises).then(function(managers) {
       var map = {};
       managers.forEach(function(managerWrapper) {
