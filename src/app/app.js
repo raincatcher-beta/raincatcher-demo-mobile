@@ -108,7 +108,7 @@ angular.module('wfm-mobile', [
     promises.push(workorderSync.removeManager());
     promises.push(messageSync.removeManager());
     promises.push(workflowSync.removeManager());
-    // promises.push(resultSync.removeManager());
+    promises.push(resultSync.removeManager());
     return $q.all(promises);
   };
 
@@ -131,7 +131,7 @@ angular.module('wfm-mobile', [
     promises.push(workorderSync.createManager({filter: filter}));
     promises.push(workflowSync.createManager());
     promises.push(messageSync.createManager({filter: messageFilter}));
-    promises.push(resultSync.managerPromise);
+    promises.push(resultSync.createManager({}));
     return $q.all(promises).then(function(managers) {
       var map = {};
       managers.forEach(function(managerWrapper) {
