@@ -4,12 +4,11 @@
   <description>
         A demo of the RHMAP WFM modules.
     </description>
-  <author email="bleathem@gmail.com" href="http://feedhenry.com">
+  <author email="bleathem@gmail.com" href="http://feedhenry.org">
       Red Hat Mobile
   </author>
   <content src="index.html"/>
   <access origin="*"/>
-  <allow-navigation href="*://*.mbaas2.tom.redhatmobile.com/*" />
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
@@ -74,16 +73,17 @@
     <icon src="www/res/icons/ios/Icon-50.png" width="50" height="50" />
     <icon src="www/res/icons/ios/Icon-50@2x.png" width="100" height="100" />
   </platform>
-    <plugin name="org.apache.cordova.device" spec="~0.2.8" />
-    <plugin name="org.apache.cordova.console" spec="~0.2.6" />
-    <plugin name="cordova-plugin-whitelist" spec="~1.2.0" />
-    <plugin name="com.feedhenry.plugins.splashscreen" spec="https://github.com/feedhenry/cordova-plugin-splashscreen.git#fh0.3.5" />
-    <plugin name="org.apache.cordova.network-information" spec="~0.2.9" />
-    <plugin name="org.apache.cordova.file" spec="~0.2.5" />
-    <plugin name="org.apache.cordova.geolocation" spec="~0.3.10" />
-    <plugin name="org.apache.cordova.file-transfer" spec="https://github.com/feedhenry/cordova-plugin-file-transfer.git#fh0.4.0" />
-    <plugin name="org.apache.cordova.inappbrowser" spec="~0.3.1" />
-    <plugin name="org.apache.cordova.camera" spec="~0.3.2" />
+    <plugin name="cordova-plugin-device" spec="~1.1.2" />
+    <plugin name="cordova-plugin-console" spec="~1.0.3" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.2.2" />
+    <plugin name="cordova-plugin-splashscreen" spec="~4.0.0" />
+    <plugin name="cordova-plugin-network-information" spec="~1.2.1" />
+    <plugin name="cordova-plugin-file" spec="~4.2.0" />
+    <plugin name="cordova-plugin-geolocation" spec="~2.2.0" />
+    <plugin name="cordova-plugin-file-transfer" spec="~1.5.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="0.6.0" />
+    <plugin name="cordova-plugin-camera" spec="~2.2.0" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="~4.1.0" />
     <engine name="android" spec="~3.7.2" />
     <engine name="ios" spec="~3.5.0" />
 </widget>
