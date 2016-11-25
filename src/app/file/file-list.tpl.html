@@ -4,7 +4,7 @@
 </md-button>
 
 <md-list class="wfm-file-list">
-  <md-list-item ng-click="navigateTo('app.file.detail', {fileUid: file.uid})" ng-repeat="file in ctrl.files">
+  <md-list-item ng-click="navigateTo('app.file-detail', {fileUid: file.uid})" ng-repeat="file in ctrl.files">
     <p>
       <img wfm-img uid="file.uid">
       {{file.name}}
