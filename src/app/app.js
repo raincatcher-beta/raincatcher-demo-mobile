@@ -66,6 +66,7 @@ angular.module('wfm-mobile', [
           event.stopPropagation();
         };
         $scope.navigateTo = function(state, params) {
+          console.log('>>>>>>>navigateTo: ', state, params);
           if (state) {
             $state.go(state, params);
           }
