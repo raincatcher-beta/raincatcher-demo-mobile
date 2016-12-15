@@ -3,5 +3,4 @@ npm-debug.log
 platforms/*
 !platforms/.keep
 plugins/
-www/
 .idea/
