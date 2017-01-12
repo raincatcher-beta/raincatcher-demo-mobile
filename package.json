@@ -1,6 +1,6 @@
 {
   "name": "wfm2",
-  "version": "2.0.0-alpha.5",
+  "version": "2.2.0",
   "description": "A WFM2 PoC using the mediator pattern",
   "repository": "https://github.com/feedhenry-raincatcher/raincatcher-demo-mobile.git",
   "engines": {
@@ -8,7 +8,8 @@
     "npm": "2.0.0"
   },
   "scripts": {
-    "test": "grunt eslint"
+    "test": "grunt eslint",
+    "vuln": "nsp check"
   },
   "keywords": [
     "wfm"
@@ -38,7 +39,7 @@
     "fh-wfm-risk-assessment": "0.0.14",
     "fh-wfm-signature": "0.0.15",
     "fh-wfm-sync": "0.0.16",
-    "fh-wfm-user": "0.1.0",
+    "fh-wfm-user": "0.2.0",
     "fh-wfm-vehicle-inspection": "0.0.12",
     "fh-wfm-workflow": "0.0.26",
     "fh-wfm-workorder": "0.0.27",
@@ -63,6 +64,7 @@
     "grunt-rev": "0.1.0",
     "grunt-sass": "1.1.0",
     "load-grunt-tasks": "3.4.1",
+    "nsp": "^2.6.2",
     "time-grunt": "1.3.0",
     "uglifyify": "^3.0.1"
   }
