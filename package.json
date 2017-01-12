@@ -8,7 +8,8 @@
     "npm": "2.0.0"
   },
   "scripts": {
-    "test": "grunt eslint"
+    "test": "grunt eslint",
+    "vuln": "nsp check"
   },
   "keywords": [
     "wfm"
@@ -63,6 +64,7 @@
     "grunt-rev": "0.1.0",
     "grunt-sass": "1.1.0",
     "load-grunt-tasks": "3.4.1",
+    "nsp": "^2.6.2",
     "time-grunt": "1.3.0",
     "uglifyify": "^3.0.1"
   }
