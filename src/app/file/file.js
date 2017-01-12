@@ -40,9 +40,7 @@ angular.module('wfm-mobile.file', [
   })
 
   .controller('FileDetailController', function($state, file) {
-    var self = this;
-    console.log('>>>>>>> FileDetailController')
-
+    console.log('FileDetailController', file);
   })
   .controller('FileController', function($state, $window, $mdDialog, mobileCamera, desktopCamera, fileClient, files, profileData) {
     var self = this;
