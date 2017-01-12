@@ -11,9 +11,6 @@ script:
   - npm test
   - npm run vuln; exit 0
   - bash <(curl https://gist.githubusercontent.com/raincatcher-bot/01ac4cdb3b0770bdb58489dbc17ed6b6/raw/6205a628c3616f6736fd866d5f0fba0a781ec1e4/sonarqube.sh)
-before_install:
-  - npm install nsp -g
-  - npm install grunt-cli -g
 install: npm install
 notifications:
   email: false
