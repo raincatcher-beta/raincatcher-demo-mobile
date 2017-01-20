@@ -4,7 +4,7 @@ var browserifyNgannotate = require('browserify-ngannotate'),
     uglifyify = require('uglifyify'),
     _ = require('lodash');
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
@@ -14,12 +14,12 @@ module.exports = function (grunt) {
 
   var browserifyConfg = {
     alias: {
-      'feedhenry': './src/lib/feedhenry.js'
+
     },
     external: [
-      'feedhenry', 'lodash', 'q', 'rx', 'async', 'mediator-js', 'angular', 'angular-ui-router', 'angular-material', 'angular-messages'
+      'lodash', 'q', 'rx', 'async', 'mediator-js', 'angular', 'angular-ui-router', 'angular-material', 'angular-messages'
     ]
-  }
+  };
 
   browserifyConfg.vendor = browserifyConfg.external.reduce(function(alias, lib) {
     if (! alias[lib]) {

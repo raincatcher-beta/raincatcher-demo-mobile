@@ -2,7 +2,10 @@
 
 var angular = require('angular');
 var _ = require('lodash');
-require('feedhenry');
+//Requiring the client SDK with Drag & Drop Apps Functionality.
+window.async = require('async');
+window._ = require('underscore');
+require('fh-js-sdk/dist/feedhenry-forms.js');
 
 angular.module('wfm-mobile', [
   require('angular-messages')
