@@ -14,7 +14,7 @@
         </md-input-container>
         <md-input-container class="md-block">
           <label>Password</label>
-          <input ng-model="ctrl.password" id="password" name="password" type="password" required>
+          <input ng-model="ctrl.password" id="password" name="password" type="password" autocomplete="off" required>
           <div ng-messages="loginForm.password.$error" ng-show="loginForm.$submitted || loginForm.password.$dirty">
             <div ng-message="required">A password is required.</div>
           </div>
