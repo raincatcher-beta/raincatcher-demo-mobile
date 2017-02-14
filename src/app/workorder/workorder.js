@@ -37,8 +37,7 @@ angular.module('wfm-mobile.workorders', [
       self.workorders = [];
     }
   });
-  mediator.subscribeForScope('wfm:sync:record_delta_received:workorders', $scope, function(notification) {
-    console.log(notification);
+  mediator.subscribeForScope('wfm:sync:record_delta_received:workorders', $scope, function() {
     workorderManager.list().then(function(workorders) {
       self.workorders = workorders;
     });
