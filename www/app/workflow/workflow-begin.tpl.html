@@ -1,0 +1,12 @@
+<div class="workflow">
+  <workflow-progress workflow="ctrl.workflow" step-index="-1"></workflow-progress>
+
+  <workorder workorder="ctrl.workorder" status="ctrl.result.status"></workorder>
+  <div class="workflow-actions md-padding md-whiteframe-z4">
+    <md-button ng-click="ctrl.begin()" class="md-primary">
+      <span ng-if="ctrl.stepIndex < 0">Begin Workflow</span>
+      <span ng-if="ctrl.stepIndex >= 0 && ctrl.stepIndex < ctrl.workflow.steps.length - 1">Continue Workflow</span>
+      <span ng-if="ctrl.stepIndex >= ctrl.workflow.steps.length - 1">View Summary</span>
+    </md-button>
+  </div>
+</div>
