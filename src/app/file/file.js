@@ -22,11 +22,17 @@ angular.module('wfm-mobile.file', [
           }
         }
       })
-      .state('app.file.detail', {
+      .state('app.file-detail', {
         url: '/file/:fileUid',
-        template: '<h1>dsdsfsdfdsfsdfsd</h1>',
+        templateUrl: 'app/file/file-detail.tpl.html',
         controller: 'FileDetailController as ctrl',
         resolve: {
+          profileData: function(userClient) {
+            return userClient.getProfile();
+          },
+          files: function(fileClient, profileData) {
+            return fileClient.list(profileData.id);
+          },
           file: function($stateParams, files) {
             var yoke =  files.filter(function(file) {
               console.log('>>>>> resolve file');
@@ -39,9 +45,6 @@ angular.module('wfm-mobile.file', [
       });
   })
 
-  .controller('FileDetailController', function($state, file) {
-    console.log('FileDetailController', file);
-  })
   .controller('FileController', function($state, $window, $mdDialog, mobileCamera, desktopCamera, fileClient, files, profileData) {
     var self = this;
     self.files = files.slice().reverse();
@@ -68,5 +71,17 @@ angular.module('wfm-mobile.file', [
         console.error(error);
       });
     };
-  });
+  })
+  .controller('FileDetailController', function($state, $scope, file, mediator) {
+    mediator.subscribeForScope('wfm:file:detail:close', $scope, function() {
+      $state.go('app.file');
+    });
+    var self = this;
+    self.file = file;
+    // set display options specifying which parameters of the file to display
+    // should be an array object e.g. all fields {id: true, name: true, uid: true, owner: true, preview:true};
+    self.displayOptions = {id: true, name: false, uid: true, owner: false, preview: true};
+  })
+;
+
 
