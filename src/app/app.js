@@ -8,6 +8,9 @@ window._ = require('underscore');
 require('fh-js-sdk/dist/feedhenry-forms.js');
 var config = require('./config.json');
 
+var fileModule = require('fh-wfm-file');
+
+
 var workorderCore = require('fh-wfm-workorder/lib/client');
 var workflowCore = require('fh-wfm-workflow/lib/client');
 var resultCore = require('fh-wfm-result/lib/client');
@@ -40,7 +43,7 @@ angular.module('wfm-mobile', [
 , require('./setting/setting')
 , require('./auth/auth')
 , require('./calendar/calendar')
-, require('./file/file')
+, fileModule()
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {
