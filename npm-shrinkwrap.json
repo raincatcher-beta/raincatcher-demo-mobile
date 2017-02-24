@@ -1,6 +1,6 @@
 {
   "name": "wfm2",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "dependencies": {
     "angular": {
       "version": "1.5.9",
