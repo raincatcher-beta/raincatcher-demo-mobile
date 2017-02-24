@@ -8,7 +8,10 @@
       Red Hat Mobile
   </author>
   <content src="index.html"/>
-  <access origin="*"/>
+  <access origin="https://fonts.googleapis.com"/>
+  <access origin="https://maps.googleapis.com"/>
+  <access origin="https://*.gstatic.com"/>
+  <access origin="https://*.amazonaws.com"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
