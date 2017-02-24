@@ -11,35 +11,43 @@ angular.module('wfm-mobile.file', [
     $stateProvider
       .state('app.file', {
         url: '/files',
-        templateUrl: 'app/file/file-list.tpl.html',
-        controller: 'FileController as ctrl',
-        resolve: {
-          profileData: function(userClient) {
-            return userClient.getProfile();
-          },
-          files: function(fileClient, profileData) {
-            return fileClient.list(profileData.id);
+        views: {
+          content: {
+            templateUrl: 'app/file/file-list.tpl.html',
+            controller: 'FileController as ctrl',
+            resolve: {
+              profileData: function(userClient) {
+                return userClient.getProfile();
+              },
+              files: function(fileClient, profileData) {
+                return fileClient.list(profileData.id);
+              }
+            }
           }
         }
       })
       .state('app.file-detail', {
         url: '/file/:fileUid',
-        templateUrl: 'app/file/file-detail.tpl.html',
-        controller: 'FileDetailController as ctrl',
-        resolve: {
-          profileData: function(userClient) {
-            return userClient.getProfile();
-          },
-          files: function(fileClient, profileData) {
-            return fileClient.list(profileData.id);
-          },
-          file: function($stateParams, files) {
-            var yoke =  files.filter(function(file) {
-              console.log('>>>>> resolve file');
-              return file.uid === $stateParams.fileUid;
-            })[0];
-            console.log('>>>>>> resolved file ' ,yoke);
-            return yoke;
+        views: {
+          content: {
+            templateUrl: 'app/file/file-detail.tpl.html',
+            controller: 'FileDetailController as ctrl',
+            resolve: {
+              profileData: function(userClient) {
+                return userClient.getProfile();
+              },
+              files: function(fileClient, profileData) {
+                return fileClient.list(profileData.id);
+              },
+              file: function($stateParams, files) {
+                var yoke =  files.filter(function(file) {
+                  console.log('>>>>> resolve file');
+                  return file.uid === $stateParams.fileUid;
+                })[0];
+                console.log('>>>>>> resolved file ' ,yoke);
+                return yoke;
+              }
+            }
           }
         }
       });

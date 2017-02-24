@@ -22,7 +22,7 @@
     </div>
 
     <md-list>
-      <md-list-item ng-click="navigateTo('app.workorders'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.workorder')}">
+      <md-list-item ng-click="navigateTo('app.workorder'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.workorder')}">
         <md-icon md-font-set="material-icons">assignment</md-icon>
         <p>Workorders</p>
       </md-list-item>
@@ -63,7 +63,7 @@
   </md-sidenav>
 
   <md-content layout="column" flex id="content">
-    <div ui-view layout="column" flex></div><!-- workflow -->
+    <div ui-view layout="column" name="content" flex></div><!-- workflow -->
   </md-content>
 
 </div> <!-- container layout:row -->

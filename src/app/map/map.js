@@ -11,13 +11,18 @@ angular.module('wfm-mobile.map', [
   $stateProvider
     .state('app.map', {
       url: '/map',
-      resolve: {
-        workorders: function(workorderManager) {
-          return workorderManager.list();
+      views: {
+        content: {
+          resolve: {
+            workorders: function(workorderManager) {
+              return workorderManager.list();
+            }
+          },
+          templateUrl: 'app/map/map.tpl.html',
+          controller: 'MapCtrl as ctrl'
         }
-      },
-      templateUrl: 'app/map/map.tpl.html',
-      controller: 'MapCtrl as ctrl'
+      }
+
     });
 })
 

@@ -11,13 +11,17 @@ angular.module('wfm-mobile.calendar', [
   $stateProvider
     .state('app.calendar', {
       url: '/calendar',
-      resolve: {
-        workorders: function(workorderManager) {
-          return workorderManager.list();
+      views: {
+        content: {
+          resolve: {
+            workorders: function(workorderManager) {
+              return workorderManager.list();
+            }
+          },
+          templateUrl: 'app/calendar/calendar.tpl.html',
+          controller: 'calendarCtrl as ctrl'
         }
-      },
-      templateUrl: 'app/calendar/calendar.tpl.html',
-      controller: 'calendarCtrl as ctrl'
+      }
     });
 })
 

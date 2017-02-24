@@ -11,18 +11,26 @@ angular.module('wfm-mobile.auth', [
   $stateProvider
     .state('app.login', {
       url: '/login',
-      templateUrl: 'app/auth/login.tpl.html',
-      controller: 'LoginCtrl as ctrl',
-      resolve: {
-        hasSession: function(userClient) {
-          return userClient.hasSession();
+      views: {
+        content: {
+          templateUrl: 'app/auth/login.tpl.html',
+          controller: 'LoginCtrl as ctrl',
+          resolve: {
+            hasSession: function(userClient) {
+              return userClient.hasSession();
+            }
+          }
         }
       }
     })
     .state('app.profile', {
       url: '/profile',
-      templateUrl: 'app/auth/profile.tpl.html',
-      controller: 'ProfileCtrl as ctrl'
+      views: {
+        content: {
+          templateUrl: 'app/auth/profile.tpl.html',
+          controller: 'ProfileCtrl as ctrl'
+        }
+      }
     });
 })
 

@@ -11,21 +11,29 @@ angular.module('wfm-mobile.messages', [
   $stateProvider
     .state('app.message', {
       url: '/messages',
-      templateUrl: 'app/message/message-list.tpl.html',
-      controller: 'MessagesCtrl as ctrl',
-      resolve: {
-        messages: function(messageManager) {
-          return messageManager.list();
+      views: {
+        content: {
+          templateUrl: 'app/message/message-list.tpl.html',
+          controller: 'MessagesCtrl as ctrl',
+          resolve: {
+            messages: function(messageManager) {
+              return messageManager.list();
+            }
+          }
         }
       }
     })
     .state('app.message-detail', {
       url: '/message/:messageId',
-      templateUrl: 'app/message/message-detail.tpl.html',
-      controller: 'MessageDetailController as ctrl',
-      resolve: {
-        message: function($stateParams, messageManager) {
-          return messageManager.read($stateParams.messageId);
+      views: {
+        content: {
+          templateUrl: 'app/message/message-detail.tpl.html',
+          controller: 'MessageDetailController as ctrl',
+          resolve: {
+            message: function($stateParams, messageManager) {
+              return messageManager.read($stateParams.messageId);
+            }
+          }
         }
       }
     });
