@@ -9,7 +9,6 @@ node_js:
   - '4.4'
 script:
   - npm test
-  - npm run vuln; exit 0
   - bash <(curl https://gist.githubusercontent.com/raincatcher-bot/01ac4cdb3b0770bdb58489dbc17ed6b6/raw/6205a628c3616f6736fd866d5f0fba0a781ec1e4/sonarqube.sh)
 install: npm install
 notifications:
