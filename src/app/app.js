@@ -8,6 +8,8 @@ window._ = require('underscore');
 require('fh-js-sdk/dist/feedhenry-forms.js');
 var config = require('./config.json');
 
+var mapModule = require('fh-wfm-map');
+
 angular.module('wfm-mobile', [
   require('angular-messages')
 , require('angular-ui-router')
@@ -22,7 +24,7 @@ angular.module('wfm-mobile', [
 , require('fh-wfm-risk-assessment')
 , require('fh-wfm-vehicle-inspection')
 , require('fh-wfm-user')
-, require('fh-wfm-map')({mobile: true})
+, mapModule({mobile: true})
 , require('fh-wfm-file')
 , require('fh-wfm-camera')
 , require('./workorder/workorder')
