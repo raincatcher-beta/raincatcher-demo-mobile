@@ -44,16 +44,16 @@
     "fh-wfm-workflow": "0.0.26",
     "fh-wfm-workorder": "0.0.27",
     "lodash": "4.7.0",
-    "mediator-js": "^0.9.9",
-    "moment": "^2.16.0",
+    "mediator-js": "~0.9.9",
+    "moment": "~2.17.1",
     "q": "1.4.1",
-    "rx": "^4.1.0",
-    "shortid": "^2.2.6",
-    "underscore": "^1.8.3"
+    "rx": "~4.1.0",
+    "shortid": "~2.2.6",
+    "underscore": "~1.8.3"
   },
   "devDependencies": {
     "browserify": "13.3.0",
-    "browserify-ngannotate": "^2.0.0",
+    "browserify-ngannotate": "~2.0.0",
     "browserify-shim": "3.8.12",
     "grunt": "0.4.5",
     "grunt-browserify": "5.0.0",
@@ -61,12 +61,12 @@
     "grunt-contrib-connect": "1.0.1",
     "grunt-contrib-copy": "1.0.0",
     "grunt-contrib-watch": "1.0.0",
-    "grunt-eslint": "^18.0.0",
+    "grunt-eslint": "~18.1.0",
     "grunt-newer": "1.1.2",
     "grunt-rev": "0.1.0",
     "grunt-sass": "1.1.0",
     "load-grunt-tasks": "3.4.1",
     "time-grunt": "1.3.0",
-    "uglifyify": "^3.0.1"
+    "uglifyify": "~3.0.4"
   }
 }
