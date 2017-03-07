@@ -150,6 +150,7 @@ angular.module('wfm-mobile', [
           var map = {};
           managers.forEach(function(managerWrapper) {
             map[managerWrapper.manager.datasetId] = managerWrapper;
+            managerWrapper.start(); //start sync
           });
           map.workorders.manager.publishRecordDeltaReceived(mediator);
           return map;
