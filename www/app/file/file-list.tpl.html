@@ -1,0 +1,15 @@
+
+<md-button class="md-fab" aria-label="Take photo" ng-click="ctrl.capturePhoto($event)">
+  <md-icon md-font-set="material-icons">photo_camera</md-icon>
+</md-button>
+
+<md-list class="wfm-file-list">
+  <md-list-item ng-click="navigateTo('app.file-detail', {fileUid: file.uid})" ng-repeat="file in ctrl.files">
+    <p>
+      <img wfm-img uid="file.uid">
+      {{file.name}}
+    </p>
+    <md-icon class="md-secondary" md-font-set="material-icons">delete</md-icon>
+    <md-divider></md-divider>
+  </md-list-item>
+</md-list>
