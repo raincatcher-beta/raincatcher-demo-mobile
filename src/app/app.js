@@ -6,11 +6,13 @@ var _ = require('lodash');
 window.async = require('async');
 window._ = require('underscore');
 require('fh-js-sdk/dist/feedhenry-forms.js');
+var config = require('./config.json');
 
 angular.module('wfm-mobile', [
   require('angular-messages')
 , require('angular-ui-router')
-, require('angular-material')
+, require('angular-material'),
+  require('fh-wfm-sync')
 , require('fh-wfm-message')
 , require('fh-wfm-mediator')
 , require('fh-wfm-workorder')
@@ -23,7 +25,6 @@ angular.module('wfm-mobile', [
 , require('fh-wfm-map')
 , require('fh-wfm-file')
 , require('fh-wfm-camera')
-
 , require('./workorder/workorder')
 , require('./workflow/workflow')
 , require('./message/message')
@@ -101,8 +102,11 @@ angular.module('wfm-mobile', [
   });
 })
 
-.factory('syncPool', function($q, $state, mediator, workorderSync, workflowSync, resultSync, messageSync) {
+.factory('syncPool', function($q, $state, mediator, workorderSync, workflowSync, resultSync, messageSync, syncService) {
   var syncPool = {};
+
+  //Initialising the sync service - This is the global initialisation
+  syncService.init(window.$fh, config.syncOptions);
 
   syncPool.removeManagers = function() {
     var promises = [];
@@ -131,18 +135,27 @@ angular.module('wfm-mobile', [
       };
     }
     // add any additonal manager creates here
-    promises.push(workorderSync.createManager({filter: filter}));
+    promises.push(workorderSync.createManager());
     promises.push(workflowSync.createManager());
-    promises.push(messageSync.createManager({filter: messageFilter}));
+    promises.push(messageSync.createManager());
     promises.push(resultSync.createManager({}));
-    return $q.all(promises).then(function(managers) {
-      var map = {};
-      managers.forEach(function(managerWrapper) {
-        map[managerWrapper.manager.datasetId] = managerWrapper;
+
+    //Initialisation of sync data sets to manage.
+    return syncService.manage(config.datasetIds.workorders, {}, {filter: filter}, config.syncOptions)
+      .then(syncService.manage(config.datasetIds.workflows, {}, {}, config.syncOptions))
+      .then(syncService.manage(config.datasetIds.results, {}, {}, config.syncOptions))
+      .then(syncService.manage(config.datasetIds.messages, {}, {filter: messageFilter}, config.syncOptions))
+      .then(function() {
+        return $q.all(promises).then(function(managers) {
+          var map = {};
+          managers.forEach(function(managerWrapper) {
+            map[managerWrapper.manager.datasetId] = managerWrapper;
+            managerWrapper.start(); //start sync
+          });
+          map.workorders.manager.publishRecordDeltaReceived(mediator);
+          return map;
+        });
       });
-      map.workorders.manager.publishRecordDeltaReceived(mediator);
-      return map;
-    });
   };
 
   syncPool.forceSync = function(managers) {
