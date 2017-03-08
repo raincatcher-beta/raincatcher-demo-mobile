@@ -2,9 +2,6 @@
   "env": {
     "node": true
   },
-  "plugins": [
-    "jasmine"
-  ],
   "extends": "eslint:recommended",
   "rules": {
     "array-callback-return": "warn",
