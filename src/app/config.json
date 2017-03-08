@@ -1,0 +1,13 @@
+{
+  "datasetIds": {
+    "workorders": "workorders",
+    "workflows": "workflows",
+    "results": "result",
+    "messages": "messages"
+  },
+  "syncOptions" : {
+    "sync_frequency" : 5,
+    "storage_strategy": "dom",
+    "do_console_log": false
+  }
+}
