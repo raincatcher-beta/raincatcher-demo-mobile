@@ -8,6 +8,7 @@
       Red Hat Mobile
   </author>
   <content src="index.html"/>
+  <access origin="*"/>
   <access origin="https://fonts.googleapis.com"/>
   <access origin="https://maps.googleapis.com"/>
   <access origin="https://*.gstatic.com"/>
