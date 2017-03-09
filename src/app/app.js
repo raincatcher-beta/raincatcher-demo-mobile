@@ -8,6 +8,8 @@ window._ = require('underscore');
 require('fh-js-sdk/dist/feedhenry-forms.js');
 var config = require('./config.json');
 
+var workorderCore = require('fh-wfm-workorder/lib/client');
+
 angular.module('wfm-mobile', [
   require('angular-messages')
 , require('angular-ui-router')
@@ -15,7 +17,10 @@ angular.module('wfm-mobile', [
   require('fh-wfm-sync')
 , require('fh-wfm-message')
 , require('fh-wfm-mediator')
-, require('fh-wfm-workorder')
+, require('fh-wfm-workorder-angular')({
+  mode: "user",
+  mainColumnViewId: "content"
+})
 , require('fh-wfm-result')
 , require('fh-wfm-workflow')
 , require('fh-wfm-appform')
@@ -25,7 +30,6 @@ angular.module('wfm-mobile', [
 , require('fh-wfm-map')
 , require('fh-wfm-file')
 , require('fh-wfm-camera')
-, require('./workorder/workorder')
 , require('./workflow/workflow')
 , require('./message/message')
 , require('./map/map')
@@ -37,7 +41,8 @@ angular.module('wfm-mobile', [
 
 .config(function($stateProvider, $urlRouterProvider) {
   // if none of the states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/workorders');
+  //TODO: This should be a state.go call...
+  $urlRouterProvider.otherwise('/workorders/list');
 
   $stateProvider
     .state('app', {
@@ -95,7 +100,7 @@ angular.module('wfm-mobile', [
           delete $rootScope.toState;
           delete $rootScope.toParams;
         } else {
-          $state.go('app.workorders', undefined, {reload: true});
+          $state.go('app.workorder', undefined, {reload: true});
         }
       });
     }
@@ -173,6 +178,8 @@ angular.module('wfm-mobile', [
   };
 
   return syncPool;
+}).run(function(mediator) {
+  workorderCore(mediator);
 })
 
 .run(function($rootScope, $state, $q, mediator, userClient) {

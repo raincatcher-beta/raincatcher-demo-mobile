@@ -11,8 +11,12 @@ angular.module('wfm-mobile.setting', [
   $stateProvider
     .state('app.setting', {
       url: '/settings',
-      templateUrl: 'app/setting/setting-list.tpl.html',
-      controller: 'SettingCtrl as ctrl'
+      views: {
+        content: {
+          templateUrl: 'app/setting/setting-list.tpl.html',
+          controller: 'SettingCtrl as ctrl'
+        }
+      }
     });
 })
 

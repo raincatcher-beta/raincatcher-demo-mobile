@@ -6,7 +6,8 @@ angular.module('wfm-mobile.workflow', [
 ])
 
 .run(function($state, mediator) {
-  mediator.subscribe('wfm:workorder:selected', function(workorder) {
+  //TODO: This will be moved to the workflow module when it is refactored.
+  mediator.subscribe('wfm:ui:workflow:begin', function(workorder) {
     $state.go('app.workflow.begin', {
       workorderId: workorder.id
     });
@@ -50,7 +51,7 @@ angular.module('wfm-mobile.workflow', [
         }
       },
       views: {
-        '': {
+        content: {
           template: '<div ui-view></div>'
         },
         'toolbar@app': {
