@@ -20,10 +20,14 @@ angular.module('wfm-mobile', [
 , require('fh-wfm-mediator')
 , require('fh-wfm-workorder-angular')({
   mode: "user",
-  mainColumnViewId: "content"
+  mainColumnViewId: "content@app"
 })
 , require('fh-wfm-result')
-, require('fh-wfm-workflow-angular')({})
+, require('fh-wfm-workflow-angular')({
+  mode: "user",
+  mainColumnViewId: "content@app",
+  toolbarViewId: "toolbar@app"
+})
 , require('fh-wfm-appform')
 , require('fh-wfm-risk-assessment')
 , require('fh-wfm-vehicle-inspection')
