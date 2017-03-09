@@ -9,6 +9,7 @@ require('fh-js-sdk/dist/feedhenry-forms.js');
 var config = require('./config.json');
 
 var workorderCore = require('fh-wfm-workorder/lib/client');
+var workflowCore = require('fh-wfm-workflow/lib/client');
 
 angular.module('wfm-mobile', [
   require('angular-messages')
@@ -22,7 +23,7 @@ angular.module('wfm-mobile', [
   mainColumnViewId: "content"
 })
 , require('fh-wfm-result')
-, require('fh-wfm-workflow')
+, require('fh-wfm-workflow-angular')({})
 , require('fh-wfm-appform')
 , require('fh-wfm-risk-assessment')
 , require('fh-wfm-vehicle-inspection')
@@ -30,7 +31,6 @@ angular.module('wfm-mobile', [
 , require('fh-wfm-map')
 , require('fh-wfm-file')
 , require('fh-wfm-camera')
-, require('./workflow/workflow')
 , require('./message/message')
 , require('./map/map')
 , require('./setting/setting')
@@ -180,6 +180,7 @@ angular.module('wfm-mobile', [
   return syncPool;
 }).run(function(mediator) {
   workorderCore(mediator);
+  workflowCore(mediator);
 })
 
 .run(function($rootScope, $state, $q, mediator, userClient) {
