@@ -5,3 +5,4 @@ platforms/*
 plugins/
 www/
 .idea/
+.DS_Store
