@@ -10,6 +10,7 @@ var config = require('./config.json');
 
 var workorderCore = require('fh-wfm-workorder/lib/client');
 var workflowCore = require('fh-wfm-workflow/lib/client');
+var resultCore = require('fh-wfm-result/lib/client');
 
 angular.module('wfm-mobile', [
   require('angular-messages')
@@ -22,7 +23,6 @@ angular.module('wfm-mobile', [
   mode: "user",
   mainColumnViewId: "content@app"
 })
-, require('fh-wfm-result')
 , require('fh-wfm-workflow-angular')({
   mode: "user",
   mainColumnViewId: "content@app",
@@ -64,9 +64,6 @@ angular.module('wfm-mobile', [
         },
         workflowManager: function(syncManagers) {
           return syncManagers.workflows;
-        },
-        resultManager: function(syncManagers) {
-          return syncManagers.result;
         },
         messageManager: function(syncManagers) {
           return syncManagers.messages;
@@ -111,7 +108,7 @@ angular.module('wfm-mobile', [
   });
 })
 
-.factory('syncPool', function($q, $state, mediator, workorderSync, workflowSync, resultSync, messageSync, syncService) {
+.factory('syncPool', function($q, $state, mediator, workorderSync, workflowSync, messageSync, syncService) {
   var syncPool = {};
 
   //Initialising the sync service - This is the global initialisation
@@ -124,7 +121,6 @@ angular.module('wfm-mobile', [
     promises.push(workorderSync.removeManager());
     promises.push(messageSync.removeManager());
     promises.push(workflowSync.removeManager());
-    promises.push(resultSync.removeManager());
     return $q.all(promises);
   };
 
@@ -147,7 +143,6 @@ angular.module('wfm-mobile', [
     promises.push(workorderSync.createManager());
     promises.push(workflowSync.createManager());
     promises.push(messageSync.createManager());
-    promises.push(resultSync.createManager({}));
 
     //Initialisation of sync data sets to manage.
     return syncService.manage(config.datasetIds.workorders, {}, {filter: filter}, config.syncOptions)
@@ -185,6 +180,7 @@ angular.module('wfm-mobile', [
 }).run(function(mediator) {
   workorderCore(mediator);
   workflowCore(mediator);
+  resultCore(mediator);
 })
 
 .run(function($rootScope, $state, $q, mediator, userClient) {
