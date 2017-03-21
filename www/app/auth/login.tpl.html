@@ -1,0 +1,43 @@
+<div class="login" flex>
+
+  <div layout-padding layout-margin>
+    <div ng-hide="ctrl.hasSession">
+      <form name="loginForm" ng-submit="ctrl.login(loginForm.$valid)" novalidate>
+        <h1 class="md-headline">FeedHenry WFM Demo</h1>
+
+        <md-input-container class="md-block">
+          <label>Username</label>
+          <input ng-model="ctrl.username" id="username" name="username" required>
+          <div ng-messages="loginForm.username.$error" ng-show="loginForm.$submitted || loginForm.username.$dirty">
+            <div ng-message="required">A username is required.</div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Password</label>
+          <input ng-model="ctrl.password" id="password" name="password" type="password" autocomplete="off" required>
+          <div ng-messages="loginForm.password.$error" ng-show="loginForm.$submitted || loginForm.password.$dirty">
+            <div ng-message="required">A password is required.</div>
+          </div>
+        </md-input-container>
+
+        <div ng-messages='ctrl.loginMessages'>
+          <div style="color: red" ng-message='error'>Authentication Failed! Try Again.</div>
+          <div style="color: green" ng-message='success'>Authentication Success</div>
+        </div>
+
+        <md-button type="submit" class="md-raised md-primary md-hue-2">Log in</md-button>
+
+      </form>
+    </div>
+
+    <div ng-show="ctrl.hasSession">
+      <md-button class="md-raised md-primary md-hue-2" ng-click="ctrl.logout()">Log out</md-button>
+    </div>
+
+    <p class="md-body-1">Trouble logging in? Contact the switchboard.</p>
+
+    </md-content>
+
+  </div>
+
+</div><!-- login -->
