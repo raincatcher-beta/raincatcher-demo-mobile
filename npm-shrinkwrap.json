@@ -147,7 +147,7 @@
             },
             "mime-types": {
               "version": "2.1.14",
-              "from": "mime-types@>=2.1.13 <2.2.0",
+              "from": "mime-types@>=2.1.11 <2.2.0",
               "resolved": "https://registry.npmjs.org/mime-types/-/mime-types-2.1.14.tgz",
               "dependencies": {
                 "mime-db": {
@@ -190,7 +190,7 @@
           "dependencies": {
             "mime-types": {
               "version": "2.1.14",
-              "from": "mime-types@>=2.1.13 <2.2.0",
+              "from": "mime-types@>=2.1.11 <2.2.0",
               "resolved": "https://registry.npmjs.org/mime-types/-/mime-types-2.1.14.tgz",
               "dependencies": {
                 "mime-db": {
@@ -452,7 +452,7 @@
             },
             "mime-types": {
               "version": "2.1.14",
-              "from": "mime-types@>=2.1.13 <2.2.0",
+              "from": "mime-types@>=2.1.11 <2.2.0",
               "resolved": "https://registry.npmjs.org/mime-types/-/mime-types-2.1.14.tgz",
               "dependencies": {
                 "mime-db": {
@@ -859,14 +859,14 @@
       }
     },
     "fh-wfm-signature": {
-      "version": "0.0.18",
-      "from": "fh-wfm-signature@0.0.18",
-      "resolved": "https://registry.npmjs.org/fh-wfm-signature/-/fh-wfm-signature-0.0.18.tgz"
+      "version": "0.0.19",
+      "from": "fh-wfm-signature@0.0.19",
+      "resolved": "https://registry.npmjs.org/fh-wfm-signature/-/fh-wfm-signature-0.0.19.tgz"
     },
     "fh-wfm-sync": {
-      "version": "0.1.0",
-      "from": "fh-wfm-sync@0.1.0",
-      "resolved": "https://registry.npmjs.org/fh-wfm-sync/-/fh-wfm-sync-0.1.0.tgz"
+      "version": "0.1.1",
+      "from": "fh-wfm-sync@0.1.1",
+      "resolved": "https://registry.npmjs.org/fh-wfm-sync/-/fh-wfm-sync-0.1.1.tgz"
     },
     "fh-wfm-user": {
       "version": "0.5.0",
@@ -2924,9 +2924,9 @@
       }
     },
     "fh-wfm-workorder-angular": {
-      "version": "0.1.0",
-      "from": "fh-wfm-workorder-angular@0.1.0",
-      "resolved": "https://registry.npmjs.org/fh-wfm-workorder-angular/-/fh-wfm-workorder-angular-0.1.0.tgz",
+      "version": "0.1.1",
+      "from": "fh-wfm-workorder-angular@0.1.1",
+      "resolved": "https://registry.npmjs.org/fh-wfm-workorder-angular/-/fh-wfm-workorder-angular-0.1.1.tgz",
       "dependencies": {
         "angular-animate": {
           "version": "1.6.2",
