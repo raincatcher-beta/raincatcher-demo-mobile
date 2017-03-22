@@ -6,14 +6,13 @@ var _ = require('lodash');
 window.async = require('async');
 window._ = require('underscore');
 require('fh-js-sdk/dist/feedhenry-forms.js');
+var $fh = require('fh-js-sdk');
 var config = require('./config.json');
-
-var fileModule = require('fh-wfm-file');
-
 
 var workorderCore = require('fh-wfm-workorder/lib/client');
 var workflowCore = require('fh-wfm-workflow/lib/client');
 var resultCore = require('fh-wfm-result/lib/client');
+var fileCore = require('fh-wfm-file/lib/client');
 
 angular.module('wfm-mobile', [
   require('angular-messages')
@@ -36,14 +35,17 @@ angular.module('wfm-mobile', [
 , require('fh-wfm-vehicle-inspection')
 , require('fh-wfm-user')
 , require('fh-wfm-map')
-, require('fh-wfm-file')
 , require('fh-wfm-camera')
 , require('./message/message')
 , require('./map/map')
 , require('./setting/setting')
 , require('./auth/auth')
 , require('./calendar/calendar')
-, fileModule()
+, require('fh-wfm-file-angular')({
+  uploadEnabled: true,
+  mainColumnViewId: "content",
+  detailStateMount: "app.file-detail"
+})
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -184,6 +186,7 @@ angular.module('wfm-mobile', [
   workorderCore(mediator);
   workflowCore(mediator);
   resultCore(mediator);
+  fileCore(mediator,{},$fh);
 })
 
 .run(function($rootScope, $state, $q, mediator, userClient) {
