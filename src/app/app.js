@@ -17,8 +17,8 @@ var fileCore = require('fh-wfm-file/lib/client');
 angular.module('wfm-mobile', [
   require('angular-messages')
 , require('angular-ui-router')
-, require('angular-material'),
-  require('fh-wfm-sync')
+, require('angular-material')
+, require('fh-wfm-sync')
 , require('fh-wfm-message')
 , require('fh-wfm-mediator')
 , require('fh-wfm-workorder-angular')({
@@ -42,6 +42,7 @@ angular.module('wfm-mobile', [
 , require('./auth/auth')
 , require('./calendar/calendar')
 , require('fh-wfm-file-angular')({
+  userMode: true,
   uploadEnabled: true,
   mainColumnViewId: "content",
   detailStateMount: "app.file-detail"
