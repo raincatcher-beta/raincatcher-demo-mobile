@@ -17,9 +17,12 @@ var fileCore = require('fh-wfm-file/lib/client');
 angular.module('wfm-mobile', [
   require('angular-messages')
 , require('angular-ui-router')
-, require('angular-material')
-, require('fh-wfm-sync')
-, require('fh-wfm-message')
+, require('angular-material'),
+  require('fh-wfm-sync')
+, require('fh-wfm-message-angular')({
+  mode: 'user',
+  mainColumnViewId: 'content@app'
+})
 , require('fh-wfm-mediator')
 , require('fh-wfm-workorder-angular')({
   mode: "user",
