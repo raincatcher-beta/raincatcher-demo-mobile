@@ -1,7 +1,7 @@
 'use strict';
 
 var angular = require('angular');
-var _ = require('lodash');
+
 //Requiring the client SDK with Drag & Drop Apps Functionality.
 window.async = require('async');
 window._ = require('underscore');
