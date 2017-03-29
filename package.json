@@ -1,6 +1,6 @@
 {
   "name": "wfm2",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "A WFM2 PoC using the mediator pattern",
   "repository": "https://github.com/feedhenry-raincatcher/raincatcher-demo-mobile.git",
   "engines": {
@@ -40,11 +40,11 @@
     "fh-wfm-risk-assessment": "0.0.17",
     "fh-wfm-signature": "0.0.19",
     "fh-wfm-sync": "0.1.1",
-    "fh-wfm-user": "0.5.2",
+    "fh-wfm-user": "0.5.3",
     "fh-wfm-vehicle-inspection": "0.0.15",
     "fh-wfm-workflow": "0.2.1",
-    "fh-wfm-workflow-angular": "0.1.1",
-    "fh-wfm-workorder-angular": "0.2.1",
+    "fh-wfm-workflow-angular": "0.1.2",
+    "fh-wfm-workorder-angular": "0.2.2",
     "fh-wfm-workorder": "0.2.1",
     "lodash": "4.7.0",
     "mediator-js": "~0.9.9",
