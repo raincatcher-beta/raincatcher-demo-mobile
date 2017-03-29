@@ -113,7 +113,7 @@ angular.module('wfm-mobile', [
     }
   });
 })
-    // same as initialisation/syncPoolService.js
+    // same as initialisation/syncPoolService.js in demo-portal
 .factory('syncPool', function($q, $state, mediator, workorderSync, workflowSync, messageSync, syncService) {
   var syncPool = {};
 
@@ -192,7 +192,7 @@ angular.module('wfm-mobile', [
   fileCore(mediator,{},$fh);
 })
 
-    //same as initialisation/run.js function createWFMInitialisationPromises
+    //same as initialisation/run.js function createWFMInitialisationPromises in demo-portal
 .run(function($rootScope, $state, $q, mediator, userClient) {
   var initPromises = [];
   var initListener = mediator.subscribe('promise:init', function (promise) {
@@ -210,8 +210,8 @@ angular.module('wfm-mobile', [
   });
 })
 
-  //same as initialisation/run.js function verifyLoginOnStateChange
-.run(function ($rootScope, $state, userClient) {  //added this
+  //same as initialisation/run.js function verifyLoginOnStateChange in demo-portal
+.run(function ($rootScope, $state, userClient) {  //added this line
   $rootScope.$on('$stateChangeStart', function(e, toState, toParams) {
     if (toState.name !== "app.login") {
       userClient.hasSession().then(function(hasSession) {
