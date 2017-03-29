@@ -50,9 +50,9 @@ angular.module('wfm-mobile.auth', [
       self.loginMessages.success = true;
       return userClient.hasSession();
     })
-    .then(function(hasSession){
+    .then(function(hasSession) {
       self.hasSession = hasSession;
-      if($rootScope.toState){
+      if ($rootScope.toState) {
         $state.go($rootScope.toState, $rootScope.toParams);
         delete $rootScope.toState;
         delete $rootScope.toParams;

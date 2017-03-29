@@ -195,13 +195,13 @@ angular.module('wfm-mobile', [
     //same as initialisation/run.js function createWFMInitialisationPromises in demo-portal
 .run(function($rootScope, $state, $q, mediator, userClient) {
   var initPromises = [];
-  var initListener = mediator.subscribe('promise:init', function (promise) {
+  var initListener = mediator.subscribe('promise:init', function(promise) {
     initPromises.push(promise);
   });
   mediator.publish('init');
   console.log(initPromises.length, 'init promises to resolve.');
   var all = (initPromises.length > 0) ? $q.all(initPromises) : $q.when(null);
-  return all.then(function () {//return on this line in createWFMInitialisationPromises
+  return all.then(function() {//return on this line in createWFMInitialisationPromises
     $rootScope.ready = true;
     console.log(initPromises.length, 'init promises resolved.');
     mediator.remove('promise:init', initListener.id);
@@ -211,7 +211,7 @@ angular.module('wfm-mobile', [
 })
 
   //same as initialisation/run.js function verifyLoginOnStateChange in demo-portal
-.run(function ($rootScope, $state, userClient) {  //added this line
+.run(function($rootScope, $state, userClient) {  //added this line
   $rootScope.$on('$stateChangeStart', function(e, toState, toParams) {
     if (toState.name !== "app.login") {
       userClient.hasSession().then(function(hasSession) {

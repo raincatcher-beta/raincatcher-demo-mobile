@@ -13,7 +13,7 @@
   "keywords": [
     "wfm"
   ],
-  "author": "Brian Leathem",
+  "author": "feedhenry-raincatcher@redhat.com",
   "license": "MIT",
   "dependencies": {
     "angular": "1.5.9",
