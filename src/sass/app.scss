@@ -58,6 +58,7 @@ $danger: #F44336; //red 500
 .login{
   background: $primary-color;
   color: $white-text-color;
+  height: 100%;
   p{
     color: $white-secondary-text-color;
     text-align: center;
@@ -84,6 +85,10 @@ $danger: #F44336; //red 500
     width: 100%!important;
     margin-left: 0px;
   }
+}
+
+.login .area {
+  height: 100%;
 }
 
 
