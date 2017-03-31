@@ -26,9 +26,9 @@ $danger: #F44336; //red 500
 @import 'node_modules/fh-wfm-message/lib/message.scss';
 @import 'node_modules/fh-wfm-risk-assessment/lib/risk-assessment.scss';
 @import 'node_modules/fh-wfm-vehicle-inspection/lib/vehicle-inspection.scss';
-@import 'node_modules/fh-wfm-workflow/lib/workflow.scss';
-@import 'node_modules/fh-wfm-workorder/lib/workorder.scss';
-
+@import 'node_modules/fh-wfm-workflow-angular/lib/workflow.scss';
+@import 'node_modules/fh-wfm-workorder-angular/lib/workorder.scss';
+@import 'node_modules/fh-wfm-file-angular/lib/file.scss';
 
 .wfm-night{
   &:after{
@@ -53,24 +53,6 @@ $danger: #F44336; //red 500
   right: 16px;
 }
 
-// wfm-file-list ==========
-
-.wfm-file-list{
-  md-icon {margin-top: 0!important}
-  md-list-item{
-    display: flex;
-    align-items: center;
-    p{
-      margin: 8px 0;
-      display: flex;
-      align-items: center;
-      img{
-        max-height: 70px;
-        margin-right: 10px;
-      }
-    }
-  }
-}
 // Login screen ==========
 
 .login{

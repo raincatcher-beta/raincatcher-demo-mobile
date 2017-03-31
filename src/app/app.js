@@ -6,20 +6,31 @@ var _ = require('lodash');
 window.async = require('async');
 window._ = require('underscore');
 require('fh-js-sdk/dist/feedhenry-forms.js');
+var $fh = require('fh-js-sdk');
 var config = require('./config.json');
 
 var mapModule = require('fh-wfm-map');
+var workorderCore = require('fh-wfm-workorder/lib/client');
+var workflowCore = require('fh-wfm-workflow/lib/client');
+var resultCore = require('fh-wfm-result/lib/client');
+var fileCore = require('fh-wfm-file/lib/client');
 
 angular.module('wfm-mobile', [
   require('angular-messages')
 , require('angular-ui-router')
-, require('angular-material'),
-  require('fh-wfm-sync')
+, require('angular-material')
+, require('fh-wfm-sync')
 , require('fh-wfm-message')
 , require('fh-wfm-mediator')
-, require('fh-wfm-workorder')
-, require('fh-wfm-result')
-, require('fh-wfm-workflow')
+, require('fh-wfm-workorder-angular')({
+  mode: "user",
+  mainColumnViewId: "content@app"
+})
+, require('fh-wfm-workflow-angular')({
+  mode: "user",
+  mainColumnViewId: "content@app",
+  toolbarViewId: "toolbar@app"
+})
 , require('fh-wfm-appform')
 , require('fh-wfm-risk-assessment')
 , require('fh-wfm-vehicle-inspection')
@@ -27,18 +38,22 @@ angular.module('wfm-mobile', [
 , mapModule({mobile: true})
 , require('fh-wfm-file')
 , require('fh-wfm-camera')
-, require('./workorder/workorder')
-, require('./workflow/workflow')
 , require('./message/message')
 , require('./setting/setting')
 , require('./auth/auth')
 , require('./calendar/calendar')
-, require('./file/file')
+, require('fh-wfm-file-angular')({
+  userMode: true,
+  uploadEnabled: true,
+  mainColumnViewId: "content",
+  detailStateMount: "app.file-detail"
+})
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {
   // if none of the states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/workorders');
+  //TODO: This should be a state.go call...
+  $urlRouterProvider.otherwise('/workorders/list');
 
   $stateProvider
     .state('app', {
@@ -56,9 +71,6 @@ angular.module('wfm-mobile', [
         },
         workflowManager: function(syncManagers) {
           return syncManagers.workflows;
-        },
-        resultManager: function(syncManagers) {
-          return syncManagers.result;
         },
         messageManager: function(syncManagers) {
           return syncManagers.messages;
@@ -96,14 +108,14 @@ angular.module('wfm-mobile', [
           delete $rootScope.toState;
           delete $rootScope.toParams;
         } else {
-          $state.go('app.workorders', undefined, {reload: true});
+          $state.go('app.workorder', undefined, {reload: true});
         }
       });
     }
   });
 })
 
-.factory('syncPool', function($q, $state, mediator, workorderSync, workflowSync, resultSync, messageSync, syncService) {
+.factory('syncPool', function($q, $state, mediator, workorderSync, workflowSync, messageSync, syncService) {
   var syncPool = {};
 
   //Initialising the sync service - This is the global initialisation
@@ -116,7 +128,6 @@ angular.module('wfm-mobile', [
     promises.push(workorderSync.removeManager());
     promises.push(messageSync.removeManager());
     promises.push(workflowSync.removeManager());
-    promises.push(resultSync.removeManager());
     return $q.all(promises);
   };
 
@@ -139,7 +150,6 @@ angular.module('wfm-mobile', [
     promises.push(workorderSync.createManager());
     promises.push(workflowSync.createManager());
     promises.push(messageSync.createManager());
-    promises.push(resultSync.createManager({}));
 
     //Initialisation of sync data sets to manage.
     return syncService.manage(config.datasetIds.workorders, {}, {filter: filter}, config.syncOptions)
@@ -151,6 +161,7 @@ angular.module('wfm-mobile', [
           var map = {};
           managers.forEach(function(managerWrapper) {
             map[managerWrapper.manager.datasetId] = managerWrapper;
+            managerWrapper.start(); //start sync
           });
           map.workorders.manager.publishRecordDeltaReceived(mediator);
           return map;
@@ -173,6 +184,11 @@ angular.module('wfm-mobile', [
   };
 
   return syncPool;
+}).run(function(mediator) {
+  workorderCore(mediator);
+  workflowCore(mediator);
+  resultCore(mediator);
+  fileCore(mediator,{},$fh);
 })
 
 .run(function($rootScope, $state, $q, mediator, userClient) {
