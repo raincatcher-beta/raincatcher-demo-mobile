@@ -35,8 +35,9 @@ angular.module('wfm-mobile', [
 , require('fh-wfm-risk-assessment')
 , require('fh-wfm-vehicle-inspection')
 , require('fh-wfm-user')
-, mapModule({mobile: true})
-, require('fh-wfm-file')
+, mapModule({
+  viewId: 'content'
+})
 , require('fh-wfm-camera')
 , require('./message/message')
 , require('./setting/setting')
