@@ -50,7 +50,7 @@ angular.module('wfm-mobile', [
   detailStateMount: "app.file-detail"
 })
 ])
-
+    //same as initialisation/config.js in demo-portal
 .config(function($stateProvider, $urlRouterProvider) {
   // if none of the states are matched, use this as the fallback
   //TODO: This should be a state.go call...
@@ -79,12 +79,16 @@ angular.module('wfm-mobile', [
       },
       controller: function($rootScope, $scope, $state, $mdSidenav, mediator, profileData) {
         $scope.profileData = profileData;
+        $scope.$state = $state;
         $scope.toggleSidenav = function(event, menuId) {
           $mdSidenav(menuId).toggle();
           event.stopPropagation();
         };
         $scope.navigateTo = function(state, params) {
           if (state) {
+            if ($mdSidenav('left').isOpen()) {
+              $mdSidenav('left').close();
+            }
             $state.go(state, params);
           }
         };
@@ -92,7 +96,8 @@ angular.module('wfm-mobile', [
     });
 })
 
-.run(function($rootScope, $state, mediator, syncPool) {
+//same as initialisation/run.js function subscribeToUserChange in demo-portal
+.run(function($state, mediator, syncPool) {
   mediator.subscribe('wfm:auth:profile:change', function(_profileData) {
     if (_profileData === null) { // a logout
       syncPool.removeManagers().then(function() {
@@ -104,18 +109,13 @@ angular.module('wfm-mobile', [
       syncPool.syncManagerMap(_profileData)  // created managers will be cached
       .then(syncPool.forceSync)
       .then(function() {
-        if ($rootScope.toState) {
-          $state.go($rootScope.toState, $rootScope.toParams, {reload: true});
-          delete $rootScope.toState;
-          delete $rootScope.toParams;
-        } else {
-          $state.go('app.workorder', undefined, {reload: true});
-        }
+        $state.go('app.workorder', undefined, {reload: true});
+
       });
     }
   });
 })
-
+    // same as initialisation/syncPoolService.js in demo-portal
 .factory('syncPool', function($q, $state, mediator, workorderSync, workflowSync, messageSync, syncService) {
   var syncPool = {};
 
@@ -185,6 +185,8 @@ angular.module('wfm-mobile', [
   };
 
   return syncPool;
+
+//same as initialisation/run.js function initCoreModules
 }).run(function(mediator) {
   workorderCore(mediator);
   workflowCore(mediator);
@@ -192,6 +194,7 @@ angular.module('wfm-mobile', [
   fileCore(mediator,{},$fh);
 })
 
+    //same as initialisation/run.js function createWFMInitialisationPromises in demo-portal
 .run(function($rootScope, $state, $q, mediator, userClient) {
   var initPromises = [];
   var initListener = mediator.subscribe('promise:init', function(promise) {
@@ -200,13 +203,17 @@ angular.module('wfm-mobile', [
   mediator.publish('init');
   console.log(initPromises.length, 'init promises to resolve.');
   var all = (initPromises.length > 0) ? $q.all(initPromises) : $q.when(null);
-  all.then(function() {
+  return all.then(function() {//return on this line in createWFMInitialisationPromises
     $rootScope.ready = true;
     console.log(initPromises.length, 'init promises resolved.');
     mediator.remove('promise:init', initListener.id);
+    userClient.clearSession();
     return null;
   });
+})
 
+  //same as initialisation/run.js function verifyLoginOnStateChange in demo-portal
+.run(function($rootScope, $state, userClient) {  //added this line
   $rootScope.$on('$stateChangeStart', function(e, toState, toParams) {
     if (toState.name !== "app.login") {
       userClient.hasSession().then(function(hasSession) {
