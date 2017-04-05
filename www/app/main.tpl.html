@@ -1,0 +1,65 @@
+<md-toolbar ui-view="toolbar" layout="row" class="md-primary md-hue-2 md-whiteframe-z1">
+  <div class="md-toolbar-tools">
+    <md-button ng-show="profileData" ng-click="toggleSidenav($event, 'left')" hide-gt-sm class="md-icon-button">
+      <md-icon aria-label="Menu" md-font-set="material-icons">menu</md-icon>
+    </md-button>
+    <h1>FeedHenry</h1>
+  </div>
+</md-toolbar>
+
+<div layout="row" flex>
+
+  <md-sidenav ng-show="profileData" layout="column" flex="60" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"
+    md-swipe-left="toggleSidenav($event, 'left')">
+
+    <div class="sidenav-header">
+      <img ng-src="{{profileData.avatar}}" class="md-avatar" alt="Photo of {{profileData.name}}"/>
+      <h3 class="md-body-2">{{profileData.name}}</h3>
+      <p class="md-body-1">{{profileData.email}}</p>
+      <md-button class="md-icon-button" ng-click="navigateTo('app.profile'); toggleSidenav($event, 'left')" aria-label="Edit">
+        <md-icon md-font-set="material-icons">edit</md-icon>
+      </md-button>
+    </div>
+
+    <md-list>
+      <md-list-item ng-click="navigateTo('app.workorder'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.workorder')}">
+        <md-icon md-font-set="material-icons">assignment</md-icon>
+        <p>Workorders</p>
+      </md-list-item>
+      <md-list-item ng-click="navigateTo('app.map'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.map')}">
+        <md-icon md-font-set="material-icons">map</md-icon>
+        <p>Map</p>
+      </md-list-item>
+      <md-list-item ng-click="navigateTo('app.file'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.file')}">
+        <md-icon md-font-set="material-icons">folder</md-icon>
+        <p>Files</p>
+      </md-list-item>
+      <md-list-item ng-click="navigateTo('app.message'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.message')}">
+        <md-icon md-font-set="material-icons">mail</md-icon>
+        <p>Messages</p>
+      </md-list-item>
+
+      <md-divider></md-divider>
+
+      <md-subheader>Management</md-subheader>
+
+      <md-list-item ng-click="navigateTo('app.setting'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.setting')}">
+        <md-icon md-font-set="material-icons">settings</md-icon>
+        <p>Settings</p>
+      </md-list-item>
+
+      <md-list-item ng-click="navigateTo('app.login'); toggleSidenav($event, 'left')" ng-class="{active: $state.includes('app.login')}">
+        <md-icon md-font-set="material-icons">power_settings_new</md-icon>
+        <p>Logout</p>
+      </md-list-item>
+
+    </md-list>
+
+
+  </md-sidenav>
+
+  <md-content layout="column" flex id="content">
+    <div ui-view layout="column" name="content" flex></div><!-- workflow -->
+  </md-content>
+
+</div> <!-- container layout:row -->
