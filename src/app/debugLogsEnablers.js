@@ -1,1 +1,1 @@
-require('debug').enable('result:*');
+require('debug').enable('fh-wfm-*');
