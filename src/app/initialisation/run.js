@@ -74,16 +74,26 @@ function verifyLoginOnStateChange($rootScope, $state, $q, mediator, userClient) 
     return null;
   });
 
+
+
   $rootScope.$on('$stateChangeStart', function(e, toState, toParams) {
-    if (toState.name !== "app.login") {
-      userClient.hasSession().then(function(hasSession) {
-        if (!hasSession) {
-          e.preventDefault();
-          $rootScope.toState = toState;
-          $rootScope.toParams = toParams;
-          $state.go('app.login');
-        }
+
+    function clearAndRedirectToLogin() {
+      userClient.clearSession().then(function() {
+        $rootScope.toState = toState;
+        $rootScope.toParams = toParams;
+        $state.go('app.login');
       });
+    }
+
+    if (toState.name !== "app.login") {
+      userClient.verifySession().then(function(validSession) {
+        //If the session is not valid, clear the user data and redirect to login
+        if (!validSession) {
+          e.preventDefault();
+          clearAndRedirectToLogin();
+        }
+      }).catch(clearAndRedirectToLogin);
     }
   });
 
