@@ -1,5 +1,5 @@
 {
-  "name": "wfm2",
+  "name": "fh-wfm-demo-mobile",
   "version": "2.8.0",
   "description": "A WFM2 PoC using the mediator pattern",
   "repository": "https://github.com/feedhenry-raincatcher/raincatcher-demo-mobile.git",
