@@ -41,6 +41,7 @@ angular.module('wfm-mobile', [
     mainColumnViewId: "content",
     detailStateMount: "app.file-detail"
   })
+
 ]);
 
 //Initialising the application with required service, config and initialising script.
