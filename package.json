@@ -45,7 +45,7 @@
     "fh-wfm-vehicle-inspection": "0.0.15",
     "fh-wfm-workflow": "0.2.1",
     "fh-wfm-workflow-angular": "0.1.2",
-    "fh-wfm-workorder-angular": "0.2.2",
+    "fh-wfm-workorder-angular": "0.2.5",
     "fh-wfm-workorder": "0.2.1",
     "lodash": "4.7.0",
     "mediator-js": "~0.9.9",
