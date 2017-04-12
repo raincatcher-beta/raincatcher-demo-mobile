@@ -74,8 +74,6 @@ function verifyLoginOnStateChange($rootScope, $state, $q, mediator, userClient) 
     return null;
   });
 
-
-
   $rootScope.$on('$stateChangeStart', function(e, toState, toParams) {
 
     function clearAndRedirectToLogin() {
