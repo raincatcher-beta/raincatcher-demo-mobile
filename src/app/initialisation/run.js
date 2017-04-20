@@ -47,8 +47,9 @@ function initCoreModules(mediator) {
   workorderCore(mediator);
   workflowCore(mediator);
   resultCore(mediator);
-  fileCore(mediator,{},$fh);
   userCore(mediator);
+  // Option 2 - register in demo app.
+  window.modrain.file =  fileCore();
 }
 
 
