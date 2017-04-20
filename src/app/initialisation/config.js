@@ -18,9 +18,6 @@ function createMainAppRoute($stateProvider, $urlRouterProvider) {
         },
         workflowManager: function(syncManagers) {
           return syncManagers.workflows;
-        },
-        messageManager: function(syncManagers) {
-          return syncManagers.messages;
         }
       },
       controller: function($rootScope, $scope, $state, $mdSidenav, mediator, profileData) {

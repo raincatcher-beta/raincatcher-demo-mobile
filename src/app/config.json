@@ -2,8 +2,7 @@
   "datasetIds": {
     "workorders": "workorders",
     "workflows": "workflows",
-    "results": "result",
-    "messages": "messages"
+    "results": "result"
   },
   "syncOptions": {
     "sync_frequency": 5,

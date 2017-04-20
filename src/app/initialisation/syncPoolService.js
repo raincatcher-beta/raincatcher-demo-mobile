@@ -45,19 +45,13 @@ function SyncPoolService($q, mediator, syncService) {
         key: 'assignee',
         value: profileData.id
       };
-
-      var messageFilter = {
-        key: 'receiverId',
-        value: profileData.id
-      };
     }
 
     //Initialisation of sync data sets to manage.
     return $q.all([
       syncService.manage(config.datasetIds.workorders, {}, {filter: filter}, config.syncOptions),
       syncService.manage(config.datasetIds.workflows, {}, {}, config.syncOptions),
-      syncService.manage(config.datasetIds.results, {}, {}, config.syncOptions),
-      syncService.manage(config.datasetIds.messages, {}, {filter: messageFilter}, config.syncOptions)
+      syncService.manage(config.datasetIds.results, {}, {}, config.syncOptions)
     ]).then(function(managers) {
       managers.forEach(function(managerWrapper) {
         syncManagers[managerWrapper.manager.datasetId] = managerWrapper;
