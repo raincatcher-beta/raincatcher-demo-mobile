@@ -10,11 +10,9 @@ require('fh-js-sdk/dist/feedhenry-forms.js');
 
 
 angular.module('wfm-mobile', [
-  require('angular-messages'),
   require('angular-ui-router'),
   require('angular-material'),
   require('fh-wfm-sync'),
-  require('fh-wfm-message'),
   require('fh-wfm-mediator'),
   require('fh-wfm-workorder-angular')({
     mode: "user",
@@ -33,7 +31,6 @@ angular.module('wfm-mobile', [
     viewId: 'content'
   }),
   require('fh-wfm-camera'),
-  require('./message/message'),
   require('./setting/setting'),
   require('fh-wfm-file-angular')({
     userMode: true,
