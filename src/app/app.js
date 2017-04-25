@@ -23,7 +23,6 @@ angular.module('wfm-mobile', [
     mainColumnViewId: "content@app",
     toolbarViewId: "toolbar@app"
   }),
-  require('fh-wfm-appform'),
   require('fh-wfm-risk-assessment'),
   require('fh-wfm-vehicle-inspection'),
   require('fh-wfm-user-angular')({}),
