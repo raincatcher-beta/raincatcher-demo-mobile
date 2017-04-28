@@ -1,0 +1,10 @@
+ERR! unsupported version 
+ERR! unsupported version fhc requires node version: >=0.10 <= 4.4
+ERR! unsupported version And you have: v4.8.0
+ERR! unsupported version which is not satisfactory.
+ERR! unsupported version 
+ERR! [Error: Command not found: create]
+ERR! 
+ERR! System Darwin 16.4.0
+ERR! command "/Users/Mick/.nvm/versions/node/v4.8.0/bin/node" "/Users/Mick/.nvm/versions/node/v4.8.0/bin/fhc" "appforms" "create"
+verbose exit [ 1, true ]

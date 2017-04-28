@@ -37,7 +37,7 @@
     "fh-wfm-user-angular": "0.2.2",
     "fh-wfm-vehicle-inspection": "0.0.15",
     "fh-wfm-workflow": "0.2.4",
-    "fh-wfm-workflow-angular": "0.2.1",
+    "fh-wfm-workflow-angular": "0.2.2-alpha.651.1",
     "fh-wfm-workorder": "0.2.3",
     "fh-wfm-workorder-angular": "0.3.1",
     "lodash": "4.7.0",
