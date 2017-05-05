@@ -21,7 +21,7 @@ function monitorUserProfileChange($rootScope, $state, mediator, syncPool) {
       syncPool.removeManagers().then(function() {
         $state.go('app.login', undefined, {reload: true});
       }, function(err) {
-        console.err(err);
+        console.error(err);
       });
     } else {
       syncPool.syncManagerMap(_profileData)  // created managers will be cached
