@@ -23,7 +23,7 @@
     "angular-ui-router": "0.4.2",
     "async": "1.5.2",
     "debug": "^2.6.3",
-    "fh-js-sdk": "2.18.4",
+    "fh-js-sdk": "2.18.5-alpha.15272.2",
     "fh-wfm-camera": "0.0.10",
     "fh-wfm-file": "0.4.0",
     "fh-wfm-file-angular": "0.1.2",
