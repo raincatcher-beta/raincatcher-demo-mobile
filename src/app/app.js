@@ -8,6 +8,7 @@ window._ = require('underscore');
 require('./debugLogsEnablers');
 require('fh-js-sdk/dist/feedhenry-forms.js');
 
+window.modrain = {};
 
 angular.module('wfm-mobile', [
   require('angular-ui-router'),
