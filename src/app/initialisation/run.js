@@ -61,22 +61,28 @@ function initCoreModules(mediator) {
  * @param mediator
  * @param userClient
  */
-function verifyLoginOnStateChange($rootScope, $state, $q, mediator, userClient) {
-  var initPromises = [];
-  var initListener = mediator.subscribe('promise:init', function(promise) {
-    initPromises.push(promise);
-  });
-  mediator.publish('init');
-  var all = (initPromises.length > 0) ? $q.all(initPromises) : $q.when(null);
-  all.then(function() {
-    $rootScope.ready = true;
-    mediator.remove('promise:init', initListener.id);
-    return null;
+function verifyLoginOnStateChange($rootScope, $state, $q, mediator, userClient, $timeout) {
+
+  var deferred = $q.defer();
+
+  var initPromise = deferred.promise;
+
+  //Registering a handler for when the fh-js-sdk is available
+  $fh.ready(function(err) {
+    $timeout(function() {
+      $rootScope.ready = true;
+      if (err) {
+        deferred.reject(err);
+      } else {
+        deferred.resolve();
+      }
+    });
   });
 
   $rootScope.$on('$stateChangeStart', function(e, toState, toParams) {
 
-    function clearAndRedirectToLogin() {
+    function clearAndRedirectToLogin(err) {
+      console.log("clearAndRedirectToLogin", err);
       userClient.clearSession().then(function() {
         $rootScope.toState = toState;
         $rootScope.toParams = toParams;
@@ -85,13 +91,17 @@ function verifyLoginOnStateChange($rootScope, $state, $q, mediator, userClient) 
     }
 
     if (toState.name !== "app.login") {
-      userClient.verifySession().then(function(validSession) {
-        //If the session is not valid, clear the user data and redirect to login
-        if (!validSession) {
-          e.preventDefault();
-          clearAndRedirectToLogin();
-        }
-      }).catch(clearAndRedirectToLogin);
+      initPromise.then(function() {
+        return userClient.verifySession().then(function(validSession) {
+          //If the session is not valid, clear the user data and redirect to login
+          if (!validSession) {
+            e.preventDefault();
+            clearAndRedirectToLogin();
+          }
+        }).catch(clearAndRedirectToLogin);
+      }).catch(function(err) {
+        console.error("Error initialising fh-js-sdk", err);
+      });
     }
   });
 
@@ -114,4 +124,4 @@ function verifyLoginOnStateChange($rootScope, $state, $q, mediator, userClient) 
 
 angular.module('wfm-mobile').run(['$rootScope', '$state', 'mediator', 'syncPool', monitorUserProfileChange])
   .run(['mediator', initCoreModules])
-  .run(['$rootScope', '$state', '$q', 'mediator', 'userClient', verifyLoginOnStateChange]);
+  .run(['$rootScope', '$state', '$q', 'mediator', 'userClient', '$timeout', verifyLoginOnStateChange]);
