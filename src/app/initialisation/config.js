@@ -1,6 +1,10 @@
 function createMainAppRoute($stateProvider, $urlRouterProvider) {
   // if none of the states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/workorders/list');
+
+  $urlRouterProvider.otherwise( function($injector) {
+    var $state = $injector.get("$state");
+    $state.go("app.workorder");
+  });
 
   $stateProvider
     .state('app', {

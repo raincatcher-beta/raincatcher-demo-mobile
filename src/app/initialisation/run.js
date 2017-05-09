@@ -4,6 +4,7 @@ var resultCore = require('fh-wfm-result/lib/client');
 var fileCore = require('fh-wfm-file/lib/client');
 var userCore = require('fh-wfm-user/lib/client');
 var $fh = require('fh-js-sdk');
+var isAuthorised = false;
 
 
 /**
@@ -18,6 +19,7 @@ var $fh = require('fh-js-sdk');
 function monitorUserProfileChange($rootScope, $state, mediator, syncPool) {
   mediator.subscribe('wfm:auth:profile:change', function(_profileData) {
     if (_profileData === null) { // a logout
+      isAuthorised = false;
       syncPool.removeManagers().then(function() {
         $state.go('app.login', undefined, {reload: true});
       }, function(err) {
@@ -47,8 +49,8 @@ function initCoreModules(mediator) {
   workorderCore(mediator);
   workflowCore(mediator);
   resultCore(mediator);
-  fileCore(mediator,{},$fh);
-  userCore(mediator);
+  fileCore(mediator, {}, $fh);
+  userCore(mediator, {forceSessionVerificationOnResume: true});
 }
 
 
@@ -57,52 +59,45 @@ function initCoreModules(mediator) {
  * Monitoring any changes in the state to verify that the user
  * @param $rootScope
  * @param $state
- * @param $q
- * @param mediator
  * @param userClient
  */
-function verifyLoginOnStateChange($rootScope, $state, $q, mediator, userClient, $timeout) {
+function verifyLoginOnStateChange($rootScope, $state, userClient) {
 
-  var deferred = $q.defer();
+  $rootScope.ready = false;
 
-  var initPromise = deferred.promise;
-
-  //Registering a handler for when the fh-js-sdk is available
-  $fh.ready(function(err) {
-    $timeout(function() {
-      $rootScope.ready = true;
-      if (err) {
-        deferred.reject(err);
-      } else {
-        deferred.resolve();
-      }
+  function clearAndRedirectToLogin() {
+    userClient.clearSession().then(function() {
+      $state.go('app.login');
     });
-  });
+  }
 
   $rootScope.$on('$stateChangeStart', function(e, toState, toParams) {
 
-    function clearAndRedirectToLogin(err) {
-      console.log("clearAndRedirectToLogin", err);
-      userClient.clearSession().then(function() {
-        $rootScope.toState = toState;
-        $rootScope.toParams = toParams;
-        $state.go('app.login');
-      });
+    //If the session is valid, or accessing the login page, then the transition is valid
+    if (isAuthorised || toState.name === "app.login") {
+      $rootScope.ready = true;
+      return;
     }
 
-    if (toState.name !== "app.login") {
-      initPromise.then(function() {
-        return userClient.verifySession().then(function(validSession) {
-          //If the session is not valid, clear the user data and redirect to login
-          if (!validSession) {
-            e.preventDefault();
-            clearAndRedirectToLogin();
-          }
-        }).catch(clearAndRedirectToLogin);
-      }).catch(function(err) {
-        console.error("Error initialising fh-js-sdk", err);
-      });
-    }
+    //Preventing the route from executing. Verifying that the session is valid first.
+    e.preventDefault();
+
+    userClient.verifySession().then(function(validSession) {
+      //If the session is not valid, clear the user data and redirect to login
+      if (!validSession) {
+        isAuthorised = false;
+        clearAndRedirectToLogin();
+      } else {
+
+        //The session is valid, proceed to the requested state.
+        isAuthorised = true;
+
+        if (toState && toParams) {
+          $state.go(toState, toParams, {reload: true});
+        }
+      }
+
+    }).catch(clearAndRedirectToLogin);
   });
 
   $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
@@ -124,4 +119,4 @@ function verifyLoginOnStateChange($rootScope, $state, $q, mediator, userClient, 
 
 angular.module('wfm-mobile').run(['$rootScope', '$state', 'mediator', 'syncPool', monitorUserProfileChange])
   .run(['mediator', initCoreModules])
-  .run(['$rootScope', '$state', '$q', 'mediator', 'userClient', '$timeout', verifyLoginOnStateChange]);
+  .run(['$rootScope', '$state', 'userClient', verifyLoginOnStateChange]);
