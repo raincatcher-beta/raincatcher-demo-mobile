@@ -42,8 +42,7 @@ function SyncPoolService($q, mediator, syncService) {
 
     var filter = {
       key: 'assignee',
-      value: profileData.id,
-      sessionToken: profileData.sessionToken
+      value: profileData.sessionToken
     };
 
     //Initialisation of sync data sets to manage.
