@@ -4,7 +4,7 @@ var resultCore = require('fh-wfm-result/lib/client');
 var fileCore = require('fh-wfm-file/lib/client');
 var userCore = require('fh-wfm-user/lib/client');
 var $fh = require('fh-js-sdk');
-var isAuthorised = false;
+var isAuthenticated = false;
 
 
 /**
@@ -19,7 +19,7 @@ var isAuthorised = false;
 function monitorUserProfileChange($rootScope, $state, mediator, syncPool) {
   mediator.subscribe('wfm:auth:profile:change', function(_profileData) {
     if (_profileData === null) { // a logout
-      isAuthorised = false;
+      isAuthenticated = false;
       syncPool.removeManagers().then(function() {
         $state.go('app.login', undefined, {reload: true});
       }, function(err) {
@@ -65,7 +65,12 @@ function verifyLoginOnStateChange($rootScope, $state, userClient) {
 
   $rootScope.ready = false;
 
-  function clearAndRedirectToLogin() {
+  function clearAndRedirectToLogin(err) {
+
+    if (err) {
+      console.error("Error verifying session ", err);
+    }
+
     userClient.clearSession().then(function() {
       $state.go('app.login');
     });
@@ -74,7 +79,7 @@ function verifyLoginOnStateChange($rootScope, $state, userClient) {
   $rootScope.$on('$stateChangeStart', function(e, toState, toParams) {
 
     //If the session is valid, or accessing the login page, then the transition is valid
-    if (isAuthorised || toState.name === "app.login") {
+    if (isAuthenticated || toState.name === "app.login") {
       $rootScope.ready = true;
       return;
     }
@@ -85,12 +90,12 @@ function verifyLoginOnStateChange($rootScope, $state, userClient) {
     userClient.verifySession().then(function(validSession) {
       //If the session is not valid, clear the user data and redirect to login
       if (!validSession) {
-        isAuthorised = false;
+        isAuthenticated = false;
         clearAndRedirectToLogin();
       } else {
 
         //The session is valid, proceed to the requested state.
-        isAuthorised = true;
+        isAuthenticated = true;
 
         if (toState && toParams) {
           $state.go(toState, toParams, {reload: true});
