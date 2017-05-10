@@ -40,12 +40,11 @@ function SyncPoolService($q, mediator, syncService) {
 
     syncManagers = {};
 
-    if (profileData && profileData.id) {
-      var filter = {
-        key: 'assignee',
-        value: profileData.id
-      };
-    }
+    var filter = {
+      key: 'assignee',
+      value: profileData.id,
+      sessionToken: profileData.sessionToken
+    };
 
     //Initialisation of sync data sets to manage.
     return $q.all([
