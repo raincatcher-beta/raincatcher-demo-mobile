@@ -1,0 +1,29 @@
+{
+  "datasetIds": {
+    "workorders": "workorders",
+    "workflows": "workflows",
+    "results": "result"
+  },
+  "syncOptions" : {
+    "global":{
+      "sync_frequency" : 7,
+      "storage_strategy": "dom",
+      "do_console_log": false
+    },
+    "workorders":{
+      "sync_frequency" : 5,
+      "storage_strategy": "dom",
+      "do_console_log": false
+    },
+    "workflows":{
+      "sync_frequency" : 5,
+      "storage_strategy": "dom",
+      "do_console_log": false
+    },
+    "results":{
+      "sync_frequency" : 5,
+      "storage_strategy": "dom",
+      "do_console_log": false
+    }
+  }
+}
