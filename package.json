@@ -4,8 +4,7 @@
   "description": "A WFM2 PoC using the mediator pattern",
   "repository": "https://github.com/feedhenry-raincatcher/raincatcher-demo-mobile.git",
   "engines": {
-    "node": "0.10.0",
-    "npm": "2.0.0"
+    "node": ">=4.4 <=6.10"
   },
   "scripts": {
     "test": "grunt eslint"
@@ -16,10 +15,10 @@
   "author": "Brian Leathem",
   "license": "MIT",
   "dependencies": {
-    "angular": "1.5.9",
-    "angular-aria": "1.5.3",
-    "angular-animate": "1.5.3",
-    "angular-material": "1.0.7",
+    "angular": "1.6.4",
+    "angular-aria": "1.6.4",
+    "angular-animate": "1.6.4",
+    "angular-material": "1.1.4",
     "angular-ui-router": "0.4.2",
     "async": "1.5.2",
     "debug": "^2.6.3",
@@ -33,17 +32,17 @@
     "fh-wfm-risk-assessment": "0.0.18",
     "fh-wfm-signature": "0.0.19",
     "fh-wfm-sync": "1.0.0",
-    "fh-wfm-user": "0.6.5",
+    "fh-wfm-user": "0.6.6",
     "fh-wfm-user-angular": "0.2.5",
     "fh-wfm-vehicle-inspection": "0.0.15",
-    "fh-wfm-workflow": "0.2.5",
+    "fh-wfm-workflow": "0.2.6",
     "fh-wfm-workflow-angular": "0.2.6",
     "fh-wfm-workorder": "0.2.4",
     "fh-wfm-workorder-angular": "0.3.3",
-    "lodash": "4.7.0",
+    "lodash": "4.17.4",
     "mediator-js": "~0.9.9",
-    "moment": "~2.17.1",
-    "q": "1.4.1",
+    "moment": "~2.18.1",
+    "q": "1.5.0",
     "rx": "~4.1.0",
     "shortid": "~2.2.6",
     "underscore": "~1.8.3"
