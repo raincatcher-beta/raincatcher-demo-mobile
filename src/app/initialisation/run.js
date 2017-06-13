@@ -87,7 +87,7 @@ function verifyLoginOnStateChange($rootScope, $state, userClient) {
     //Preventing the route from executing. Verifying that the session is valid first.
     e.preventDefault();
 
-    userClient.verifySession().then(function(validSession) {
+    return userClient.verifySession().then(function(validSession) {
       //If the session is not valid, clear the user data and redirect to login
       if (!validSession) {
         isAuthenticated = false;
@@ -101,6 +101,8 @@ function verifyLoginOnStateChange($rootScope, $state, userClient) {
           $state.go(toState, toParams, {reload: true});
         }
       }
+
+      return null;
 
     }).catch(clearAndRedirectToLogin);
   });

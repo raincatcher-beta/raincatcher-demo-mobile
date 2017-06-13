@@ -7,13 +7,13 @@ window.async = require('async');
 window._ = require('underscore');
 require('./debugLogsEnablers');
 require('fh-js-sdk/dist/feedhenry-forms.js');
-
+var mediatorModule = require('fh-wfm-mediator');
 
 angular.module('wfm-mobile', [
   require('angular-ui-router'),
   require('angular-material'),
+  mediatorModule,
   require('fh-wfm-sync'),
-  require('fh-wfm-mediator'),
   require('fh-wfm-workorder-angular')({
     mode: "user",
     mainColumnViewId: "content@app"
