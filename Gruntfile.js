@@ -1,8 +1,8 @@
 'use strict';
 
-var browserifyNgannotate = require('browserify-ngannotate'),
-    uglifyify = require('uglifyify'),
-    _ = require('lodash');
+var browserifyNgannotate = require('browserify-ngannotate');
+var uglifyify = require('uglifyify');
+var _ = require('lodash');
 
 module.exports = function(grunt) {
 
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 
     },
     external: [
-      'lodash', 'q', 'rx', 'async', 'mediator-js', 'angular', 'angular-ui-router', 'angular-material', 'angular-messages'
+      'lodash', 'q', 'rx', 'async', 'mediator-js', 'angular', 'angular-ui-router', 'angular-material'
     ]
   };
 
@@ -56,20 +56,20 @@ module.exports = function(grunt) {
     },
 
     sass: {
-        options: {
-            sourceMap: true
-        },
-        dist: {
-            files: {
-                '<%= app.dist %>/css/app.css': '<%= app.src %>/sass/app.scss'
-            }
+      options: {
+        sourceMap: true
+      },
+      dist: {
+        files: {
+          '<%= app.dist %>/css/app.css': '<%= app.src %>/sass/app.scss'
         }
+      }
     },
 
     browserify: {
       options: {
         browserifyOptions: {
-           debug: true
+          debug: true,
         }
       },
       bundle: {
@@ -163,7 +163,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks("grunt-eslint");
-  grunt.registerTask('serve', function (target) {
+  grunt.registerTask('serve', function(target) {
     if (target === 'local') {
       var conn = 'http://' + grunt.config.get('connect.options.hostname') + ':' +
         grunt.config.get('connect.options.port');
@@ -181,5 +181,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['clean:dist', 'sass', 'copy', 'clean:server', 'browserify']);
 
-  grunt.registerTask('default', ['serve']);
+  grunt.registerTask('default', ['serve:local']);
 };
