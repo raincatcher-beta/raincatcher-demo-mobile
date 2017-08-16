@@ -1,5 +1,7 @@
 # FeedHenry RainCatcher Mobile [![Build Status](https://travis-ci.org/feedhenry-raincatcher/raincatcher-demo-mobile.png)](https://travis-ci.org/feedhenry-raincatcher/raincatcher-demo-mobile)
 
+> *Note:* This repository is no longer used. All active development was moved to new [raincatcher-core](https://github.com/feedhenry-raincatcher/raincatcher-core) repository.
+
 This is a reference/demo implementation of the Mobile Client application of a WFM project.
 
 This repository should be used in conjunction with these following repos :
