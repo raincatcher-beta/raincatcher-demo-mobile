@@ -20,7 +20,7 @@ INFO_PLIST = "${PROJECT_NAME}/${PROJECT_NAME}-Info.plist"
 VERSION = "1.0.0"
 SHORT_VERSION = "1.0"
 BUNDLE_ID = "com.redhat.demo.wfm"
-OUTPUT_FILE_NAME="${PROJECT_NAME}-${BUILD_CONFIG}.ipa"
+OUTPUT_FILE_NAME="${PROJECT_NAME}-${BUILD_CONFIG}.ipa".replace(" ", "").toLowerCase()
 SDK = "iphoneos"
 
 if (BUILD_CONFIG.toLowerCase() == "debug") {
@@ -97,6 +97,7 @@ node(platform) {
                 profileId: "${CODE_SIGN_PROFILE_ID}",
                 clean: CLEAN,
                 verify: true,
+                ipaName: OUTPUT_FILE_NAME,
                 appPath: "platforms/${platform}/build/${OSX_BUILD_CONFIG}-${SDK}/${PROJECT_NAME}.app"
             )
         }
@@ -107,7 +108,7 @@ node(platform) {
             archiveArtifacts artifacts: "platforms/android/build/outputs/apk/android-${BUILD_CONFIG}.apk", excludes: 'platforms/android/build/outputs/apk/*-unaligned.apk'
         }
         if (platform == 'ios') {
-            archiveArtifacts artifacts: "platforms/${platform}/build/${OSX_BUILD_CONFIG}-${SDK}/${PROJECT_NAME}.ipa"
+            archiveArtifacts artifacts: "platforms/${platform}/build/${OSX_BUILD_CONFIG}-${SDK}/${OUTPUT_FILE_NAME}.ipa"
         }
     }
 }
