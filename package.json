@@ -1,6 +1,6 @@
 {
   "name": "fh-wfm-demo-mobile",
-  "version": "2.10.0",
+  "version": "2.10.1",
   "description": "A WFM2 PoC using the mediator pattern",
   "repository": "https://github.com/feedhenry-raincatcher/raincatcher-demo-mobile.git",
   "engines": {
@@ -22,7 +22,7 @@
     "angular-ui-router": "0.4.2",
     "async": "1.5.2",
     "debug": "^2.6.3",
-    "fh-js-sdk": "2.18.6",
+    "fh-js-sdk": "2.23.1",
     "fh-wfm-camera": "0.0.10",
     "fh-wfm-file": "0.4.0",
     "fh-wfm-file-angular": "0.1.2",
